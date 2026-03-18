@@ -1,740 +1,964 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-(function(){
-  var s=document.createElement('style');
-  s.textContent='#fc{position:fixed;inset:0;z-index:99999;background:#0f1014;pointer-events:none;transition:opacity .15s ease;}#fc.out{opacity:0;pointer-events:none;}';
-  document.head.appendChild(s);
-  var d=document.createElement('div');d.id='fc';
-  document.addEventListener('DOMContentLoaded',function(){
-    d.classList.add('out');
-    setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},160);
-  });
-  document.addEventListener('readystatechange',function(){
-    if(document.readyState==='interactive'&&document.body&&!document.getElementById('fc')){
-      document.body.insertBefore(d,document.body.firstChild);
-    }
-  });
-  window.addEventListener('pageshow',function(e){
-    if(e.persisted){
-      var el=document.getElementById('fc');if(el&&el.parentNode)el.parentNode.removeChild(el);
-      var lo=document.getElementById('loader');if(lo&&lo.parentNode)lo.parentNode.removeChild(lo);
-    }
-  });
-})();
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sara McKee — Digital Designer</title>
+<title>Key Story Designs</title>
 <meta name="description" content="Sara McKee is a digital designer with 10+ years experience, available for freelance, contract, and full-time work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="icon" type="image/png" href="img/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,600;0,800;1,600;1,800&family=Lexend:wght@300;400&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;overflow:hidden;}
-body{font-family:'Lexend',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-.skip-link{position:fixed;top:-100%;left:1rem;z-index:9999;background:#0f1014;color:#FDFDFD;padding:.6rem 1.3rem;font-size:.875rem;text-decoration:none;transition:top .2s;}
-.skip-link:focus{top:1rem;}
-
-/* LOADER */
-#loader{position:fixed;inset:0;z-index:900;background:#0f1014;display:flex;align-items:center;justify-content:center;transition:opacity 1s cubic-bezier(.76,0,.24,1);}
-#loader.out{opacity:0;pointer-events:none;transition:opacity .45s cubic-bezier(.76,0,.24,1);}
-.loader-name{font-family:'Spectral',Georgia,serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:600;font-style:italic;color:#FDFDFD;letter-spacing:-.03em;overflow:hidden;}
-.loader-name span{display:block;transform:translateY(110%);animation:liftIn 1s cubic-bezier(.76,0,.24,1) .1s both;}
-@keyframes liftIn{to{transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-@keyframes lineGrow{0%{transform:scaleX(0)}50%{transform:scaleX(1)}100%{transform:scaleX(0)}}
-
-/* SLIDES */
-#slides{position:fixed;inset:0;z-index:0;}
-.slide{position:absolute;inset:0;display:flex;align-items:flex-end;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .65s cubic-bezier(.76,0,.24,1);}
-.slide.active{opacity:1;pointer-events:auto;}
-.slide-bg{position:absolute;inset:0;}
-
-/* IMAGE — right side, floating */
-.slide-img-wrap{
-  position:absolute;right:6vw;top:50%;
-  width:clamp(260px,36vw,560px);z-index:2;
-  filter:drop-shadow(0 28px 56px rgba(0,0,0,.32));
-  opacity:0;
-  transform:translateY(-44%) rotate(2.5deg) scale(.96);
-  transition:opacity .9s cubic-bezier(.76,0,.24,1) .2s, transform 1.1s cubic-bezier(.76,0,.24,1) .15s;
-}
-.slide.active .slide-img-wrap{opacity:1;transform:translateY(-50%) rotate(2.5deg) scale(1);}
-.slide-img-wrap img{width:100%;display:block;border-radius:6px;aspect-ratio:4/3;object-fit:cover;}
-
-/* CONTENT — bottom left */
-.slide-content{
-  position:relative;z-index:3;
-  padding:0 0 5.5rem 6vw;
-  max-width:56vw;
-  transform:translateY(28px);opacity:0;
-  transition:transform 1s cubic-bezier(.76,0,.24,1) .08s, opacity .85s cubic-bezier(.76,0,.24,1) .08s;
-}
-.slide.active .slide-content{transform:none;opacity:1;}
-.slide-eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;margin-bottom:.9rem;opacity:.65;display:flex;align-items:center;gap:.6rem;}
-.slide-eyebrow::before{content:'';display:block;width:18px;height:1px;background:currentColor;flex-shrink:0;}
-.slide-title{font-family:'Spectral',Georgia,serif;font-size:clamp(3.8rem,9.5vw,10rem);font-weight:800;line-height:.88;letter-spacing:-.04em;margin-bottom:1.5rem;}
-.slide-title em{font-style:italic;font-weight:600;}
-.slide-desc{font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.8;max-width:40ch;margin-bottom:2rem;opacity:.72;}
-.slide-cta{display:inline-flex;align-items:center;gap:.55rem;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;font-weight:400;border-bottom:1.5px solid currentColor;padding-bottom:.25rem;transition:gap .3s cubic-bezier(.76,0,.24,1),opacity .2s;}
-.slide-cta:hover{gap:1.1rem;opacity:.75;}
-.slide-cta svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.8rem 3rem;display:flex;align-items:center;justify-content:space-between;pointer-events:none;color:#FDFDFD;}
-.nav-logo{color:inherit;font-family:'Spectral',Georgia,serif;font-size:.88rem;font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;pointer-events:auto;opacity:0;animation:fadeUp .8s cubic-bezier(.76,0,.24,1) 1.15s both;transition:color .6s;display:flex;align-items:center;gap:.55rem;}
-.nav-logo-img{width:22px;height:22px;object-fit:contain;flex-shrink:0;opacity:.9;}
-.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;pointer-events:auto;opacity:0;animation:fadeUp .8s cubic-bezier(.76,0,.24,1) 1.3s both;}
-.nav-links a,.nav-links button{color:inherit;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:opacity .2s,color .6s;background:none;border:none;cursor:pointer;font-family:'Lexend',sans-serif;font-weight:300;padding:0;}
-.nav-links a:hover,.nav-links button:hover{opacity:.55;}
-.nav-social{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;opacity:.7;transition:opacity .2s,color .6s;}
-.nav-social:hover{opacity:1 !important;}
-.nav-social svg{width:16px;height:16px;fill:currentColor;display:block;}
-.nav-social.nav-social--stroke svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.nav-sep{width:1px;height:14px;background:currentColor;opacity:.2;margin:0 .2rem;}
-
-/* EMAIL FLIP */
-.email-btn{position:relative;height:1.1em;display:inline-flex;align-items:center;}
-.email-face-front,.email-face-back{display:flex;align-items:center;gap:.3rem;white-space:nowrap;transition:opacity .28s,transform .4s cubic-bezier(.76,0,.24,1);}
-.email-face-back{position:absolute;left:0;opacity:0;transform:translateY(5px);}
-.email-face-back svg{width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
-.email-btn:hover .email-face-front,.email-btn.flipped .email-face-front{opacity:0;transform:translateY(-5px);}
-.email-btn:hover .email-face-back,.email-btn.flipped .email-face-back{opacity:1;transform:none;}
-
-/* SIDE DOTS */
-#side-dots{position:fixed;right:2rem;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:.8rem;opacity:0;animation:fadeUp .8s cubic-bezier(.76,0,.24,1) 1.5s both;}
-.s-dot{width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor;opacity:.3;cursor:pointer;transition:opacity .3s,transform .3s,background .3s;background:transparent;padding:0;}
-.s-dot.active{opacity:1;background:currentColor;transform:scale(1.35);}
-.s-dot:hover:not(.active){opacity:.6;}
-
-/* COUNTER */
-#counter{position:fixed;bottom:2.5rem;right:3rem;z-index:500;font-family:'Spectral',Georgia,serif;font-style:italic;font-size:.9rem;display:flex;align-items:baseline;gap:.35rem;opacity:0;animation:fadeUp .8s cubic-bezier(.76,0,.24,1) 1.6s both;transition:color .6s;}
-#ctr-num{overflow:hidden;display:inline-block;line-height:1.3;}
-.ctr-inner{display:block;transition:transform .38s cubic-bezier(.76,0,.24,1);}
-#ctr-sep,#ctr-total{opacity:.38;font-style:normal;font-size:.6rem;letter-spacing:.1em;}
-
-/* SCROLL HINT — updated to say "Navigate" since we removed scroll-to-advance */
-#scroll-hint{position:fixed;left:3rem;bottom:2.6rem;z-index:500;display:flex;align-items:center;gap:.7rem;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;opacity:0;animation:fadeUp .8s cubic-bezier(.76,0,.24,1) 1.7s both;transition:color .6s;}
-.sh-line{width:28px;height:1px;background:currentColor;transform-origin:left;animation:lineGrow 2.4s cubic-bezier(.76,0,.24,1) infinite;}
-
-/* AVAIL */
-#avail{position:fixed;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid currentColor;border-radius:100px;padding:.4rem 1rem;opacity:0;animation:fadeUp .8s cubic-bezier(.76,0,.24,1) 1.8s both;transition:color .6s,border-color .6s;white-space:nowrap;}
-.avail-dot{width:6px;height:6px;border-radius:50%;background:#6db98a;animation:blink 2s ease-in-out infinite;flex-shrink:0;}
-
-/* MOBILE */
-@media(max-width:768px){
-  html,body{overflow:hidden;height:100%;} /* lock body — track handles scrolling */
-  #slides,#side-dots,#counter,#scroll-hint,#avail,nav:not(.m-nav){display:none!important;}
-  .mobile-only{display:block!important;}
-}
-.mobile-only{display:none;}
-
-/* ─── MOBILE HORIZONTAL SCROLL ─────────────────────────────────── */
-.m-wrap{
-  position:fixed;inset:0;
-  background:#0f1014;
-  overflow:hidden;
-}
-
-/* ── Fixed nav — name left, hamburger right ── */
-.m-nav{
-  position:absolute;top:0;left:0;right:0;z-index:10;
-  padding:1.4rem 1.5rem;
-  display:flex;justify-content:space-between;align-items:center;
-  pointer-events:none;
-}
-.m-nav > *{pointer-events:auto;}
-.m-nav-logo-link{
-  color:#FDFDFD;font-family:'Spectral',Georgia,serif;font-size:.82rem;
-  font-weight:700;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
-  display:flex;align-items:center;gap:.5rem;
-  text-shadow:0 1px 6px rgba(0,0,0,.35);
-}
-
-/* Hamburger */
-.m-hamburger{
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;
-  padding:0;margin:-10px -12px -10px 0;
-}
-.m-hamburger span{
-  display:block;width:22px;height:1.5px;background:#FDFDFD;border-radius:2px;
-  transition:transform .35s cubic-bezier(.76,0,.24,1),opacity .25s;transform-origin:center;
-}
-.m-hamburger[aria-expanded="true"]{position:relative;z-index:600;}
-.m-hamburger[aria-expanded="true"] span{background:#FDFDFD !important;}
-.m-hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-.m-hamburger[aria-expanded="true"] span:nth-child(2){opacity:0;transform:scaleX(0);}
-.m-hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-
-/* ── Dot row — below nav ── */
-#m-dots{
-  position:absolute;top:4.4rem;left:0;right:0;z-index:10;
-  display:flex;justify-content:center;gap:.6rem;
-  padding:.4rem 0;pointer-events:none;
-}
-.m-dot{
-  width:8px;height:8px;border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.55);
-  background:transparent;padding:0;cursor:pointer;
-  pointer-events:auto;
-  transition:background .3s,border-color .3s,transform .28s cubic-bezier(.76,0,.24,1);
-}
-.m-dot.active{
-  background:#FDFDFD;border-color:#FDFDFD;
-  transform:scale(1.3);
-}
-
-/* ── Horizontal scroll track ── */
-#m-track{
-  position:absolute;inset:0;
-  display:flex;
-  overflow-x:scroll;
-  overflow-y:hidden;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  z-index:1;
-}
-#m-track::-webkit-scrollbar{display:none;}
-
-/* ── Each fullscreen slide ── */
-/* ── Each fullscreen slide: flat bg color, content stacked ── */
-.m-slide{
-  flex:0 0 100vw;
-  width:100vw;
-  height:100svh;
-  scroll-snap-align:start;
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  overflow:hidden;
-}
-
-/* Image card — sits above the text, centered */
-.m-slide-card{
-  position:absolute;
-  top:7rem;          /* below nav + dots */
-  left:50%;
-  transform:translateX(-50%);
-  width:88vw;
-  max-width:360px;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 18px 48px rgba(0,0,0,.28), 0 4px 12px rgba(0,0,0,.18);
-  aspect-ratio:4/3;
-  z-index:1;
-}
-.m-slide-card img{
-  width:100%;height:100%;
-  object-fit:cover;display:block;
-}
-
-/* Subtle gradient at bottom so text stays readable */
-.m-slide::after{
-  content:'';
-  position:absolute;bottom:0;left:0;right:0;
-  height:55%;
-  background:linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 100%);
-  pointer-events:none;
-  z-index:2;
-}
-
-/* Text content — bottom of slide */
-.m-slide-body{
-  position:relative;z-index:3;
-  padding:0 1.5rem 4.5rem 1.5rem;
-}
-.m-slide-eye{
-  font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;
-  margin-bottom:.75rem;
-  display:flex;align-items:center;gap:.5rem;
-  opacity:.75;
-}
-.m-slide-eye::before{
-  content:'';flex-shrink:0;
-  width:16px;height:1px;background:currentColor;display:block;
-}
-.m-slide-title{
-  font-family:'Spectral',Georgia,serif;
-  font-size:clamp(3rem,12vw,4.8rem);
-  font-weight:800;line-height:.88;letter-spacing:-.04em;
-  margin-bottom:.9rem;
-}
-.m-slide-title em{font-style:italic;font-weight:600;}
-.m-slide-desc{
-  font-size:.92rem;line-height:1.72;
-  opacity:.78;max-width:34ch;margin-bottom:1.8rem;
-}
-.m-slide-cta{
-  display:inline-flex;align-items:center;gap:.55rem;
-  font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;
-  text-decoration:none;font-weight:400;
-  border-bottom:1.5px solid currentColor;
-  padding-bottom:.28rem;opacity:.9;
-  transition:gap .3s cubic-bezier(.76,0,.24,1);
-}
-.m-slide-cta:active{gap:1rem;}
-.m-slide-cta svg{
-  width:13px;height:13px;stroke:currentColor;fill:none;
-  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;
-}
-
-/* Mobile menu drawer */
-#m-mobile-menu{
-  display:none;position:fixed;inset:0;z-index:550;
-  background:rgba(15,16,20,.97);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  flex-direction:column;justify-content:center;align-items:center;
-  gap:2.5rem;opacity:0;transition:opacity .3s cubic-bezier(.76,0,.24,1);
-}
-#m-mobile-menu.open{display:flex;}
-#m-mobile-menu.visible{opacity:1;}
-#m-mobile-menu a,#m-mobile-menu button{
-  color:#FDFDFD;font-family:'Lexend',sans-serif;
-  font-size:1rem;letter-spacing:.18em;text-transform:uppercase;
-  text-decoration:none;background:none;border:none;cursor:pointer;
-  opacity:.75;transition:opacity .2s;min-height:44px;display:flex;align-items:center;
-}
-#m-mobile-menu a:hover,#m-mobile-menu button:hover{opacity:1;}
-#m-mobile-menu .mob-socials{display:flex;gap:1.5rem;align-items:center;margin-top:1rem;}
-#m-mobile-menu .mob-social{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:44px;height:44px;opacity:.6;transition:opacity .2s;
-}
-#m-mobile-menu .mob-social:hover{opacity:1;}
-#m-mobile-menu .mob-social svg{width:18px;height:18px;fill:#FDFDFD;}
-
-:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:2px;}
-</style>
 <meta name="theme-color" content="#0f1014">
-<style>html{background:#0f1014!important;}body{background:#0f1014!important;}</style>
+<style>
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── CSS CUSTOM PROPERTIES ── */
+:root {
+  --gold:       #c8a84b;   /* brightened brand gold — passes 4.5:1 on #0f1014 */
+  --gold-glow:  #857028;   /* original brand gold for glow effects */
+  --bg:         #0f1014;
+  --bg-warm:    #16140a;
+  --text:       #FDFDFD;
+  --text-muted: #c8c8c8;   /* min 4.5:1 on dark bg */
+  --focus-ring: #c8a84b;
+  --nav-h:      5rem;
+}
+
+html { background: var(--bg); }
+
+body {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── REDUCE MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── SKIP LINK — AAA: must be visible on focus ── */
+.skip-link {
+  position: fixed; top: -100%; left: 1rem; z-index: 9999;
+  background: var(--bg); color: var(--text);
+  padding: .75rem 1.5rem; font-size: 1rem;
+  text-decoration: underline;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ── GLOBAL FOCUS ── */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* ── KEY CURSOR (desktop only, pointer device) ── */
+#key-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 38px; height: 38px;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  opacity: 0;
+  transition: opacity .18s ease;
+  /* Only show on non-touch devices */
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  #key-cursor { display: block; }
+}
+#key-cursor.visible { opacity: 1; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 500;
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  /* Subtle backdrop so nav is readable over content */
+  background: linear-gradient(to bottom, rgba(15,16,20,.92) 0%, rgba(15,16,20,0) 100%);
+}
+.nav-logo {
+  color: var(--text);
+  font-family: 'Spectral', Georgia, serif;
+  font-size: .95rem; font-weight: 600;
+  text-decoration: none; letter-spacing: .08em; text-transform: uppercase;
+  display: flex; align-items: center; gap: .55rem;
+  transition: opacity .2s;
+  /* Minimum 44×44px touch target */
+  min-height: 44px;
+}
+.nav-logo:hover { opacity: .75; }
+.nav-logo-img { width: 22px; height: 22px; object-fit: contain; display: block; opacity: .9; }
+
+/* Desktop nav links */
+.nav-links {
+  display: flex; align-items: center; gap: 1.8rem; list-style: none;
+}
+.nav-links a, .nav-links button {
+  color: var(--text); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+  text-decoration: none; background: none; border: none; cursor: pointer;
+  font-family: 'Lexend', sans-serif; font-weight: 300;
+  padding: .5rem 0; /* touch-friendly height */
+  min-height: 44px; display: inline-flex; align-items: center;
+  transition: opacity .2s;
+}
+.nav-links a:hover, .nav-links button:hover { opacity: .65; }
+.nav-sep { width: 1px; height: 14px; background: var(--text); opacity: .2; }
+.nav-social {
+  display: inline-flex; align-items: center; justify-content: center;
+  /* 44×44 touch target */
+  width: 44px; height: 44px;
+  opacity: .75; transition: opacity .2s;
+}
+.nav-social:hover { opacity: 1; }
+.nav-social svg { width: 18px; height: 18px; fill: var(--text); display: block; }
+
+/* ── MOBILE HAMBURGER ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px;
+  width: 44px; height: 44px;
+  background: none; border: none; cursor: pointer; padding: 0;
+  color: var(--text);
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--text); border-radius: 2px;
+  transition: transform .3s ease, opacity .2s ease;
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MOBILE DRAWER ── */
+#mobile-menu {
+  display: none;
+  position: fixed; inset: 0; z-index: 490;
+  background: rgba(15,16,20,.97);
+  backdrop-filter: blur(12px);
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 2rem;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+#mobile-menu.open  { display: flex; }
+#mobile-menu.visible { opacity: 1; }
+#mobile-menu a, #mobile-menu button {
+  color: var(--text); font-family: 'Lexend', sans-serif;
+  font-size: 1.1rem; letter-spacing: .2em; text-transform: uppercase;
+  text-decoration: none; background: none; border: none; cursor: pointer;
+  min-height: 44px; display: flex; align-items: center;
+  opacity: .85; transition: opacity .2s, color .2s;
+}
+#mobile-menu a:hover, #mobile-menu button:hover { opacity: 1; color: var(--gold); }
+.mob-socials { display: flex; gap: 1rem; margin-top: .5rem; }
+.mob-social {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; opacity: .7; transition: opacity .2s;
+}
+.mob-social:hover { opacity: 1; }
+.mob-social svg { width: 20px; height: 20px; fill: var(--text); }
+
+/* ── EMAIL FLIP ── */
+.email-btn {
+  position: relative; height: 44px; display: inline-flex; align-items: center;
+}
+.email-face-front, .email-face-back {
+  display: flex; align-items: center; gap: .3rem; white-space: nowrap;
+  transition: opacity .28s, transform .4s cubic-bezier(.76,0,.24,1);
+}
+.email-face-back { position: absolute; left: 0; opacity: 0; transform: translateY(6px); }
+.email-face-back svg { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.email-btn:hover .email-face-front,
+.email-btn.flipped .email-face-front { opacity: 0; transform: translateY(-6px); }
+.email-btn:hover .email-face-back,
+.email-btn.flipped .email-face-back  { opacity: 1; transform: none; }
+
+/* ── MAIN ── */
+main {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: calc(var(--nav-h) + 2rem) 3rem 4rem;
+}
+
+/* ── SITE HERO — title + subtitle above the grid ── */
+.site-hero {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.site-title {
+  font-family: 'Spectral', Georgia, serif;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 800;
+  line-height: .9;
+  letter-spacing: -.04em;
+  color: var(--text);
+  margin-bottom: 1.4rem;
+}
+.site-title em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.doors-label {
+  font-size: .75rem; letter-spacing: .32em; text-transform: uppercase;
+  /* AAA contrast: #c8c8c8 on #0f1014 = 7.5:1 */
+  color: var(--text-muted);
+  margin-bottom: 0;
+  display: flex; align-items: center; gap: .7rem;
+}
+.doors-label::before, .doors-label::after {
+  content: ''; display: block; flex: 1; max-width: 80px; height: 1px;
+  background: rgba(255,255,255,.25);
+}
+
+/* ── DOOR GRID ── */
+.doors-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+  width: 100%; max-width: 1200px;
+  list-style: none;
+}
+/* Each list item is a flex column: card on top, label below */
+.doors-grid > li {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── DOOR CARD ── */
+.door-card {
+  position: relative;
+  display: block;
+  text-decoration: none; color: inherit;
+  aspect-ratio: 3/5;
+  /* Grow to fill the li width */
+  width: 100%;
+  user-select: none;
+  cursor: pointer;
+  filter: drop-shadow(0 8px 28px rgba(0,0,0,.55));
+  transition: filter .45s ease, transform .3s ease;
+  will-change: filter;
+  border-radius: 2px;
+}
+/* Hover: pointer devices only */
+@media (hover: hover) {
+  .door-card:hover {
+    filter:
+      drop-shadow(0 0 14px rgba(133,112,40,.75))
+      drop-shadow(0 0 32px rgba(133,112,40,.4))
+      drop-shadow(0 14px 40px rgba(0,0,0,.65));
+    cursor: none;
+  }
+  .door-card:hover .door-panel {
+    transform: perspective(480px) rotateY(-72deg);
+  }
+  .door-card:hover .door-frame-lines {
+    filter: drop-shadow(0 0 4px rgba(200,168,75,.9)) drop-shadow(0 0 10px rgba(133,112,40,.55));
+  }
+  .door-card:hover { cursor: none; }
+  .door-card:hover + .door-label .door-label-title { color: var(--gold); }
+}
+/* Touch/keyboard: show open state on focus */
+.door-card:focus-visible .door-panel {
+  transform: perspective(480px) rotateY(-72deg);
+}
+.door-card:focus-visible .door-frame-lines {
+  filter: drop-shadow(0 0 6px rgba(200,168,75,1));
+}
+
+/* ── DOOR CARD INNER ── */
+.door-card-inner {
+  position: absolute; inset: 0;
+}
+
+.door-svg-wrap {
+  position: absolute; inset: 0; z-index: 1;
+}
+.door-svg-wrap svg { width: 100%; height: 100%; overflow: hidden; }
+
+/* Door panel swing */
+.door-panel {
+  transform-origin: left center;
+  transform-box: fill-box;
+  transition: transform .78s cubic-bezier(.76,0,.24,1);
+}
+
+/* Frame glow */
+.door-frame-lines { transition: filter .45s ease; }
+
+/* Exterior scene */
+
+/* ── DOOR LABEL ──
+   In normal document flow below the card so it never overlaps
+   neighbouring rows at any viewport width. */
+.door-label {
+  display: block;
+  text-align: center;
+  padding-top: .75rem;
+}
+.door-label-num {
+  font-family: 'Spectral', Georgia, serif; font-style: italic;
+  font-size: .72rem;
+  color: var(--text-muted);
+  display: block; margin-bottom: .2rem;
+}
+.door-label-title {
+  font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  transition: color .2s;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding: 2.5rem 3rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+.footer-name {
+  font-family: 'Spectral', Georgia, serif; font-size: .88rem;
+  font-weight: 600; font-style: italic;
+  /* AAA contrast */
+  color: var(--text-muted);
+  letter-spacing: .04em;
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+══════════════════════════════════════════════════════ */
+
+/* ── Large desktop ── */
+@media (max-width: 1280px) {
+  .doors-grid { max-width: 960px; gap: 2rem; }
+}
+
+/* ── Tablet landscape / small desktop ── */
+@media (max-width: 1050px) {
+  .doors-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 680px; }
+  main { padding: calc(var(--nav-h) + 1.5rem) 2rem 4rem; }
+}
+
+/* ── Tablet portrait ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  main { padding: calc(var(--nav-h) + 1rem) 1.5rem 4rem; }
+  .site-hero { margin-bottom: 2.5rem; }
+  .doors-grid { gap: 1.8rem; max-width: 560px; }
+  footer { padding: 2rem 1.5rem; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 560px) {
+  :root { --nav-h: 4rem; }
+  .doors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+  .door-label { padding-top: .6rem; }
+  .door-label-num   { font-size: .62rem; }
+  .door-label-title { font-size: .56rem; letter-spacing: .12em; }
+  main { padding: calc(var(--nav-h) + .75rem) 1rem 3rem; }
+  .site-hero { margin-bottom: 2rem; }
+  .doors-label { font-size: .65rem; letter-spacing: .22em; }
+  footer { padding: 1.5rem 1rem; }
+  .footer-name { font-size: .78rem; }
+}
+
+/* ── Very small (320px) ── */
+@media (max-width: 360px) {
+  .doors-grid { gap: .75rem; }
+  main { padding-left: .75rem; padding-right: .75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Key cursor (pointer devices only — shown via CSS + JS) -->
+<svg id="key-cursor" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true" focusable="false">
+  <circle cx="12" cy="12" r="8"   stroke="#c8a84b" stroke-width="2.2"/>
+  <circle cx="12" cy="12" r="3.8" stroke="#c8a84b" stroke-width="1.4"/>
+  <line x1="18.5" y1="18.5" x2="33"   y2="33"   stroke="#c8a84b" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="26"   y1="26"   x2="29.5" y2="22.5"  stroke="#c8a84b" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="29.5" y1="29.5" x2="33"   y2="26"    stroke="#c8a84b" stroke-width="2"   stroke-linecap="round"/>
+</svg>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- LOADER -->
-<div id="loader" role="status" aria-label="Loading Sara McKee Design">
-  <div class="loader-name"><span>Sara McKee</span></div>
-</div>
+<!-- ── NAV ── -->
+<nav aria-label="Primary navigation">
+  <a class="nav-logo" href="/" aria-label="Sara McKee — home">
+    <img src="img/logowhite.png" alt="" aria-hidden="true" class="nav-logo-img">
+    <span>Sara McKee</span>
+  </a>
 
-<!-- DESKTOP NAV -->
-<nav aria-label="Site navigation">
-  <a class="nav-logo" href="index.html" id="nav-logo-el"><img src="img/logo-white.png" alt="SM logo" class="nav-logo-img">Sara McKee</a>
-  <ul class="nav-links" id="nav-links-el" role="list">
-    <li><a href="about.html" id="nav-about">About</a></li>
-    <li><a href="resume.pdf" target="_blank" rel="noopener" id="nav-resume">Résumé</a></li>
+  <!-- Desktop nav -->
+  <ul class="nav-links" role="list" aria-label="Site links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer"
+           aria-label="Résumé (opens PDF in new tab)">Résumé</a></li>
     <li>
-      <button class="email-btn" id="email-btn" aria-label="Contact — click to copy email">
-        <span class="email-face-front">Contact</span>
-        <span class="email-face-back">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Copied!
+      <button class="email-btn" id="email-btn"
+              aria-label="Contact — click to copy email address"
+              aria-live="polite">
+        <span class="email-face-front" aria-hidden="false">Contact</span>
+        <span class="email-face-back"  aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"/></svg>
+          Copied!
         </span>
       </button>
     </li>
     <li aria-hidden="true"><span class="nav-sep"></span></li>
     <li>
-      <a class="nav-social" href="https://www.linkedin.com/in/sara-mckee-a0807945" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <a class="nav-social" href="https://www.linkedin.com/in/sara-mckee-a0807945"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="LinkedIn profile (opens in new tab)">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
       </a>
     </li>
     <li>
-      <a class="nav-social" href="https://instagram.com/saramckee" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in new tab)">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <a class="nav-social" href="https://instagram.com/saramckee"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Instagram profile (opens in new tab)">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
       </a>
     </li>
   </ul>
+
+  <!-- Mobile hamburger -->
+  <button class="nav-hamburger" id="hamburger-btn"
+          aria-expanded="false" aria-controls="mobile-menu"
+          aria-label="Open navigation menu">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </button>
 </nav>
 
-<!-- DESKTOP SLIDES -->
-<div id="slides" role="region" aria-label="Portfolio projects" aria-live="polite" aria-atomic="false"></div>
-
-<!-- SIDE DOTS -->
-<div id="side-dots" role="group" aria-label="Project navigation"></div>
-
-<!-- COUNTER -->
-<div id="counter" aria-live="polite" aria-atomic="true">
-  <span id="ctr-num"><span class="ctr-inner" id="ctr-inner">01</span></span>
-  <span id="ctr-sep" aria-hidden="true">/</span>
-  <span id="ctr-total" aria-hidden="true">04</span>
-</div>
-
-<!-- SCROLL HINT -->
-<div id="scroll-hint" aria-hidden="true">
-  <span class="sh-line"></span><span>Navigate</span>
-</div>
-
-<!-- AVAILABILITY -->
-<div id="avail" aria-label="Available for projects in 2026">
-  <span class="avail-dot" aria-hidden="true"></span>Available 2026
-</div>
-
-<!-- MOBILE -->
-<main id="main-content" class="mobile-only m-wrap">
-
-  <!-- Fixed nav -->
-  <nav class="m-nav" aria-label="Navigation">
-    <a class="m-nav-logo-link" href="index.html">
-      <img src="img/logo-white.png" alt="SM logo" class="nav-logo-img" width="22" height="22">Sara McKee
-    </a>
-    <button class="m-hamburger" id="m-hamburger-btn" aria-expanded="false" aria-controls="m-mobile-menu" aria-label="Open navigation menu">
-      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-    </button>
+<!-- Mobile menu drawer -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <nav aria-label="Mobile navigation">
+    <ul style="list-style:none;display:flex;flex-direction:column;align-items:center;gap:1.8rem;">
+      <li><a href="about.html">About</a></li>
+      <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer"
+             aria-label="Résumé (opens PDF in new tab)">Résumé</a></li>
+      <li>
+        <button id="mob-email-btn" aria-label="Copy email address" aria-live="polite">
+          Contact
+        </button>
+      </li>
+    </ul>
   </nav>
-
-  <!-- Dot indicators -->
-  <div id="m-dots" aria-hidden="true"></div>
-
-  <!-- Horizontal scroll track — built by JS -->
-  <div id="m-track" aria-label="Portfolio projects" role="region"></div>
-
-
-</main>
-
-<!-- MOBILE MENU DRAWER — outside m-wrap to avoid stacking context trap -->
-<div id="m-mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-  <button id="m-menu-close" aria-label="Close navigation menu" style="position:absolute;top:1.4rem;right:1.5rem;width:44px;height:44px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#FDFDFD" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="19" y2="19"/><line x1="19" y1="3" x2="3" y2="19"/></svg>
-  </button>
-  <a href="about.html">About</a>
-  <a href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
-  <button id="m-mob-email-btn" aria-label="Copy email address">Contact</button>
   <div class="mob-socials">
-    <a class="mob-social" href="https://www.linkedin.com/in/sara-mckee-a0807945" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    <a class="mob-social" href="https://www.linkedin.com/in/sara-mckee-a0807945"
+       target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
     </a>
-    <a class="mob-social" href="https://www.instagram.com/smcre8tive" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    <a class="mob-social" href="https://instagram.com/saramckee"
+       target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in new tab)">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
     </a>
   </div>
 </div>
 
+<!-- ── MAIN CONTENT ── -->
+<main id="main-content" tabindex="-1">
+  <header class="site-hero" aria-label="Key Story Designs">
+    <h1 class="site-title">Key Story<br><em>Designs</em></h1>
+    <p class="doors-label" aria-label="Case Studies">Case Studies</p>
+  </header>
+
+  <!-- role="list" restores list semantics removed by CSS in some browsers -->
+  <ul class="doors-grid" id="doors-grid" role="list" aria-label="Portfolio case studies"></ul>
+</main>
+
+<footer role="contentinfo">
+  <p class="footer-name">Sara McKee &copy; 2026</p>
+</footer>
+
 <script>
+(function () {
+'use strict';
+
+/* ── CONSTANTS ── */
+const G  = '#c8a84b';  /* gold line-art — AAA contrast on dark */
+const GD = '#857028';  /* brand gold — glow effects */
+const D  = '#0f1014';  /* dark bg */
+const DM = '#16140a';  /* warm dark interior */
+const SW = 1.5;
+
 const PROJECTS = [
-  {
-    num:'01', plain:'IncluDesign Projector App',
-    title:'IncluDesign<br><em>Projector App</em>',
-    cat:'UX Design', tags:['Inclusive Design','Accessibility','Interactive Prototype'],
-    img:'img/includesign/hero.jpeg', link:'includesign.html',
-    bg:'#0f1014', color:'#FDFDFD',
-    eyebrow:'UX Design — Case Study 01',
-    desc:'Designing an accessible classroom projector app that empowers every student to engage and participate fully.'
-  },
-  {
-    num:'02', plain:'ProcrastiGreat Planning App',
-    title:'ProcrastiGreat<br><em>Planning App</em>',
-    cat:'UI Design', tags:['Style Guide','Icon Design','Mobile UI'],
-    img:'img/procrastigreat/mock2.jpeg', link:'procrastigreat.html',
-    bg:'#857028', color:'#FDFDFD',
-    eyebrow:'UI Design — Case Study 02',
-    desc:'Visual systems and mobile UI that make productivity feel effortless — and even a little fun.'
-  },
-  {
-    num:'03', plain:'Eva Konopka Art Website',
-    title:'Eva Konopka<br><em>Art Website</em>',
-    cat:'UX Design', tags:['Redesign','B2C','Sales Conversion'],
-    img:'img/evakonopka/hero2.jpeg', link:'evakonopkaart.html',
-    bg:'#E7E2D0', color:'#0f1014',
-    eyebrow:'UX Design — Case Study 03',
-    desc:'Turning a beautiful art practice into a website that sells — brand-true, conversion-ready, effortlessly navigable.'
-  },
-  {
-    num:'04', plain:'SoloDareity Travel Web-App',
-    title:'SoloDareity<br><em>Travel App</em>',
-    cat:'UX Design', tags:['Responsive Design','User Research','Usability Testing'],
-    img:'img/solodareity/hero.jpeg', link:'solodareity.html',
-    bg:'#4f564A', color:'#FDFDFD',
-    eyebrow:'UX Design — Case Study 04',
-    desc:'Research-driven UX for solo travelers — building confidence, community, and discovery at every step.'
-  }
+  { num:'01', plain:'IncluDesign Projector App',   short:'IncluDesign',    link:'includesign.html',    delay:'.05s' },
+  { num:'02', plain:'ProcrastiGreat Planning App', short:'ProcrastiGreat', link:'procrastigreat.html', delay:'.18s' },
+  { num:'03', plain:'Eva Konopka Art Website',     short:'Eva Konopka',    link:'evakonopkaart.html',  delay:'.31s' },
+  { num:'04', plain:'SoloDareity Travel App',      short:'SoloDareity',    link:'solodareity.html',    delay:'.44s' },
 ];
 
-const ease = 'cubic-bezier(.76,0,.24,1)';
-const pad = n => n < 10 ? '0'+n : ''+n;
-const isMob = () => window.innerWidth <= 768;
+/* ── DOOR SVG FUNCTIONS ── */
 
-const slidesEl   = document.getElementById('slides');
-const sideDotsEl = document.getElementById('side-dots');
-const ctrInner   = document.getElementById('ctr-inner');
-const ctrTotal   = document.getElementById('ctr-total');
-ctrTotal.textContent = '0' + PROJECTS.length;
+function door1() {
+  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+  <g class="door-scene">
+    <path d="M16,220 L16,78 Q16,12 60,12 Q104,12 104,78 L104,220 Z" fill="#0e1018"/>
+    <rect x="28" y="108" width="64" height="42" rx="1" fill="#161b2a" stroke="${G}" stroke-width=".7" opacity=".8"/>
+    <line x1="28" y1="120" x2="92" y2="120" stroke="${G}" stroke-width=".35" opacity=".3"/>
+    <line x1="28" y1="130" x2="92" y2="130" stroke="${G}" stroke-width=".35" opacity=".3"/>
+    <line x1="60" y1="108" x2="60" y2="150" stroke="${G}" stroke-width=".35" opacity=".25"/>
+    <circle cx="42" cy="116" r="3"  fill="${G}" opacity=".4"/>
+    <line   x1="42" y1="119" x2="42" y2="128" stroke="${G}" stroke-width=".9" opacity=".4"/>
+    <line   x1="38" y1="123" x2="46" y2="123" stroke="${G}" stroke-width=".9" opacity=".4"/>
+    <path   d="M38,128 L42,124 L46,128" fill="none" stroke="${G}" stroke-width=".9" opacity=".4"/>
+    <rect x="66" y="113" width="20" height="14" rx="1" stroke="${G}" stroke-width=".7" opacity=".4"/>
+    <line x1="68" y1="117" x2="84" y2="117" stroke="${G}" stroke-width=".5" opacity=".35"/>
+    <line x1="68" y1="120" x2="80" y2="120" stroke="${G}" stroke-width=".5" opacity=".3"/>
+    <rect x="44" y="62"  width="32" height="13" rx="3" fill="#1a1810" stroke="${G}" stroke-width=".9"/>
+    <ellipse cx="60" cy="68" rx="4" ry="4" stroke="${G}" stroke-width=".8" fill="#13120a"/>
+    <circle  cx="60" cy="68" r="1.8" fill="${G}" opacity=".3"/>
+    <line x1="47" y1="64" x2="47" y2="73" stroke="${G}" stroke-width=".4" opacity=".4"/>
+    <line x1="50" y1="64" x2="50" y2="73" stroke="${G}" stroke-width=".4" opacity=".4"/>
+    <rect x="57" y="57" width="6" height="6" rx="1" fill="#1a1810" stroke="${G}" stroke-width=".7"/>
+    <path d="M56,75 L28,108 L92,108 L64,75 Z" fill="${G}" opacity=".03"/>
+    <line x1="56" y1="75" x2="28" y2="108" stroke="${G}" stroke-width=".5" opacity=".15"/>
+    <line x1="60" y1="75" x2="60" y2="108" stroke="${G}" stroke-width=".4" opacity=".1"/>
+    <line x1="64" y1="75" x2="92" y2="108" stroke="${G}" stroke-width=".5" opacity=".15"/>
+    <circle cx="36"  cy="168" r="3.5" stroke="${G}" stroke-width=".8" fill="none" opacity=".5"/>
+    <line   x1="36"  y1="172" x2="36"  y2="183" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <line   x1="32"  y1="176" x2="40"  y2="176" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <path   d="M32,183 L36,178 L40,183" fill="none" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <circle cx="60"  cy="165" r="3.5" stroke="${G}" stroke-width=".8" fill="none" opacity=".45"/>
+    <line   x1="60"  y1="169" x2="60"  y2="180" stroke="${G}" stroke-width=".8" opacity=".45"/>
+    <line   x1="56"  y1="173" x2="64"  y2="173" stroke="${G}" stroke-width=".8" opacity=".45"/>
+    <path   d="M56,180 L60,175 L64,180" fill="none" stroke="${G}" stroke-width=".8" opacity=".45"/>
+    <circle cx="84"  cy="168" r="3.5" stroke="${G}" stroke-width=".8" fill="none" opacity=".5"/>
+    <line   x1="84"  y1="172" x2="84"  y2="183" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <line   x1="80"  y1="176" x2="88"  y2="176" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <path   d="M80,183 L84,178 L88,183" fill="none" stroke="${G}" stroke-width=".8" opacity=".5"/>
+  </g>
+  <g class="door-frame-lines" stroke="${G}" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M7,220 L7,78 Q7,3 60,3 Q113,3 113,78 L113,220" stroke-width="1.9"/>
+    <path d="M16,220 L16,78 Q16,12 60,12 Q104,12 104,78 L104,220" stroke-width="${SW}"/>
+    <circle cx="60" cy="38" r="10" stroke-width="${SW-.2}"/>
+    <circle cx="48" cy="44" r="6"  stroke-width="${SW-.4}" opacity=".6"/>
+    <circle cx="72" cy="44" r="6"  stroke-width="${SW-.4}" opacity=".6"/>
+    <path d="M7,96 Q11,90 16,96"     stroke-width="1.1"/>
+    <path d="M104,96 Q109,90 113,96" stroke-width="1.1"/>
+    <line x1="16" y1="96" x2="104" y2="96" stroke-width="${SW-.3}"/>
+    <g class="door-panel">
+      <rect x="17" y="97" width="86" height="122" fill="${D}" stroke="${G}" stroke-width="${SW-.2}"/>
+      <rect x="25" y="107" width="70" height="42" rx="1" stroke-width=".9"/>
+      <rect x="25" y="156" width="70" height="54" rx="1" stroke-width=".9"/>
+      <circle cx="86" cy="185" r="3.2" stroke-width="1"/>
+      <circle cx="86" cy="185" r="1.1" fill="${G}" opacity=".45"/>
+      <ellipse cx="86" cy="165" rx="2.2" ry="3" stroke-width=".9"/>
+      <path d="M84.8,166.5 L87.2,166.5 L86.8,171 L85.2,171 Z" fill="${G}" opacity=".4"/>
+    </g>
+  </g>
+</svg>`;
+}
 
-let cur = 0, busy = false;
+function door2() {
+  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+  <g class="door-scene">
+    <rect x="10" y="48" width="100" height="172" fill="#13140e"/>
+    <rect x="22" y="108" width="76" height="86" rx="2" fill="#191a10" stroke="${G}" stroke-width=".7" opacity=".85"/>
+    <line x1="60" y1="108" x2="60" y2="194" stroke="${G}" stroke-width=".8" opacity=".45"/>
+    <circle cx="60" cy="113" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="119" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="125" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="131" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="137" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="143" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="149" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="155" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="161" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="167" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="173" r="1.1" fill="${G}" opacity=".4"/>
+    <circle cx="60" cy="179" r="1.1" fill="${G}" opacity=".4"/>
+    <rect x="24" y="110" width="34" height="6" rx="1" fill="${G}" opacity=".1"/>
+    <line x1="24" y1="121" x2="57" y2="121" stroke="${G}" stroke-width=".4" opacity=".28"/>
+    <line x1="24" y1="127" x2="57" y2="127" stroke="${G}" stroke-width=".4" opacity=".28"/>
+    <line x1="24" y1="133" x2="57" y2="133" stroke="${G}" stroke-width=".4" opacity=".28"/>
+    <line x1="24" y1="139" x2="57" y2="139" stroke="${G}" stroke-width=".4" opacity=".28"/>
+    <line x1="29" y1="116" x2="29" y2="150" stroke="${G}" stroke-width=".4" opacity=".25"/>
+    <line x1="34" y1="116" x2="34" y2="150" stroke="${G}" stroke-width=".4" opacity=".25"/>
+    <line x1="39" y1="116" x2="39" y2="150" stroke="${G}" stroke-width=".4" opacity=".25"/>
+    <line x1="44" y1="116" x2="44" y2="150" stroke="${G}" stroke-width=".4" opacity=".25"/>
+    <line x1="49" y1="116" x2="49" y2="150" stroke="${G}" stroke-width=".4" opacity=".25"/>
+    <rect x="34" y="127" width="5" height="5" rx="1" fill="${G}" opacity=".28"/>
+    <rect x="26" y="155" width="3.5" height="3.5" rx=".5" stroke="${G}" stroke-width=".5" opacity=".4"/>
+    <path d="M26.5,156.5 L28,158 L30,155.5" fill="none" stroke="${G}" stroke-width=".6" opacity=".6"/>
+    <rect x="26" y="161" width="3.5" height="3.5" rx=".5" stroke="${G}" stroke-width=".5" opacity=".4"/>
+    <path d="M26.5,162.5 L28,164 L30,161.5" fill="none" stroke="${G}" stroke-width=".6" opacity=".6"/>
+    <rect x="26" y="167" width="3.5" height="3.5" rx=".5" stroke="${G}" stroke-width=".5" opacity=".35"/>
+    <rect x="26" y="173" width="3.5" height="3.5" rx=".5" stroke="${G}" stroke-width=".5" opacity=".28"/>
+    <circle cx="76" cy="128" r="16" stroke="${G}" stroke-width=".8" opacity=".7"/>
+    <circle cx="76" cy="128" r="1.5" fill="${G}" opacity=".6"/>
+    <line x1="76" y1="113" x2="76" y2="116" stroke="${G}" stroke-width="1"   opacity=".6"/>
+    <line x1="76" y1="140" x2="76" y2="143" stroke="${G}" stroke-width="1"   opacity=".6"/>
+    <line x1="62" y1="128" x2="65" y2="128" stroke="${G}" stroke-width="1"   opacity=".6"/>
+    <line x1="87" y1="128" x2="90" y2="128" stroke="${G}" stroke-width="1"   opacity=".6"/>
+    <line x1="76" y1="128" x2="76" y2="118" stroke="${G}" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>
+    <line x1="76" y1="128" x2="84" y2="128" stroke="${G}" stroke-width=".9"  stroke-linecap="round" opacity=".7"/>
+    <path d="M50,64 L70,64 L60,82 Z" fill="${G}" opacity=".1"/>
+    <path d="M50,97 L70,97 L60,80 Z" fill="${G}" opacity=".07"/>
+    <line x1="50" y1="64" x2="70" y2="64" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <line x1="50" y1="97" x2="70" y2="97" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <path d="M50,64 L60,82 L70,64" fill="none" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <path d="M50,97 L60,80 L70,97" fill="none" stroke="${G}" stroke-width=".8" opacity=".5"/>
+    <circle cx="60" cy="81" r="1.5" fill="${G}" opacity=".4"/>
+  </g>
+  <g class="door-frame-lines" stroke="${G}" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M6,220 L6,50 L60,9 L114,50 L114,220" stroke-width="1.9"/>
+    <path d="M14,50 L60,14 L106,50" stroke-width="${SW-.3}"/>
+    <rect x="6"  y="48" width="108" height="9" fill="${D}" stroke="${G}" stroke-width="${SW-.2}"/>
+    <rect x="8"  y="57" width="16" height="163" fill="${D}" stroke="${G}" stroke-width="${SW-.3}"/>
+    <line x1="12" y1="59" x2="12" y2="218" stroke-width=".5" opacity=".38"/>
+    <line x1="15" y1="59" x2="15" y2="218" stroke-width=".5" opacity=".38"/>
+    <line x1="18" y1="59" x2="18" y2="218" stroke-width=".5" opacity=".38"/>
+    <line x1="21" y1="59" x2="21" y2="218" stroke-width=".5" opacity=".38"/>
+    <path d="M7,58 Q16,53 25,58" stroke-width="1.1"/>
+    <rect x="96" y="57" width="16" height="163" fill="${D}" stroke="${G}" stroke-width="${SW-.3}"/>
+    <line x1="99"  y1="59" x2="99"  y2="218" stroke-width=".5" opacity=".38"/>
+    <line x1="102" y1="59" x2="102" y2="218" stroke-width=".5" opacity=".38"/>
+    <line x1="105" y1="59" x2="105" y2="218" stroke-width=".5" opacity=".38"/>
+    <line x1="108" y1="59" x2="108" y2="218" stroke-width=".5" opacity=".38"/>
+    <path d="M95,58 Q104,53 113,58" stroke-width="1.1"/>
+    <rect x="6" y="216" width="108" height="4" fill="${D}" stroke="${G}" stroke-width="${SW-.4}"/>
+    <circle cx="60" cy="32" r="11" stroke-width="${SW-.3}"/>
+    <circle cx="60" cy="32" r="5.5" stroke-width="1.1"/>
+    <line x1="60" y1="17" x2="60" y2="21" stroke-width="1.1"/>
+    <line x1="60" y1="43" x2="60" y2="47" stroke-width="1.1"/>
+    <line x1="45" y1="32" x2="49" y2="32" stroke-width="1.1"/>
+    <line x1="71" y1="32" x2="75" y2="32" stroke-width="1.1"/>
+    <g class="door-panel">
+      <rect x="24" y="57" width="72" height="163" fill="${D}" stroke="${G}" stroke-width="${SW-.2}"/>
+      <rect x="32" y="66" width="56" height="58" rx="1" stroke-width=".9"/>
+      <rect x="32" y="131" width="56" height="80" rx="1" stroke-width=".9"/>
+      <circle cx="85" cy="175" r="3.2" stroke-width="1"/>
+      <circle cx="85" cy="175" r="1.1" fill="${G}" opacity=".45"/>
+      <ellipse cx="85" cy="153" rx="2.2" ry="3" stroke-width=".9"/>
+      <path d="M83.8,154.5 L86.2,154.5 L85.8,159 L84.2,159 Z" fill="${G}" opacity=".4"/>
+    </g>
+  </g>
+</svg>`;
+}
 
-/* Build slides */
+function door3() {
+  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+  <g class="door-scene">
+    <path d="M18,220 L18,84 Q18,34 60,12 Q102,34 102,84 L102,220 Z" fill="#140e16"/>
+    <line x1="60" y1="158" x2="38" y2="200" stroke="${G}" stroke-width=".9" opacity=".45"/>
+    <line x1="60" y1="158" x2="82" y2="200" stroke="${G}" stroke-width=".9" opacity=".45"/>
+    <line x1="44" y1="178" x2="76" y2="178" stroke="${G}" stroke-width=".6" opacity=".28"/>
+    <rect x="36" y="115" width="48" height="44" rx="1" fill="#1c1222" stroke="${G}" stroke-width="1" opacity=".85"/>
+    <rect x="39" y="118" width="42" height="38" fill="#160e1c"/>
+    <path d="M41,132 Q50,122 58,130 Q64,136 70,126 Q74,121 79,128" fill="none" stroke="${G}" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
+    <path d="M41,140 Q52,136 60,142 Q66,146 77,140"               fill="none" stroke="${G}" stroke-width=".9"  stroke-linecap="round" opacity=".32"/>
+    <path d="M42,128 Q52,118 60,126 L60,130 Q52,122 42,132 Z"      fill="${G}" opacity=".08"/>
+    <path d="M44,152 Q48,150 54,153" fill="none" stroke="${G}" stroke-width=".6" opacity=".3"/>
+    <rect x="74" y="118" width="22" height="18" rx="1" fill="#180e1e" stroke="${G}" stroke-width=".7" opacity=".6"/>
+    <path d="M79,118 Q85,113 91,118" fill="none" stroke="${G}" stroke-width=".6" opacity=".3"/>
+    <path d="M77,125 Q82,120 89,126" fill="none" stroke="${G}" stroke-width=".7" stroke-linecap="round" opacity=".38"/>
+    <rect x="66" y="130" width="12" height="8" rx="1" fill="#140c18" stroke="${G}" stroke-width=".6" opacity=".5"/>
+    <circle cx="67.5" cy="132" r="1" stroke="${G}" stroke-width=".5" opacity=".38"/>
+    <line x1="84" y1="158" x2="96" y2="188" stroke="${G}" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+    <path d="M83,157 L86,159 L85,162 L82,160 Z" fill="${G}" opacity=".38"/>
+    <line x1="88" y1="160" x2="100" y2="192" stroke="${G}" stroke-width="1" stroke-linecap="round" opacity=".38"/>
+    <path d="M87,159 L90,161 L89,164 L86,162 Z" fill="${G}" opacity=".32"/>
+    <path d="M22,168 Q18,163 20,156 Q22,150 28,150 Q33,148 37,152 Q41,156 38,163 Q36,170 30,170 Q24,171 22,168 Z" fill="#180e12" stroke="${G}" stroke-width=".7" opacity=".65"/>
+    <ellipse cx="30" cy="160" rx="3.5" ry="2.5" stroke="${G}" stroke-width=".6" opacity=".38"/>
+    <circle cx="24" cy="154" r="2"   fill="${G}" opacity=".22"/>
+    <circle cx="30" cy="151" r="1.8" fill="${G}" opacity=".18"/>
+    <circle cx="36" cy="154" r="2"   fill="${G}" opacity=".25"/>
+    <path d="M26,80 Q26,64 30,56 Q34,48 30,40" fill="none" stroke="${G}" stroke-width=".8" opacity=".3"/>
+    <ellipse cx="20" cy="45" rx="4.5" ry="2.5" stroke="${G}" stroke-width=".6" opacity=".28" transform="rotate(-25 20 45)"/>
+    <path d="M96,80 Q94,64 90,56 Q86,48 90,40" fill="none" stroke="${G}" stroke-width=".8" opacity=".3"/>
+    <ellipse cx="100" cy="45" rx="4.5" ry="2.5" stroke="${G}" stroke-width=".6" opacity=".28" transform="rotate(25 100 45)"/>
+    <circle cx="34" cy="26" r="1.2" fill="${G}" opacity=".4"/>
+    <circle cx="86" cy="22" r="1"   fill="${G}" opacity=".35"/>
+  </g>
+  <g class="door-frame-lines" stroke="${G}" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M8,220 L8,84 Q8,24 60,4 Q112,24 112,84 L112,220" stroke-width="1.9"/>
+    <path d="M18,220 L18,84 Q18,34 60,12 Q102,34 102,84 L102,220" stroke-width="${SW}"/>
+    <path d="M8,115 Q13,108 18,115"    stroke-width="1"/>
+    <path d="M102,115 Q107,108 112,115" stroke-width="1"/>
+    <path d="M8,150 Q13,143 18,150"    stroke-width=".9" opacity=".5"/>
+    <path d="M102,150 Q107,143 112,150" stroke-width=".9" opacity=".5"/>
+    <line x1="18" y1="112" x2="102" y2="112" stroke-width="${SW-.3}"/>
+    <ellipse cx="60" cy="78" rx="15" ry="9" stroke-width="${SW-.3}"/>
+    <circle  cx="60" cy="78" r="5.5"        stroke-width="${SW-.4}"/>
+    <circle  cx="60" cy="78" r="2.2"        fill="${G}" opacity=".45"/>
+    <line x1="45" y1="78" x2="49" y2="78" stroke-width=".9"/>
+    <line x1="71" y1="78" x2="75" y2="78" stroke-width=".9"/>
+    <path d="M70,46 A20,20 0 1,1 50,62 A14,14 0 0,0 70,46 Z" stroke-width="${SW-.3}"/>
+    <circle cx="34" cy="32" r="1.2" fill="${G}" opacity=".4"/>
+    <circle cx="86" cy="28" r="1.1" fill="${G}" opacity=".4"/>
+    <g class="door-panel">
+      <rect x="19" y="113" width="82" height="106" fill="${D}" stroke="${G}" stroke-width="${SW-.2}"/>
+      <rect x="27" y="122" width="66" height="34" rx="8" stroke-width=".9"/>
+      <rect x="27" y="163" width="66" height="47" rx="1" stroke-width=".9"/>
+      <path d="M44,132 L60,126 L76,132 L76,140 L60,146 L44,140 Z" stroke-width=".8" opacity=".45"/>
+      <circle cx="87" cy="190" r="3.2" stroke-width="1"/>
+      <circle cx="87" cy="190" r="1.1" fill="${G}" opacity=".45"/>
+      <ellipse cx="87" cy="171" rx="2.2" ry="3" stroke-width=".9"/>
+      <path d="M85.8,172.5 L88.2,172.5 L87.8,177 L86.2,177 Z" fill="${G}" opacity=".4"/>
+    </g>
+  </g>
+</svg>`;
+}
+
+function door4() {
+  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+  <g class="door-scene">
+    <path d="M16,220 L16,76 Q16,8 60,8 Q104,8 104,76 L104,220 Z" fill="#0c0e12"/>
+    <line x1="20" y1="122" x2="100" y2="122" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="20" y1="134" x2="100" y2="134" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="20" y1="146" x2="100" y2="146" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="20" y1="158" x2="100" y2="158" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="20" y1="170" x2="100" y2="170" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="34"  y1="110" x2="34"  y2="210" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="48"  y1="110" x2="48"  y2="210" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="60"  y1="110" x2="60"  y2="210" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="72"  y1="110" x2="72"  y2="210" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <line x1="86"  y1="110" x2="86"  y2="210" stroke="${G}" stroke-width=".32" opacity=".18"/>
+    <circle cx="60" cy="160" r="26" stroke="${G}" stroke-width=".6" opacity=".38"/>
+    <circle cx="60" cy="160" r="20" stroke="${G}" stroke-width=".35" opacity=".22"/>
+    <circle cx="60" cy="160" r="5"  stroke="${G}" stroke-width=".8"  opacity=".55"/>
+    <path d="M60,134 L63,152 L60,160 L57,152 Z" fill="${G}" opacity=".32"/>
+    <path d="M60,186 L63,168 L60,160 L57,168 Z" fill="${G}" opacity=".18"/>
+    <path d="M86,160 L68,157 L60,160 L68,163 Z" fill="${G}" opacity=".18"/>
+    <path d="M34,160 L52,157 L60,160 L52,163 Z" fill="${G}" opacity=".18"/>
+    <path d="M28,190 Q38,174 52,170 Q64,167 74,174 Q84,180 92,170" fill="none" stroke="${G}" stroke-width=".9" stroke-dasharray="2,2" stroke-linecap="round" opacity=".48"/>
+    <circle cx="28" cy="190" r="2.5" stroke="${G}" stroke-width=".8" opacity=".55"/>
+    <circle cx="52" cy="170" r="2.5" stroke="${G}" stroke-width=".8" opacity=".55"/>
+    <circle cx="92" cy="170" r="2.5" stroke="${G}" stroke-width=".8" opacity=".55"/>
+    <path d="M36,126 L50,121 L58,123 L48,129 Z" fill="${G}" opacity=".28"/>
+    <rect x="70" y="118" width="22" height="28" rx="2" fill="#141618" stroke="${G}" stroke-width=".8" opacity=".65"/>
+    <circle cx="81" cy="128" r="4.5" stroke="${G}" stroke-width=".6" opacity=".38"/>
+    <circle cx="60" cy="55" r="18" stroke="${G}" stroke-width=".7" opacity=".45"/>
+    <ellipse cx="60" cy="55" rx="28" ry="8" stroke="${G}" stroke-width=".6" opacity=".32"/>
+    <circle cx="60" cy="55" r="9"   stroke="${G}" stroke-width=".5" opacity=".32" fill="${D}"/>
+    <path d="M22,92 Q22,78 28,68 Q33,60 30,50" fill="none" stroke="${G}" stroke-width=".8" opacity=".38"/>
+    <ellipse cx="18" cy="57" rx="5" ry="2.8" stroke="${G}" stroke-width=".6" opacity=".28" transform="rotate(-30 18 57)"/>
+    <path d="M98,92 Q98,78 92,68 Q87,60 90,50" fill="none" stroke="${G}" stroke-width=".8" opacity=".38"/>
+    <ellipse cx="102" cy="57" rx="5" ry="2.8" stroke="${G}" stroke-width=".6" opacity=".28" transform="rotate(30 102 57)"/>
+  </g>
+  <g class="door-frame-lines" stroke="${G}" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M6,220 L6,76 Q6,0 60,0 Q114,0 114,76 L114,220" stroke-width="1.9"/>
+    <path d="M16,220 L16,76 Q16,8 60,8 Q104,8 104,76 L104,220" stroke-width="${SW}"/>
+    <path d="M6,108 Q2,99 6,91"      stroke-width=".9" opacity=".48"/>
+    <path d="M114,108 Q118,99 114,91" stroke-width=".9" opacity=".48"/>
+    <path d="M6,145 Q2,136 6,128"    stroke-width=".8" opacity=".38"/>
+    <path d="M114,145 Q118,136 114,128" stroke-width=".8" opacity=".38"/>
+    <line x1="16" y1="106" x2="104" y2="106" stroke-width="${SW-.3}"/>
+    <g class="door-panel">
+      <rect x="17" y="107" width="86" height="112" fill="${D}" stroke="${G}" stroke-width="${SW-.2}"/>
+      <path d="M27,117 L27,132 Q27,117 60,114 Q93,117 93,132 L93,156 L27,156 Z" stroke-width=".9"/>
+      <rect x="27" y="163" width="66" height="47" rx="1" stroke-width=".9"/>
+      <path d="M60,178 L60,198" stroke-width=".9"/>
+      <path d="M60,186 Q53,181 49,174" stroke-width=".9"/>
+      <path d="M60,186 Q67,181 71,174" stroke-width=".9"/>
+      <circle cx="60" cy="173" r="2.2" stroke-width=".7"/>
+      <circle cx="88" cy="140" r="3.2" stroke-width="1"/>
+      <circle cx="88" cy="140" r="1.1" fill="${G}" opacity=".45"/>
+      <ellipse cx="88" cy="120" rx="2.2" ry="3" stroke-width=".9"/>
+      <path d="M86.8,121.5 L89.2,121.5 L88.8,126 L87.2,126 Z" fill="${G}" opacity=".4"/>
+    </g>
+  </g>
+</svg>`;
+}
+
+const DOOR_FNS = [door1, door2, door3, door4];
+
+/* ── BUILD DOOR CARDS ── */
+const doorsGrid = document.getElementById('doors-grid');
+
 PROJECTS.forEach((p, i) => {
-  const s = document.createElement('div');
-  s.className = 'slide' + (i===0 ? ' active':'');
-  s.setAttribute('role','article');
-  s.setAttribute('aria-label', p.plain + (i===0?' — currently displayed':''));
-  s.style.opacity = i===0 ? '1':'0';
-  s.innerHTML = `
-    <div class="slide-bg" style="background:${p.bg};"></div>
-    <div class="slide-img-wrap">
-      <img src="${p.img}" alt="${p.plain}" loading="${i===0?'eager':'lazy'}" width="560" height="420">
-    </div>
-    <div class="slide-content" style="color:${p.color};">
-      <p class="slide-eyebrow">${p.eyebrow}</p>
-      <h${i===0?'1':'2'} class="slide-title">${p.title}</h${i===0?'1':'2'}>
-      <p class="slide-desc">${p.desc}</p>
-      <a href="${p.link}" class="slide-cta" style="color:${p.color};" aria-label="Open case study: ${p.plain}">
-        Open Case Study <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>`;
-  slidesEl.appendChild(s);
+  const li = document.createElement('li');
 
-  /* dot */
-  const dot = document.createElement('button');
-  dot.className = 's-dot' + (i===0?' active':'');
-  dot.setAttribute('aria-label',`Project ${i+1}: ${p.plain}`);
-  dot.addEventListener('click',()=>goTo(i));
-  sideDotsEl.appendChild(dot);
+  const a = document.createElement('a');
+  a.href = p.link;
+  a.className = 'door-card';
+  a.setAttribute('aria-label', `${p.plain} — view case study`);
+
+  const inner = document.createElement('div');
+  inner.className = 'door-card-inner';
+  inner.innerHTML = `<div class="door-svg-wrap">${DOOR_FNS[i]()}</div>`;
+
+  a.appendChild(inner);
+
+  const label = document.createElement('div');
+  label.className = 'door-label';
+  label.setAttribute('aria-hidden', 'true');
+  label.innerHTML = `
+    <span class="door-label-num">${p.num}</span>
+    <span class="door-label-title">${p.short}</span>`;
+
+  li.appendChild(a);
+  li.appendChild(label);
+  doorsGrid.appendChild(li);
 });
 
-/* Colour all chrome to match current slide */
-const chromEls = {
-  logo:   document.getElementById('nav-logo-el'),
-  links:  document.getElementById('nav-links-el'),
-  ctr:    document.getElementById('counter'),
-  hint:   document.getElementById('scroll-hint'),
-  avail:  document.getElementById('avail'),
-};
-function applyColor(idx) {
-  const c = PROJECTS[idx].color;
-  chromEls.logo.style.color  = c;
-  chromEls.links.style.color = c;
-  chromEls.ctr.style.color   = c;
-  chromEls.hint.style.color  = c;
-  chromEls.avail.style.color = c;
-  chromEls.avail.style.borderColor = c;
-  document.querySelectorAll('.s-dot').forEach((d,i) => {
-    d.style.color = c;
-    d.style.borderColor = c;
-    d.classList.toggle('active', i===idx);
-  });
-}
-applyColor(0);
-
-function updateCounter(idx) {
-  ctrInner.style.transition = `transform .3s ${ease}`;
-  ctrInner.style.transform = 'translateY(-120%)';
-  setTimeout(()=>{
-    ctrInner.textContent = pad(idx+1);
-    ctrInner.style.transition = 'none';
-    ctrInner.style.transform = 'translateY(120%)';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      ctrInner.style.transition = `transform .38s ${ease}`;
-      ctrInner.style.transform = 'none';
-    }));
-  },150);
-}
-
-function goTo(idx) {
-  if (busy || idx<0 || idx>=PROJECTS.length || idx===cur) return;
-  busy = true;
-  const allSlides = slidesEl.querySelectorAll('.slide');
-  allSlides[cur].style.transition = `opacity .55s ${ease}`;
-  allSlides[cur].style.opacity = '0';
-  allSlides[cur].classList.remove('active');
-  allSlides[cur].setAttribute('aria-label', PROJECTS[cur].plain);
-  cur = idx;
-  allSlides[cur].style.transition = 'none';
-  allSlides[cur].style.opacity = '0';
-  allSlides[cur].classList.add('active');
-  allSlides[cur].setAttribute('aria-label', PROJECTS[cur].plain+' — currently displayed');
-  allSlides[cur].getBoundingClientRect();
-  allSlides[cur].style.transition = `opacity .7s ${ease}`;
-  allSlides[cur].style.opacity = '1';
-  applyColor(cur);
-  updateCounter(cur);
-  setTimeout(()=>{ busy=false; },760);
-}
-
-/* ── WHEEL: accumulate delta to handle trackpad inertia cleanly ── */
-let wCD = false;
-let wAccum = 0;
-let wAccumTimer = null;
-
-window.addEventListener('wheel', e => {
-  if (isMob()) return;
-  e.preventDefault();
-
-  wAccum += e.deltaY;
-  clearTimeout(wAccumTimer);
-
-  // Reset accumulator if no new events in 80ms (end of gesture)
-  wAccumTimer = setTimeout(() => { wAccum = 0; }, 80);
-
-  if (wCD) return;
-  if (Math.abs(wAccum) < 60) return; // wait for intentional gesture
-
-  wCD = true;
-  wAccum > 0 ? goTo(cur + 1) : goTo(cur - 1);
-  wAccum = 0;
-  setTimeout(() => { wCD = false; }, 800);
-}, { passive: false });
-
-/* Touch */
-let ty0 = 0;
-window.addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
-window.addEventListener('touchend', e => {
-  if (isMob()) return;
-  const d = ty0 - e.changedTouches[0].clientY;
-  if (Math.abs(d) > 55) d > 0 ? goTo(cur + 1) : goTo(cur - 1);
-}, { passive: true });
-
-/* Keys */
-document.addEventListener('keydown', e => {
-  if (isMob()) return;
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goTo(cur + 1);
-  if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  goTo(cur - 1);
-});
-
-/* ── MOBILE HORIZONTAL SCROLL ── */
-(function() {
-  const track = document.getElementById('m-track');
-  const dotsEl = document.getElementById('m-dots');
-  const mNav = document.querySelector('.m-nav');
-  const mLogo = document.querySelector('.m-nav-logo-link');
-  const mHamburger = document.getElementById('m-hamburger-btn');
-  if (!track || !dotsEl) return;
-
-  // Build slides
-  PROJECTS.forEach((p, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'm-slide';
-    slide.setAttribute('role', 'article');
-    slide.setAttribute('aria-label', p.plain);
-    // For light-bg slides (Eva Konopka), invert nav text
-    slide.dataset.color = p.color;
-    slide.style.background = p.bg;
-    slide.innerHTML = `
-      <div class="m-slide-card">
-        <img src="${p.img}" alt="${p.plain}" loading="${i===0?'eager':'lazy'}" width="360" height="270">
-      </div>
-      <div class="m-slide-body" style="color:${p.color};">
-        <p class="m-slide-eye">${p.eyebrow}</p>
-        <${i===0?'h1':'h2'} class="m-slide-title">${p.title}</${i===0?'h1':'h2'}>
-        <p class="m-slide-desc">${p.desc}</p>
-        <a href="${p.link}" class="m-slide-cta" style="color:${p.color};" aria-label="Open case study: ${p.plain}">
-          Open Case Study <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>`;
-    track.appendChild(slide);
-
-    // Dot
-    const dot = document.createElement('button');
-    dot.className = 'm-dot' + (i===0 ? ' active' : '');
-    dot.setAttribute('aria-label', `Project ${i+1}: ${p.plain}`);
-    dot.addEventListener('click', () => {
-      track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
-    });
-    dotsEl.appendChild(dot);
-  });
-
-  // Sync nav + dots color to current slide
-  function syncChrome(idx) {
-    const col = PROJECTS[idx].color;
-    if (mLogo) { mLogo.style.color = col; mLogo.style.textShadow = col === '#0f1014' ? '0 1px 6px rgba(255,255,255,.2)' : '0 1px 6px rgba(0,0,0,.35)'; }
-    if (mHamburger) mHamburger.querySelectorAll('span').forEach(s => s.style.background = col);
-    dotsEl.querySelectorAll('.m-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === idx);
-      d.style.borderColor = i === idx ? col : (col === '#0f1014' ? 'rgba(0,0,0,.4)' : 'rgba(255,255,255,.5)');
-      d.style.background = i === idx ? col : 'transparent';
-    });
-  }
-  syncChrome(0);
-
-  // Update active dot + nav on scroll
-  let ticking = false;
-  track.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const idx = Math.round(track.scrollLeft / track.clientWidth);
-      syncChrome(idx);
-      ticking = false;
-    });
+/* ── KEY CURSOR (pointer devices only) ── */
+const keyCursor = document.getElementById('key-cursor');
+/* Only initialise if device supports hover (not touch) */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    keyCursor.style.left = e.clientX + 'px';
+    keyCursor.style.top  = e.clientY + 'px';
   }, { passive: true });
-})();
 
-/* Email copy */
-const emailBtn = document.getElementById('email-btn');
-const EMAIL = 'hello@saramckeedesign.com';
-let copied = false, flipTimer;
-function doFlip() {
-  if (copied) return; copied = true;
-  emailBtn.classList.add('flipped');
-  navigator.clipboard.writeText(EMAIL).catch(() => { window.location.href = 'mailto:' + EMAIL; });
-  clearTimeout(flipTimer);
-  flipTimer = setTimeout(() => { emailBtn.classList.remove('flipped'); copied = false; }, 2600);
-}
-emailBtn.addEventListener('click', doFlip);
-emailBtn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doFlip(); } });
-
-
-/* ── INDEX MOBILE HAMBURGER ── */
-(function() {
-  const btn = document.getElementById('m-hamburger-btn');
-  const menu = document.getElementById('m-mobile-menu');
-  const mobEmail = document.getElementById('m-mob-email-btn');
-  if (!btn || !menu) return;
-  function openMenu() {
-    menu.classList.add('open');
-    requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add('visible')));
-    btn.setAttribute('aria-expanded', 'true');
-    btn.setAttribute('aria-label', 'Close navigation menu');
-    document.body.style.overflow = 'hidden';
-    const first = menu.querySelector('a, button');
-    if (first) first.focus();
-  }
-  function closeMenu() {
-    menu.classList.remove('visible');
-    setTimeout(() => menu.classList.remove('open'), 300);
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-label', 'Open navigation menu');
-    document.body.style.overflow = '';
-    btn.focus();
-  }
-  btn.addEventListener('click', () => btn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu());
-  const closeBtn = document.getElementById('m-menu-close');
-  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-  menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu(); });
-  if (mobEmail) {
-    mobEmail.addEventListener('click', () => {
-      navigator.clipboard.writeText('hello@saramckeedesign.com').catch(() => {});
-      mobEmail.textContent = 'Copied!';
-      setTimeout(() => { mobEmail.textContent = 'Contact'; }, 2500);
-      closeMenu();
+  document.querySelectorAll('.door-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      keyCursor.classList.add('visible');
+      document.body.style.cursor = 'none';
     });
-  }
-})();
-
-/* Loader */
-(function(){
-  function dismissLoader(){
-    const l = document.getElementById('loader');
-    if(!l) return;
-    setTimeout(() => {
-      l.classList.add('out');
-      setTimeout(() => { if(l.parentNode) l.parentNode.removeChild(l); }, 500);
-    }, 300);
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', dismissLoader);
-  } else {
-    dismissLoader();
-  }
-  // bfcache: remove loader instantly
-  window.addEventListener('pageshow', e => {
-    if(e.persisted){ const l = document.getElementById('loader'); if(l) l.parentNode.removeChild(l); }
+    card.addEventListener('mouseleave', () => {
+      keyCursor.classList.remove('visible');
+      document.body.style.cursor = '';
+    });
   });
-})();
+}
+
+/* ── EMAIL COPY ── */
+const EMAIL = 'hello@saramckeedesign.com';
+
+function setupEmailCopy(btnId, frontSelector, backSelector) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  let copied = false, timer;
+  const front = btn.querySelector(frontSelector);
+  const back  = btn.querySelector(backSelector);
+
+  function doCopy() {
+    if (copied) return;
+    copied = true;
+    btn.classList.add('flipped');
+    if (back)  back.removeAttribute('aria-hidden');
+    if (front) front.setAttribute('aria-hidden', 'true');
+    navigator.clipboard.writeText(EMAIL).catch(() => {});
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      btn.classList.remove('flipped');
+      copied = false;
+      if (back)  back.setAttribute('aria-hidden', 'true');
+      if (front) front.removeAttribute('aria-hidden');
+    }, 2600);
+  }
+
+  btn.addEventListener('click', doCopy);
+  btn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doCopy(); }
+  });
+}
+
+setupEmailCopy('email-btn',     '.email-face-front', '.email-face-back');
+
+/* ── MOBILE EMAIL (simple text swap) ── */
+const mobEmailBtn = document.getElementById('mob-email-btn');
+if (mobEmailBtn) {
+  let mCopied = false, mTimer;
+  function mobCopy() {
+    if (mCopied) return;
+    mCopied = true;
+    navigator.clipboard.writeText(EMAIL).catch(() => {});
+    mobEmailBtn.textContent = 'Copied!';
+    clearTimeout(mTimer);
+    mTimer = setTimeout(() => {
+      mobEmailBtn.textContent = 'Contact';
+      mCopied = false;
+    }, 2500);
+  }
+  mobEmailBtn.addEventListener('click', mobCopy);
+}
+
+/* ── MOBILE HAMBURGER ── */
+const hamburger = document.getElementById('hamburger-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (hamburger && mobileMenu) {
+  /* All focusable elements inside the drawer */
+  const getFocusable = () => [
+    ...mobileMenu.querySelectorAll('a, button')
+  ].filter(el => !el.disabled);
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    requestAnimationFrame(() => requestAnimationFrame(() => mobileMenu.classList.add('visible')));
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Close navigation menu');
+    document.body.style.overflow = 'hidden';
+    const first = getFocusable()[0];
+    if (first) setTimeout(() => first.focus(), 50);
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('visible');
+    setTimeout(() => mobileMenu.classList.remove('open'), 300);
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open navigation menu');
+    document.body.style.overflow = '';
+    hamburger.focus();
+  }
+
+  hamburger.addEventListener('click', () =>
+    hamburger.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu()
+  );
+
+  /* Close on Escape */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
+  });
+
+  /* Focus trap inside drawer */
+  mobileMenu.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const focusable = getFocusable();
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+
+  /* Close on backdrop click */
+  mobileMenu.addEventListener('click', e => {
+    if (e.target === mobileMenu) closeMenu();
+  });
+}
+
+})(); /* end IIFE */
 </script>
 </body>
 </html>
