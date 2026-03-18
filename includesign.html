@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IncluDesign — Sara McKee</title>
-<meta name="description" content="Case study: IncluDesign Projector Game — an immersive projector experience that builds empathy for visual impairment through gameplay.">
+<meta name="description" content="IncluDesign: an immersive projector game that builds empathy for visual impairment through gameplay — designed for Gen-Z design students.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;0,800;1,300;1,600;1,800&family=Lexend:wght@300;400&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="img/favicon.png">
@@ -12,64 +12,37 @@
 /* ── RESET & BASE ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-  font-family:'Lexend',sans-serif;
-  font-weight:300;
-  background:#fdfdfd;
-  color:#0f1014;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
+body{font-family:'Lexend',sans-serif;font-weight:300;background:#fdfdfd;color:#0f1014;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 :root{
-  --bg:#fdfdfd;
-  --fg:#0f1014;
-  --gold:#8a6f1e;
-  --linen:#4a3f1a;
-  --muted:rgba(15,16,20,.5);
-  --rule:rgba(15,16,20,.1);
-  --serif:'Spectral',Georgia,serif;
-  --sans:'Lexend',sans-serif;
-  --ease:cubic-bezier(.76,0,.24,1);
-  --max:860px;
+  --bg:#fdfdfd;--fg:#0f1014;
+  --gold:#8a6f1e;--gold-pale:rgba(138,111,30,.06);--gold-mid:rgba(138,111,30,.18);--gold-rule:rgba(138,111,30,.25);
+  --linen:#4a3f1a;--muted:rgba(15,16,20,.5);--body-text:rgba(15,16,20,.78);--rule:rgba(15,16,20,.1);
+  --serif:'Spectral',Georgia,serif;--sans:'Lexend',sans-serif;
+  --ease:cubic-bezier(.76,0,.24,1);--max:860px;--pad-x:clamp(1.4rem,6vw,6rem);
 }
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-.skip-link{position:fixed;top:-100%;left:1rem;z-index:9999;background:var(--bg);color:var(--fg);padding:.6rem 1.3rem;font-size:.875rem;text-decoration:none;transition:top .2s;}
-.skip-link:focus{top:1rem;}
 
-/* ── NAV — exact match to index/about ── */
-nav#site-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  padding:1.8rem 3rem;
-  display:flex;align-items:center;justify-content:space-between;
-  color:var(--fg);
-  /* subtle fade-to-transparent so content scrolls under */
-  background:linear-gradient(to bottom,rgba(253,253,253,.95) 0%,transparent 100%);
-  backdrop-filter:blur(0px);
-  transition:background .4s;
-}
-nav#site-nav.scrolled{
-  background:rgba(253,253,253,.96);
-  backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(15,16,20,.08);
-}
-.nav-logo{
-  color:var(--fg);font-family:var(--serif);font-size:.88rem;
-  font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;
-  transition:opacity .2s;display:flex;align-items:center;gap:.55rem;
-}
-.nav-logo-img{width:22px;height:22px;object-fit:contain;flex-shrink:0;opacity:.9;}
+/* ── ACCESSIBILITY ── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.skip-link{position:fixed;top:-100%;left:1rem;z-index:9999;background:var(--fg);color:var(--bg);padding:.6rem 1.3rem;font-size:.875rem;text-decoration:none;border-radius:4px;transition:top .2s;}
+.skip-link:focus{top:1rem;}
+*:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
+
+/* ── PROGRESS BAR ── */
+#progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:600;width:0%;transition:width .15s linear;}
+
+/* ── NAV ── */
+nav#site-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem var(--pad-x);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(253,253,253,.96) 0%,transparent 100%);transition:background .4s,box-shadow .3s;}
+nav#site-nav.scrolled{background:rgba(253,253,253,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--rule);}
+.nav-logo{color:var(--fg);font-family:var(--serif);font-size:.85rem;font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;gap:.5rem;}
+.nav-logo-img{width:20px;height:20px;object-fit:contain;flex-shrink:0;opacity:.9;}
 .nav-logo:hover{opacity:.6;}
-.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
-.nav-links a,.nav-links button{
-  color:var(--fg);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
-  text-decoration:none;transition:opacity .2s;background:none;border:none;
-  cursor:pointer;font-family:var(--sans);font-weight:300;padding:0;
-}
+.nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none;}
+.nav-links a,.nav-links button{color:var(--fg);font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;background:none;border:none;cursor:pointer;font-family:var(--sans);font-weight:300;padding:0;min-height:44px;display:inline-flex;align-items:center;}
 .nav-links a:hover,.nav-links button:hover{opacity:.55;}
-.nav-social{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;opacity:.7;transition:opacity .2s;}
+.nav-social{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;opacity:.65;transition:opacity .2s;}
 .nav-social:hover{opacity:1!important;}
-.nav-social svg{width:16px;height:16px;fill:currentColor;display:block;}
-.nav-sep{width:1px;height:14px;background:currentColor;opacity:.2;margin:0 .2rem;}
-/* email flip */
+.nav-social svg{width:15px;height:15px;fill:currentColor;display:block;}
+.nav-sep{width:1px;height:14px;background:currentColor;opacity:.18;margin:0 .1rem;}
 .email-btn{position:relative;height:1.1em;display:inline-flex;align-items:center;}
 .email-face-front,.email-face-back{display:flex;align-items:center;gap:.3rem;white-space:nowrap;transition:opacity .28s,transform .4s var(--ease);}
 .email-face-back{position:absolute;left:0;opacity:0;transform:translateY(5px);}
@@ -77,497 +50,204 @@ nav#site-nav.scrolled{
 .email-btn:hover .email-face-front,.email-btn.flipped .email-face-front{opacity:0;transform:translateY(-5px);}
 .email-btn:hover .email-face-back,.email-btn.flipped .email-face-back{opacity:1;transform:none;}
 
-/* ── PROGRESS BAR ── */
-#progress{
-  position:fixed;top:0;left:0;height:2px;
-  background:var(--gold);z-index:600;
-  width:0%;transition:width .1s linear;
-}
-
 /* ── HERO ── */
-.cs-hero{
-  min-height:100svh;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:0 0 5.5rem 6vw;
-  position:relative;overflow:hidden;
-  background:var(--bg);
-}
-
-/* Floating card image — mirrors index slide & about headshot */
-.cs-hero-img-wrap{
-  position:absolute;right:6vw;top:50%;
-  width:clamp(260px,36vw,540px);z-index:2;
-  filter:drop-shadow(0 18px 44px rgba(0,0,0,.18));
-  opacity:0;
-  transform:translateY(-44%) rotate(2.5deg) scale(.96);
-  animation:heroImgIn 1.1s var(--ease) .3s forwards;
-}
+.cs-hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 clamp(3rem,6vw,5.5rem) var(--pad-x);position:relative;overflow:hidden;}
+.cs-hero-img-wrap{position:absolute;right:var(--pad-x);top:50%;width:clamp(240px,34vw,500px);z-index:2;filter:drop-shadow(0 18px 44px rgba(0,0,0,.16));opacity:0;transform:translateY(-44%) rotate(2.5deg) scale(.96);animation:heroImgIn 1.1s var(--ease) .3s forwards;}
 @keyframes heroImgIn{to{opacity:1;transform:translateY(-50%) rotate(2.5deg) scale(1);}}
-.cs-hero-img-wrap img{
-  width:100%;display:block;border-radius:6px;
-  aspect-ratio:4/3;object-fit:cover;
-}
-
-.cs-hero-content{position:relative;z-index:3;max-width:54vw;}
-
-.cs-eyebrow{
-  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:1.4rem;
-  display:flex;align-items:center;gap:.7rem;
-  opacity:0;animation:fadeUp .8s var(--ease) .6s forwards;
-}
-.cs-eyebrow::before{content:'';display:block;width:22px;height:1px;background:var(--gold);flex-shrink:0;}
-
-.cs-title{
-  font-family:var(--serif);
-  font-size:clamp(4.5rem,10vw,9rem);
-  font-weight:800;line-height:.88;letter-spacing:-.04em;
-  margin-bottom:2.2rem;
-  opacity:0;animation:fadeUp .9s var(--ease) .75s forwards;
-}
+.cs-hero-img-wrap img{width:100%;display:block;border-radius:8px;aspect-ratio:4/3;object-fit:cover;}
+.cs-hero-content{position:relative;z-index:3;max-width:min(54vw,640px);}
+.cs-eyebrow{font-size:.69rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeUp .8s var(--ease) .6s forwards;}
+.cs-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold);flex-shrink:0;}
+.cs-title{font-family:var(--serif);font-size:clamp(4rem,9.5vw,9rem);font-weight:800;line-height:.88;letter-spacing:-.04em;margin-bottom:1.8rem;opacity:0;animation:fadeUp .9s var(--ease) .75s forwards;}
 .cs-title em{font-style:italic;font-weight:600;color:var(--linen);}
-
-.cs-subtitle{
-  font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.75;
-  color:var(--muted);max-width:52ch;margin-bottom:3rem;
-  opacity:0;animation:fadeUp .8s var(--ease) .9s forwards;
-}
-
-.cs-meta-row{
-  display:flex;flex-wrap:wrap;gap:2.5rem;
-  opacity:0;animation:fadeUp .8s var(--ease) 1.05s forwards;
-}
-
-.cs-meta-label{
-  font-size:.63rem;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:.4rem;
-}
-.cs-meta-value{
-  font-size:.82rem;letter-spacing:.04em;color:var(--fg);line-height:1.6;
-}
-
-/* Scroll hint at bottom right */
-.cs-scroll-hint{
-  position:absolute;right:6vw;bottom:3rem;z-index:2;
-  display:flex;align-items:center;gap:.6rem;
-  font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
-  opacity:0;animation:fadeUp .8s var(--ease) 1.4s forwards;
-}
-.cs-scroll-line{width:24px;height:1px;background:currentColor;transform-origin:right;animation:lineGrow 2.2s var(--ease) infinite;}
+.cs-subtitle{font-size:clamp(.95rem,1.15vw,1.1rem);line-height:1.75;color:var(--muted);max-width:48ch;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s var(--ease) .9s forwards;}
+.cs-meta-row{display:flex;flex-wrap:wrap;gap:clamp(1.2rem,2.5vw,2.5rem);opacity:0;animation:fadeUp .8s var(--ease) 1.05s forwards;}
+.cs-meta-label{font-size:.61rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;}
+.cs-meta-value{font-size:.8rem;letter-spacing:.03em;color:var(--fg);line-height:1.6;}
+.cs-scroll-hint{position:absolute;right:var(--pad-x);bottom:2.5rem;z-index:2;display:flex;align-items:center;gap:.5rem;font-size:.61rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp .8s var(--ease) 1.4s forwards;}
+.cs-scroll-line{width:22px;height:1px;background:currentColor;animation:lineGrow 2.4s var(--ease) infinite;}
 @keyframes lineGrow{0%{transform:scaleX(0);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}51%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* ── BODY ── */
-.cs-body{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:7rem 3rem 8rem;
-}
+.cs-body{max-width:1000px;margin:0 auto;padding:clamp(4rem,8vw,7rem) clamp(1.4rem,4vw,40px) clamp(5rem,8vw,8rem);}
 
-/* ── IMAGE SYSTEM ── */
-
-/* Shared caption style */
-.cs-img-caption{
-  margin-top:.9rem;
-  font-size:.72rem;letter-spacing:.1em;
-  color:var(--muted);line-height:1.7;
-  padding-left:1.5rem;
-  border-left:2px solid rgba(138,111,30,.25);
-}
-
-/* 0. VIEWPORT — true full-width, bleeds to screen edges */
-.cs-img-viewport{
-  margin:5rem calc(50% - 50vw);
-  width:100vw;
-  position:relative;
-}
-.cs-img-viewport img{
-  width:100%;display:block;
-  cursor:zoom-in;
-  transition:transform .6s var(--ease);
-}
-.cs-img-viewport:hover img{transform:scale(1.004);}
-.cs-img-viewport .cs-img-caption{
-  max-width:var(--max);
-  margin-left:auto;margin-right:auto;
-  padding-left:3rem;padding-right:3rem;
-  border-left:none;padding-left:1.5rem;
-  border-left:2px solid rgba(138,111,30,.25);
-}
-@media(max-width:768px){
-  .cs-img-viewport{ margin:3.5rem calc(50% - 50vw); }
-}
-
-/* 1. BREAKOUT — wider than the text column, punches past max-width */
-.cs-img-breakout{
-  margin:5rem calc(-8vw);
-  position:relative;
-}
-.cs-img-breakout img{
-  width:100%;display:block;border-radius:6px;
-  cursor:zoom-in;
-  transition:transform .55s var(--ease);
-}
-.cs-img-breakout:hover img{transform:scale(1.006);}
-
-/* 2. FULL — fills the column (860px) exactly */
-.cs-img-full{
-  margin:4rem 0;
-  position:relative;
-}
-.cs-img-full img{
-  width:100%;display:block;border-radius:4px;
-  cursor:zoom-in;
-  transition:transform .5s var(--ease);
-}
-.cs-img-full:hover img{transform:scale(1.008);}
-
-/* 3. CONTAINED — sits at 72% of column, centered */
-.cs-img-contained{
-  margin:3.5rem auto;
-  width:72%;
-  position:relative;
-}
-.cs-img-contained img{
-  width:100%;display:block;border-radius:4px;
-  cursor:zoom-in;
-  transition:transform .45s var(--ease);
-}
-.cs-img-contained:hover img{transform:scale(1.012);}
-
-/* 4. SMALL — sits at 48% of column, can float */
-.cs-img-small{
-  margin:2.5rem auto;
-  width:48%;
-  position:relative;
-}
-.cs-img-small img{
-  width:100%;display:block;border-radius:4px;
-  cursor:zoom-in;
-  transition:transform .4s var(--ease);
-}
-.cs-img-small:hover img{transform:scale(1.018);}
-/* float variants */
-.cs-img-small.left{ margin-right:auto; margin-left:0; }
-.cs-img-small.right{ margin-left:auto; margin-right:0; }
-
-/* 5. PAIR — two images side by side */
-.cs-img-pair{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;
-  margin:4rem 0;
-}
-.cs-img-pair img{
-  width:100%;display:block;border-radius:4px;
-  cursor:zoom-in;
-  transition:transform .45s var(--ease);
-}
-.cs-img-pair img:hover{transform:scale(1.014);}
-
-/* 6. PAIR ASYMMETRIC — 60/40 split */
-.cs-img-pair.asym{grid-template-columns:3fr 2fr;}
-
-/* Backward compat alias */
-.cs-full-bleed{ margin:4rem 0; position:relative; }
-.cs-full-bleed img{ width:100%;display:block;border-radius:4px;cursor:zoom-in;transition:transform .5s var(--ease); }
-.cs-full-bleed:hover img{transform:scale(1.008);}
-.cs-full-bleed-caption{ margin-top:.9rem;font-size:.72rem;letter-spacing:.1em;color:var(--muted);line-height:1.7;padding-left:1.5rem;border-left:2px solid rgba(138,111,30,.25); }
-
-/* Constrained image (2-up or mid-size) */
-.cs-img-grid{display:grid;gap:1.5rem;margin:3.5rem 0;}
-.cs-img-grid.cols-2{grid-template-columns:1fr 1fr;}
-.cs-img-grid img{width:100%;display:block;border-radius:4px;cursor:zoom-in;transition:transform .4s var(--ease);}
-.cs-img-grid img:hover{transform:scale(1.015);}
-
-@media(max-width:768px){
-  .cs-img-breakout{ margin:3.5rem -1.4rem; border-radius:0; }
-  .cs-img-breakout img{ border-radius:0; }
-  .cs-img-contained,.cs-img-small{ width:100%; }
-  .cs-img-pair,.cs-img-pair.asym{ grid-template-columns:1fr; }
-}
-
-/* ── SECTION DIVIDER ── */
-.cs-section{margin:0 0 7rem;}
-.cs-section-header{
-  display:flex;align-items:flex-start;gap:2.5rem;
-  margin-bottom:3.5rem;padding-bottom:2rem;
-  border-bottom:1px solid var(--rule);
-}
-.cs-section-num{
-  font-family:var(--serif);font-style:italic;
-  font-size:clamp(4rem,8vw,7rem);font-weight:800;
-  line-height:.85;letter-spacing:-.05em;
-  color:rgba(138,111,30,.12);
-  flex-shrink:0;
-  margin-top:-.2rem;
-  user-select:none;
-}
+/* ── SECTION HEADERS ── */
+.cs-section{margin-bottom:clamp(4rem,8vw,7rem);}
+.cs-section-header{display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.5rem;padding-bottom:1.8rem;border-bottom:1px solid var(--rule);}
+.cs-section-num{font-family:var(--serif);font-style:italic;font-size:clamp(3.5rem,7vw,7rem);font-weight:800;line-height:.85;letter-spacing:-.05em;color:var(--gold-mid);flex-shrink:0;margin-top:-.15rem;user-select:none;}
 .cs-section-meta{flex:1;}
-.cs-section-tag{
-  font-size:.63rem;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:.7rem;display:block;
-}
-.cs-section-title{
-  font-family:var(--serif);
-  font-size:clamp(1.8rem,4vw,2.8rem);
-  font-weight:800;line-height:1.05;letter-spacing:-.03em;
-}
+.cs-section-tag{font-size:.61rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:block;}
+.cs-section-title{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
 .cs-section-title em{font-style:italic;font-weight:600;}
 
 /* ── PROSE ── */
-.cs-p{
-  font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.9;
-  color:rgba(15,16,20,.8);margin-bottom:1.8rem;
-}
-.cs-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,173,87,.35);transition:border-color .2s,color .2s;}
+.cs-p{font-size:clamp(.95rem,1.05vw,1.05rem);line-height:1.88;color:var(--body-text);margin-bottom:1.6rem;}
+.cs-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(138,111,30,.3);transition:border-color .2s,color .2s;}
 .cs-p a:hover{border-color:var(--gold);}
 
 /* ── BLOCKQUOTE ── */
-.cs-quote{
-  margin:3rem 0;padding:2rem 2.2rem;
-  border-left:3px solid var(--gold);
-  background:rgba(138,111,30,.06);
-  border-radius:0 6px 6px 0;
-}
-.cs-quote p{
-  font-family:var(--serif);font-style:italic;
-  font-size:clamp(1.05rem,1.4vw,1.25rem);
-  line-height:1.7;color:var(--linen);margin-bottom:0;
-}
-.cs-quote cite{
-  display:block;margin-top:1rem;
-  font-style:normal;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);
-}
+.cs-quote{margin:2.5rem 0;padding:1.8rem 2rem;border-left:3px solid var(--gold);background:var(--gold-pale);border-radius:0 6px 6px 0;}
+.cs-quote p{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.3vw,1.2rem);line-height:1.72;color:var(--linen);margin:0;}
+.cs-quote cite{display:block;margin-top:.9rem;font-style:normal;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
 
-/* ── PULL STAT ── */
-.cs-stats{
-  display:grid;grid-template-columns:1fr 1fr;gap:1px;
-  background:var(--rule);margin:3rem 0;border-radius:6px;overflow:hidden;
-}
-.cs-stat{
-  background:var(--bg);padding:2rem 1.8rem;
-}
-.cs-stat-num{
-  font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);
-  font-weight:800;letter-spacing:-.04em;color:var(--gold);
-  line-height:1;margin-bottom:.5rem;
-}
-.cs-stat-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.6;}
+/* ── STATS ── */
+.cs-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);margin:2.5rem 0;border-radius:8px;overflow:hidden;}
+.cs-stat{background:var(--bg);padding:1.8rem 1.6rem;}
+.cs-stat-num{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:800;letter-spacing:-.04em;color:var(--gold);line-height:1;margin-bottom:.45rem;}
+.cs-stat-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.6;}
+@media(max-width:520px){.cs-stats{grid-template-columns:1fr;}}
 
-/* ── LIST ── */
-.cs-list{
-  list-style:none;margin:1.5rem 0 2rem;
-  display:flex;flex-direction:column;gap:.9rem;
-}
-.cs-list li{
-  display:flex;gap:1rem;align-items:baseline;
-  font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.8;
-  color:rgba(15,16,20,.8);
-}
-.cs-list li::before{
-  content:'';display:block;width:6px;height:6px;border-radius:50%;
-  background:var(--gold);flex-shrink:0;margin-top:.55em;
-}
-
-/* ── INSIGHTS GRID ── */
-.cs-insights{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:1px;background:var(--rule);border-radius:6px;overflow:hidden;
-  margin:2.5rem 0;
-}
-.cs-insight{
-  background:var(--bg);padding:1.8rem 1.5rem;
-}
-.cs-insight-icon{
-  width:32px;height:32px;margin-bottom:1rem;color:var(--gold);
-}
+/* ── INSIGHT CARDS ── */
+.cs-insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:1px;background:var(--rule);border-radius:8px;overflow:hidden;margin:2.2rem 0;}
+.cs-insight{background:var(--bg);padding:1.6rem 1.4rem;}
+.cs-insight-icon{width:28px;height:28px;margin-bottom:.9rem;color:var(--gold);}
 .cs-insight-icon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.cs-insight-title{
-  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--fg);margin-bottom:.5rem;font-weight:400;
-}
-.cs-insight-text{font-size:.85rem;line-height:1.7;color:var(--muted);}
+.cs-insight-title{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg);margin-bottom:.4rem;font-weight:400;}
+.cs-insight-text{font-size:.82rem;line-height:1.7;color:var(--muted);}
 
-/* ── INLINE LABEL ── */
-.cs-label{
-  display:inline-block;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
-  color:#fdfdfd;background:var(--gold);
-  padding:.25rem .75rem;border-radius:100px;margin-bottom:1.2rem;font-weight:400;
-}
+/* ── BULLET LIST ── */
+.cs-list{list-style:none;margin:1.2rem 0 1.8rem;display:flex;flex-direction:column;gap:.8rem;}
+.cs-list li{display:flex;gap:.9rem;align-items:baseline;font-size:clamp(.95rem,1.05vw,1.05rem);line-height:1.8;color:var(--body-text);}
+.cs-list li::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.6em;}
+
+/* ── IMAGE CONTAINERS ──
+   Simple translateY hover — no scale, no overflow:hidden, no border-radius on <img>.
+   This is the old layout approach: images display at their natural height (height:auto),
+   nothing is cropped, nothing blinks. ── */
+.image-container{margin:2.5rem 0;cursor:pointer;transition:transform .35s var(--ease);}
+.image-container:hover{transform:translateY(-5px);}
+.image-container img{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.09);}
+.image-caption{font-size:.75rem;color:var(--muted);margin-top:.9rem;font-style:italic;text-align:center;line-height:1.65;padding:0 .5rem;}
+.image-caption a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(138,111,30,.3);}
+.image-caption a:hover{border-color:var(--gold);}
 
 /* ── NEXT PROJECT ── */
-.cs-next{
-  margin-top:8rem;padding-top:3rem;
-  border-top:1px solid var(--rule);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;
-}
-
-.cs-next-tag{font-size:.63rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
-.cs-next-link{
-  font-family:var(--serif);
-  font-size:clamp(1.8rem,4vw,3.2rem);
-  font-weight:800;letter-spacing:-.03em;
-  color:var(--fg);text-decoration:none;
-  display:inline-flex;align-items:center;gap:1rem;
-  transition:gap .35s var(--ease),color .2s;
-}
+.cs-next{margin-top:clamp(5rem,8vw,8rem);padding-top:2.5rem;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
+.cs-next-tag{font-size:.61rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.cs-next-link{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,3rem);font-weight:800;letter-spacing:-.03em;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;transition:gap .35s var(--ease),color .2s;}
 .cs-next-link em{font-style:italic;font-weight:600;}
-.cs-next-link:hover{gap:1.8rem;color:var(--linen);}
-.cs-next-link svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .35s var(--ease);}
-.cs-next-link:hover svg{transform:translateX(6px);}
-.cs-back-top{
-  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;
-  display:flex;align-items:center;gap:.5rem;
-  transition:color .2s;
-}
+.cs-next-link:hover{gap:1.6rem;color:var(--linen);}
+.cs-next-link svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .35s var(--ease);}
+.cs-next-link:hover svg{transform:translateX(5px);}
+.cs-back-top{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.45rem;min-height:44px;transition:color .2s;}
 .cs-back-top:hover{color:var(--fg);}
 .cs-back-top svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s;}
 .cs-back-top:hover svg{transform:translateY(-3px);}
 
 /* ── FOOTER ── */
-footer{
-  padding:3rem 6vw;
-  border-top:1px solid var(--rule);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
-}
-.footer-name{font-family:var(--serif);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
-.footer-socials{display:flex;gap:1.5rem;align-items:center;}
-.footer-social{display:inline-flex;opacity:.6;transition:opacity .2s;}
+footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+.footer-name{font-family:var(--serif);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.footer-socials{display:flex;gap:1.4rem;align-items:center;}
+.footer-social{display:inline-flex;opacity:.6;transition:opacity .2s;min-width:44px;min-height:44px;align-items:center;justify-content:center;}
 .footer-social:hover{opacity:1;}
-.footer-social svg{width:16px;height:16px;fill:currentColor;}
+.footer-social svg{width:15px;height:15px;fill:currentColor;}
 
 /* ── LIGHTBOX ── */
-#lightbox{
-  display:none;position:fixed;inset:0;z-index:2000;
-  background:rgba(0,0,0,.93);
-  align-items:center;justify-content:center;padding:2rem;
-  cursor:zoom-out;
-}
+#lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.93);align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
 #lightbox.active{display:flex;}
-#lightbox-inner{
-  position:relative;max-width:90vw;max-height:90vh;
-  animation:lbIn .3s var(--ease);
-}
+#lightbox-inner{position:relative;max-width:90vw;max-height:90vh;animation:lbIn .3s var(--ease);}
 @keyframes lbIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 #lightbox-img{max-width:100%;max-height:80vh;object-fit:contain;display:block;border-radius:4px;}
-#lightbox-caption{color:var(--muted);font-size:.78rem;margin-top:1rem;text-align:center;line-height:1.6;max-width:60ch;}
-#lightbox-close{
-  position:absolute;top:-2.5rem;right:0;
-  background:none;border:none;color:var(--fg);font-size:1.8rem;cursor:pointer;
-  line-height:1;opacity:.7;transition:opacity .2s;padding:0;
-}
+#lightbox-caption{color:rgba(255,255,255,.65);font-size:.76rem;margin-top:.9rem;text-align:center;line-height:1.6;max-width:60ch;}
+#lightbox-close{position:absolute;top:-2.4rem;right:0;background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer;line-height:1;opacity:.65;transition:opacity .2s;padding:.5rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
 #lightbox-close:hover{opacity:1;}
 
 /* ── SECTION GUIDE ── */
-#guide-toggle{
-  position:fixed;left:1.6rem;bottom:6rem;z-index:410;
-  width:44px;height:44px;border-radius:50%;
-  background:var(--bg);border:1.5px solid rgba(15,16,20,.18);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 12px rgba(0,0,0,.08);
-  transition:background .2s,border-color .2s,box-shadow .2s;
-}
-#guide-toggle:hover{background:#f0ece4;border-color:rgba(15,16,20,.35);box-shadow:0 4px 20px rgba(0,0,0,.12);}
-#guide-toggle svg{width:16px;height:16px;stroke:var(--fg);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease);}
+#guide-toggle{position:fixed;left:1.4rem;bottom:5.5rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--bg);border:1.5px solid rgba(15,16,20,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.07);transition:background .2s,border-color .2s;}
+#guide-toggle:hover{background:#f0ece4;border-color:rgba(15,16,20,.3);}
+#guide-toggle svg{width:15px;height:15px;stroke:var(--fg);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease);}
 #guide-toggle[aria-expanded="true"] svg{transform:rotate(45deg);}
-#section-guide{
-  position:fixed;left:1.6rem;bottom:calc(6rem + 52px);z-index:409;
-  background:var(--bg);border:1.5px solid rgba(15,16,20,.1);border-radius:10px;
-  box-shadow:0 8px 32px rgba(0,0,0,.1);padding:.5rem 0;min-width:190px;
-  opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom left;
-  pointer-events:none;transition:opacity .22s var(--ease),transform .25s var(--ease);
-}
+#section-guide{position:fixed;left:1.4rem;bottom:calc(5.5rem + 52px);z-index:409;background:var(--bg);border:1.5px solid rgba(15,16,20,.09);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.09);padding:.4rem 0;min-width:186px;opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom left;pointer-events:none;transition:opacity .22s var(--ease),transform .25s var(--ease);}
 #section-guide.open{opacity:1;transform:none;pointer-events:auto;}
-.sg-item{
-  display:flex;align-items:center;gap:.9rem;padding:.55rem 1.1rem;
-  cursor:pointer;border:none;background:none;width:100%;text-align:left;
-  font-family:var(--sans);transition:background .15s;min-height:44px;color:var(--muted);
-}
-.sg-item:hover{background:rgba(15,16,20,.04);}
+.sg-item{display:flex;align-items:center;gap:.85rem;padding:.5rem 1rem;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--sans);transition:background .15s;min-height:44px;color:var(--muted);}
+.sg-item:hover{background:rgba(15,16,20,.035);}
 .sg-item.active{color:var(--fg);}
-.sg-dot{width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s,transform .2s;}
-.sg-item.active .sg-dot{background:var(--gold);border-color:var(--gold);transform:scale(1.3);}
-.sg-num{font-size:.62rem;letter-spacing:.18em;font-weight:500;flex-shrink:0;width:1.4rem;}
-.sg-label{font-size:.75rem;letter-spacing:.06em;font-weight:400;line-height:1.3;}
+.sg-dot{width:6px;height:6px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s,transform .2s;}
+.sg-item.active .sg-dot{background:var(--gold);border-color:var(--gold);transform:scale(1.25);}
+.sg-num{font-size:.6rem;letter-spacing:.18em;font-weight:500;flex-shrink:0;width:1.3rem;}
+.sg-label{font-size:.73rem;letter-spacing:.05em;font-weight:400;line-height:1.3;}
 
 /* ── BACK TO TOP ── */
-#back-to-top{
-  position:fixed;right:2rem;bottom:2rem;z-index:410;
-  width:44px;height:44px;border-radius:50%;
-  background:var(--fg);color:var(--bg);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(0,0,0,.18);
-  opacity:0;transform:translateY(10px);
-  transition:opacity .3s var(--ease),transform .3s var(--ease),background .2s;
-  pointer-events:none;
-}
+#back-to-top{position:fixed;right:1.8rem;bottom:1.8rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.16);opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),background .2s;pointer-events:none;}
 #back-to-top.visible{opacity:1;transform:none;pointer-events:auto;}
 #back-to-top:hover{background:var(--gold);}
-#back-to-top svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+#back-to-top svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
 
 /* ── SCROLL REVEAL ── */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .8s var(--ease);}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s var(--ease),transform .75s var(--ease);}
 .reveal.visible{opacity:1;transform:none;}
+
+/* ── REDUCED MOTION ── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+  .cs-hero-img-wrap{opacity:1;transform:translateY(-50%) rotate(2.5deg)!important;}
+  .cs-eyebrow,.cs-title,.cs-subtitle,.cs-meta-row,.cs-scroll-hint{opacity:1;transform:none!important;}
+  .reveal{opacity:1;transform:none!important;}
+}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  nav#site-nav{padding:1.3rem 1.4rem;}
-  .nav-links{gap:1.2rem;}
-  .cs-hero{padding:7rem 1.4rem 3.5rem;flex-direction:column;justify-content:flex-start;gap:2rem;}
-  .cs-hero-img-wrap{
-    position:relative;right:auto;top:auto;
-    transform:none!important;animation:none;opacity:1;
-    width:100%;filter:drop-shadow(0 12px 24px rgba(0,0,0,.14));
-  }
-  .cs-hero-img-wrap img{aspect-ratio:16/9;}
-  .cs-hero-content{max-width:100%;padding-bottom:3rem;}
-  .cs-body{padding:4rem 1.4rem 5rem;}
-  .cs-stats{grid-template-columns:1fr;}
-  .cs-img-grid.cols-2{grid-template-columns:1fr;}
-  .cs-section-num{font-size:3.5rem;}
+  nav#site-nav{padding:1.1rem 1.4rem;}
+  .nav-links{gap:1rem;}
+  .cs-hero{padding:6rem 1.4rem 3rem;flex-direction:column;justify-content:flex-start;min-height:auto;gap:2rem;}
+  .cs-hero-img-wrap{position:relative;right:auto;top:auto;transform:none!important;animation:none!important;opacity:1;width:100%;filter:drop-shadow(0 10px 22px rgba(0,0,0,.13));}
+  .cs-hero-img-wrap img{aspect-ratio:16/9;border-radius:6px;}
+  .cs-hero-content{max-width:100%;}
+  .cs-title{font-size:clamp(3rem,12vw,4.5rem);}
+  .cs-scroll-hint{display:none;}
+  .cs-body{padding:3rem 1.4rem 4.5rem;}
+  .cs-section-header{gap:1.2rem;}
+  .cs-section-num{font-size:3rem;}
   .cs-next{flex-direction:column;align-items:flex-start;}
   footer{flex-direction:column;align-items:flex-start;}
   #guide-toggle,#section-guide{display:none;}
+}
+@media(max-width:480px){
+  .nav-links li:not(:last-child):not(:nth-last-child(2)){display:none;}
+  .cs-meta-row{gap:1.2rem;}
 }
 </style>
 </head>
 <body id="top">
 
-<div id="progress"></div>
+<div id="progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div id="email-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <!-- NAV -->
 <nav id="site-nav" aria-label="Site navigation">
-  <a class="nav-logo" href="index.html"><img src="img/logoblack.png" alt="SM logo" class="nav-logo-img">Sara McKee</a>
+  <a class="nav-logo" href="index.html">
+    <img src="img/logoblack.png" alt="" class="nav-logo-img" aria-hidden="true">
+    Sara McKee
+  </a>
   <ul class="nav-links" role="list">
     <li><a href="about.html">About</a></li>
-    <li><a href="resume.pdf" target="_blank" rel="noopener" aria-label="Download Résumé">Résumé</a></li>
+    <li><a href="resume.pdf" target="_blank" rel="noopener" aria-label="Download Résumé (PDF, opens in new tab)">Résumé</a></li>
     <li>
-      <button class="email-btn" id="email-btn" aria-label="Contact — click to copy email">
-        <span class="email-face-front">Contact</span>
-        <span class="email-face-back">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Copied!
+      <button class="email-btn" id="email-btn" aria-label="Copy email address">
+        <span class="email-face-front" aria-hidden="true">Contact</span>
+        <span class="email-face-back" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Copied!
         </span>
       </button>
     </li>
     <li aria-hidden="true"><span class="nav-sep"></span></li>
     <li>
-      <a class="nav-social" href="https://www.linkedin.com/in/sara-mckee-a0807945" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <a class="nav-social" href="https://www.linkedin.com/in/sara-mckee-a0807945" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in new tab)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
     </li>
     <li>
-      <a class="nav-social" href="https://www.instagram.com/smcre8tive" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <a class="nav-social" href="https://www.instagram.com/smcre8tive" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile (opens in new tab)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
     </li>
   </ul>
 </nav>
 
 <!-- SECTION GUIDE -->
-<nav id="section-guide" aria-label="Jump to section" role="navigation">
+<nav id="section-guide" aria-label="Jump to section">
   <button class="sg-item active" data-section="0"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">00</span><span class="sg-label">Overview</span></button>
   <button class="sg-item" data-section="1"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">01</span><span class="sg-label">Challenge</span></button>
   <button class="sg-item" data-section="2"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">02</span><span class="sg-label">Research</span></button>
@@ -579,8 +259,6 @@ footer{
 <button id="guide-toggle" aria-expanded="false" aria-controls="section-guide" aria-label="Toggle section guide">
   <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
 </button>
-
-<!-- BACK TO TOP -->
 <button id="back-to-top" aria-label="Back to top of page">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
@@ -588,336 +266,220 @@ footer{
 <main id="main-content">
 
   <!-- ══ HERO ══ -->
-  <section class="cs-hero" data-section="0">
-
-    <!-- Floating card image — right side, mirrors index/about -->
+  <section class="cs-hero" data-section="0" aria-labelledby="cs-title">
     <div class="cs-hero-img-wrap">
-      <img src="img/includesign/hero.jpeg"
-           alt="Three people including one in a wheelchair viewing the IncluDesign projector game">
+      <img src="img/includesign/hero.jpeg" alt="Three people, including one in a wheelchair, playing the IncluDesign projector game in a university space" loading="eager">
     </div>
-
     <div class="cs-hero-content">
       <p class="cs-eyebrow">UX Design — Case Study 01</p>
-      <h1 class="cs-title">Inclu<em>Design</em></h1>
-      <p class="cs-subtitle">A multi-product ecosystem that builds empathy through an immersive visual-impairment simulation projector game — designed for Gen-Z design students.</p>
-
+      <h1 class="cs-title" id="cs-title">Inclu<em>Design</em></h1>
+      <p class="cs-subtitle">An immersive projector game that builds empathy for visual impairment through gameplay — designed for Gen-Z design students.</p>
       <div class="cs-meta-row">
-        <div class="cs-meta-item">
-          <p class="cs-meta-label">Role</p>
-          <p class="cs-meta-value">Product Designer</p>
-        </div>
-        <div class="cs-meta-item">
-          <p class="cs-meta-label">Team</p>
-          <p class="cs-meta-value">3 Designers</p>
-        </div>
-        <div class="cs-meta-item">
-          <p class="cs-meta-label">Duration</p>
-          <p class="cs-meta-value">3 Weeks</p>
-        </div>
-        <div class="cs-meta-item">
-          <p class="cs-meta-label">Tools</p>
-          <p class="cs-meta-value">Figma · FigJam · Canva</p>
-        </div>
-        <div class="cs-meta-item">
-          <p class="cs-meta-label">Context</p>
-          <p class="cs-meta-value">SCAD Graduate — 2024</p>
-        </div>
+        <div><p class="cs-meta-label">Role</p><p class="cs-meta-value">Product Designer</p></div>
+        <div><p class="cs-meta-label">Team</p><p class="cs-meta-value">3 Designers</p></div>
+        <div><p class="cs-meta-label">Duration</p><p class="cs-meta-value">3 Weeks</p></div>
+        <div><p class="cs-meta-label">Tools</p><p class="cs-meta-value">Figma · FigJam · Canva</p></div>
+        <div><p class="cs-meta-label">Context</p><p class="cs-meta-value">SCAD Graduate — 2024</p></div>
       </div>
     </div>
-
-    <div class="cs-scroll-hint" aria-hidden="true">
-      <span class="cs-scroll-line"></span>Scroll
-    </div>
+    <div class="cs-scroll-hint" aria-hidden="true"><span class="cs-scroll-line"></span>Scroll</div>
   </section>
-
-
 
   <!-- ══ BODY ══ -->
   <div class="cs-body">
 
-    <!-- ── 01 CHALLENGE ── -->
-    <section class="cs-section reveal" id="sec-0" data-section="1">
+    <!-- 01 CHALLENGE -->
+    <section class="cs-section reveal" id="sec-0" data-section="1" aria-labelledby="sec-0-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">01</div>
         <div class="cs-section-meta">
           <span class="cs-section-tag">Background</span>
-          <h2 class="cs-section-title">The <em>Challenge</em></h2>
+          <h2 class="cs-section-title" id="sec-0-title">The <em>Challenge</em></h2>
         </div>
       </div>
-
-      <p class="cs-p">During a SCAD graduate-level class in 2024, I had the opportunity to design an immersive environment product with two other graduate teammates. We chose to focus on accessible education design — a topic we all cared about deeply.</p>
-      <p class="cs-p">Gen-Z design students value accessible design, but lack engaging ways to learn how to apply it effectively in their work. Theory alone wasn't cutting it.</p>
-
+      <p class="cs-p">In a 2024 SCAD graduate studio, my two teammates and I designed an immersive environment product around accessible education. Gen-Z design students value inclusion but lack hands-on ways to practice it.</p>
       <div class="cs-quote">
         <p>How might we help Gen-Z design students learn accessible design in engaging ways using immersive environment technology?</p>
       </div>
-
       <div class="cs-stats">
-        <div class="cs-stat">
-          <div class="cs-stat-num">90%</div>
-          <div class="cs-stat-label">of global corporations report commitment to diversity & inclusion — yet only 4% have a disability inclusion focus</div>
-        </div>
-        <div class="cs-stat">
-          <div class="cs-stat-num">62%</div>
-          <div class="cs-stat-label">of Gen-Z consumers prefer brands that care about social issues, including inclusion & diversity</div>
-        </div>
+        <div class="cs-stat"><div class="cs-stat-num">90%</div><div class="cs-stat-label">of global corporations report D&I commitment — yet only 4% include a disability focus</div></div>
+        <div class="cs-stat"><div class="cs-stat-num">62%</div><div class="cs-stat-label">of Gen-Z consumers prefer brands that actively champion inclusion & diversity</div></div>
       </div>
     </section>
 
-    <!-- ── 02 RESEARCH ── -->
-    <section class="cs-section reveal" id="sec-1" data-section="2">
+    <!-- 02 RESEARCH -->
+    <section class="cs-section reveal" id="sec-1" data-section="2" aria-labelledby="sec-1-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">02</div>
         <div class="cs-section-meta">
           <span class="cs-section-tag">Discovery</span>
-          <h2 class="cs-section-title">Research &amp; <em>Insights</em></h2>
+          <h2 class="cs-section-title" id="sec-1-title">Research &amp; <em>Insights</em></h2>
         </div>
       </div>
+      <p class="cs-p">We used secondary research in FigJam to frame the problem space, adopting <a href="https://inclusive.microsoft.design/" target="_blank" rel="noopener">Microsoft's Inclusive Design</a> framework. A student survey and interview with SCAD's Inclusion Director surfaced four core design constraints.</p>
 
-      <p class="cs-p">To clarify user needs, inclusive design definitions, and market context, we used Figma and FigJam to collect secondary research and market data. After using <a href="https://inclusive.microsoft.design/" target="_blank" rel="noopener">Microsoft's Inclusive Design</a> kit on a previous project, I suggested we adopt its framework and persona spectrum — my teammates agreed.</p>
-
-      <div class="cs-img-breakout reveal">
-        <img src="img/includesign/microsoftinclusivedesignprin.jpeg"
-             alt="Microsoft Inclusive Design Principles diagram"
-             onclick="openLightbox(this,'Microsoft Inclusive Design — methodology born out of digital environments that enables and draws on the full range of human diversity.')">
-        <p class="cs-img-caption">Microsoft Inclusive Design's methodology is born out of digital environments and draws on the full range of human diversity — including and learning from people with a range of perspectives.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/microsoftinclusivedesignprin.jpeg" alt="Microsoft Inclusive Design Principles diagram showing the methodology's core tenets" loading="lazy">
+        <div class="image-caption">Microsoft Inclusive Design — a methodology born from digital environments, drawing on the full range of human diversity.</div>
       </div>
 
-      <p class="cs-p">We conducted primary research with SCAD design students using a Google survey and interviewed Walker, SCAD's Inclusion Director, to surface pain points that would guide our direction.</p>
-
-      <div class="cs-img-contained reveal">
-        <img src="img/includesign/surveypp.jpeg"
-             alt="Pie chart showing student pain points: 44.4% design knowledge, 22.2% empathy, 22.2% technology, 11.1% access"
-             onclick="openLightbox(this,'44% of design students rated their inclusive design knowledge at 2/5 — emphasizing a gap in practical application.')">
-        <p class="cs-img-caption">44% of design students rated their inclusive and accessibility design knowledge at a 2/5, emphasizing a gap in practical application.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/surveypp.jpeg" alt="Pie chart: 44.4% design knowledge gap, 22.2% empathy, 22.2% technology, 11.1% limited access" loading="lazy">
+        <div class="image-caption">44% of students self-rated inclusive design knowledge at 2/5 — revealing a clear gap in practical application.</div>
       </div>
 
       <div class="cs-quote">
-        <p>"When I think of inclusion, I think of family. How do we ensure every family member is involved in the process of fulfilling or engaging in an action in the most purposeful way to achieve our goal?"</p>
+        <p>"When I think of inclusion, I think of family — ensuring every member engages in the most purposeful way to achieve our goal."</p>
         <cite>— Director Walker, SCAD Inclusion Director</cite>
       </div>
 
-      <p class="cs-p">Our research surfaced four core user needs — each one became a design constraint:</p>
-
       <div class="cs-insights">
-        <div class="cs-insight">
-          <div class="cs-insight-icon">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </div>
-          <div class="cs-insight-title">Empathy-Building</div>
-          <div class="cs-insight-text">Students need immersive ways to understand accessibility challenges firsthand.</div>
-        </div>
-        <div class="cs-insight">
-          <div class="cs-insight-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-          </div>
-          <div class="cs-insight-title">Practical Application</div>
-          <div class="cs-insight-text">There's a gap between theory and hands-on inclusive design practice.</div>
-        </div>
-        <div class="cs-insight">
-          <div class="cs-insight-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          </div>
-          <div class="cs-insight-title">Accessible Tools</div>
-          <div class="cs-insight-text">Learners need easy-to-use, financially accessible resources to apply inclusive principles.</div>
-        </div>
-        <div class="cs-insight">
-          <div class="cs-insight-icon">
-            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </div>
-          <div class="cs-insight-title">Measurable Outcomes</div>
-          <div class="cs-insight-text">Educators want ways to track progress in accessibility learning.</div>
-        </div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cs-insight-title">Empathy-Building</div><div class="cs-insight-text">Students need immersive, firsthand ways to understand accessibility challenges.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div><div class="cs-insight-title">Practical Application</div><div class="cs-insight-text">A gap exists between inclusive design theory and hands-on practice.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><div class="cs-insight-title">Accessible Tools</div><div class="cs-insight-text">Learners need financially accessible resources to apply inclusive principles.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="cs-insight-title">Measurable Outcomes</div><div class="cs-insight-text">Educators need visibility into student progress on accessibility topics.</div></div>
       </div>
     </section>
 
-    <!-- ── 03 IDEATION ── -->
-    <section class="cs-section reveal" id="sec-2" data-section="3">
+    <!-- 03 IDEATION -->
+    <section class="cs-section reveal" id="sec-2" data-section="3" aria-labelledby="sec-2-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">03</div>
         <div class="cs-section-meta">
           <span class="cs-section-tag">Process</span>
-          <h2 class="cs-section-title">Ideation &amp; <em>Iteration</em></h2>
+          <h2 class="cs-section-title" id="sec-2-title">Ideation &amp; <em>Iteration</em></h2>
         </div>
       </div>
+      <p class="cs-p">Low-fidelity sketches and wireframes drove multiple iterations. We pivoted from a web app with AR scanner to an interactive projector game after user feedback called for a more immersive, shared experience. The web app was repositioned as a controller and accessibility support tool.</p>
 
-      <p class="cs-p">Low-fidelity sketches and wireframes helped us ideate through multiple versions of our solution. We explored a responsive web app with an AR environment scanner, then pivoted to an interactive projector game when user feedback highlighted the need for a more immersive experience.</p>
-
-      <div class="cs-img-full reveal">
-        <img src="img/includesign/sketches.jpeg"
-             alt="Initial concept sketches including a responsive web-app and immersive projector game"
-             onclick="openLightbox(this,'Our initial sketches included ideas for a responsive web-app learning game with AR environment scanner and an immersive projector game.')">
-        <p class="cs-img-caption">Initial sketches explored a responsive web-app with AR scanner alongside an immersive projector game concept.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/sketches.jpeg" alt="Early concept sketches — responsive web-app with AR scanner and immersive projector game" loading="lazy">
+        <div class="image-caption">Initial sketches: web-app with AR scanner (left) vs. immersive projector game (right).</div>
       </div>
 
-      <div class="cs-img-breakout reveal">
-        <img src="img/includesign/ecosystem.jpeg"
-             alt="Ecosystem diagram showing how the web-app and projector game fit together"
-             onclick="openLightbox(this,'We integrated the web-app into an inclusive design ecosystem where the app would act as a support tool.')">
-        <p class="cs-img-caption">After the pivot, we integrated the web-app into an ecosystem — it became a controller and accessibility support tool for the projector experience.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/ecosystem.jpeg" alt="Ecosystem diagram showing web-app and projector game working together" loading="lazy">
+        <div class="image-caption">Post-pivot ecosystem — the web-app became a controller and accessibility layer for the projector experience.</div>
       </div>
 
-      <div class="cs-img-viewport reveal">
-        <img src="img/includesign/userflow.jpeg"
-             alt="User flow diagram for the projector game"
-             onclick="openLightbox(this,'This user-flow identifies the parts of our game and how the user would transition from one screen to the next.')">
-        <p class="cs-img-caption">User flow mapping the game sequence and how players transition between screens.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/userflow.jpeg" alt="User flow diagram showing game screens and transitions" loading="lazy">
+        <div class="image-caption">User flow mapping the game sequence and screen transitions.</div>
       </div>
 
-      <div class="cs-img-breakout reveal">
-        <img src="img/includesign/midfi.jpeg"
-             alt="Six mid-fidelity wireframe screens showing game interface"
-             onclick="openLightbox(this,'Mid-fidelity wireframes built using the Figma Apple Oculus design system as a base for the projector simulation prototype.')">
-        <p class="cs-img-caption">Mid-fidelity wireframes using Figma's Apple Oculus design system as a foundation — adapted for the large-format projector context.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/midfi.jpeg" alt="Six mid-fidelity wireframe screens of the projector game interface" loading="lazy">
+        <div class="image-caption">Mid-fidelity wireframes built on Figma's Apple Oculus design system, adapted for large-format projection.</div>
       </div>
     </section>
 
-    <!-- ── 04 VISUAL DESIGN ── -->
-    <section class="cs-section reveal" id="sec-3" data-section="4">
+    <!-- 04 VISUAL DESIGN -->
+    <section class="cs-section reveal" id="sec-3" data-section="4" aria-labelledby="sec-3-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">04</div>
         <div class="cs-section-meta">
           <span class="cs-section-tag">High Fidelity</span>
-          <h2 class="cs-section-title">Visual <em>Design</em></h2>
+          <h2 class="cs-section-title" id="sec-3-title">Visual <em>Design</em></h2>
         </div>
       </div>
+      <p class="cs-p">I owned the login sequence, the spinner mechanic, and the simulation quiz — while teammates handled the design system and remaining game screens.</p>
 
-      <p class="cs-p">We divided the high-fidelity design work across the team. I focused on the first two sections of the game — the login sequence and the spinner — while my teammates handled the design system and final game screens.</p>
-
-      <span class="cs-label">Login & Intro Sequence</span>
-      <div class="cs-img-breakout reveal">
-        <img src="img/includesign/login.jpg"
-             alt="Login screens showing projector interface with web-app mobile support"
-             onclick="openLightbox(this,'Intro screen with login sequence, plus the web-app as a controller and accessibility support tool shown as a hand-held mobile screen.')">
-        <p class="cs-img-caption">Inspired by large-format interface design, I created an intro and login sequence. I identified the opportunity to use the web-app as a controller — adding a hand holding a matching mobile screen to each prototype screen to simulate the full ecosystem.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/login.jpg" alt="Login screens showing projector interface alongside matching web-app mobile controller" loading="lazy">
+        <div class="image-caption">Login &amp; intro sequence. A hand holding a matching mobile screen simulates the full ecosystem in context.</div>
       </div>
 
-      <span class="cs-label">Spinner — Game Mechanic</span>
-      <div class="cs-img-breakout reveal">
-        <img src="img/includesign/spinner.jpg"
-             alt="Seven projector screens showing visual impairment simulation spinner with different impairments"
-             onclick="openLightbox(this,'Simulation game spinner showing glaucoma, color blindness, macular degeneration, blindness, and cataracts.')">
-        <p class="cs-img-caption">To increase engagement, I used Figma's prototype animation features to bring the experience alive with a simulation spinner — players spin to land on a visual impairment type before the quiz begins.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/spinner.jpg" alt="Seven projector screens showing a spinner landing on different visual impairments including glaucoma, color blindness, and cataracts" loading="lazy">
+        <div class="image-caption">Simulation spinner — players land on a visual impairment type before the quiz begins, built with Figma prototype animation.</div>
       </div>
 
-      <span class="cs-label">Visual Impairment Simulation Quiz</span>
-      <div class="cs-img-breakout reveal">
-        <img src="img/includesign/visualimparementsim.jpg"
-             alt="Four quiz screens showing blurred city skylines representing different visual impairments with answer choices"
-             onclick="openLightbox(this,'Visual impairment simulation quiz using blurred cityscapes — players identify the correct impairment type.')">
-        <p class="cs-img-caption">Using imagery from the <a href="https://sightcentertoledo.org/eyeconditions/vision-impairment-simulator/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,173,87,.35)">Sight Center of Northwest Ohio</a>, I prototyped a visual impairment simulation quiz. Future goals include adding immersive video and sound.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/visualimparementsim.jpg" alt="Four quiz screens showing blurred city skylines representing different visual impairments with multiple-choice answers" loading="lazy">
+        <div class="image-caption">Visual impairment simulation quiz using imagery from the <a href="https://sightcentertoledo.org/eyeconditions/vision-impairment-simulator/" target="_blank" rel="noopener">Sight Center of Northwest Ohio</a>. Future iterations would add immersive video and sound.</div>
       </div>
     </section>
 
-    <!-- ── 05 PROTOTYPING ── -->
-    <section class="cs-section reveal" id="sec-4" data-section="5">
+    <!-- 05 PROTOTYPING -->
+    <section class="cs-section reveal" id="sec-4" data-section="5" aria-labelledby="sec-4-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">05</div>
         <div class="cs-section-meta">
           <span class="cs-section-tag">Testing</span>
-          <h2 class="cs-section-title">Prototyping &amp; <em>Testing</em></h2>
+          <h2 class="cs-section-title" id="sec-4-title">Prototyping &amp; <em>Testing</em></h2>
         </div>
       </div>
+      <p class="cs-p">We merged our designs into a single high-fidelity Figma prototype and presented to SCAD students and faculty. Feedback was positive on engagement but flagged two gaps: the ecosystem needed clearer explanation, and simulations needed more scenario diversity.</p>
 
-      <p class="cs-p">We combined our designs into a high-fidelity interactive Figma prototype to simulate the projector game. We used Canva to present to SCAD design students and faculty for usability feedback.</p>
-
-      <div class="cs-img-full reveal">
-        <img src="img/includesign/render1.jpeg"
-             alt="Architectural rendering of three people using the projector game in a modern university space"
-             onclick="openLightbox(this,'Architectural rendering created in AutoCAD showing the projector game used by students in a university environment.')">
-        <p class="cs-img-caption">AutoCAD architectural rendering by a teammate — showing the projector game in a real university environment, with diverse users including someone in a wheelchair.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/render1.jpeg" alt="Architectural rendering showing three students, including one in a wheelchair, using the IncluDesign projector game" loading="lazy">
+        <div class="image-caption">AutoCAD architectural rendering by a teammate — the projector game contextualised in a real university space with diverse users.</div>
       </div>
 
-      <div class="cs-img-contained reveal">
-        <img src="img/includesign/presentation.jpg"
-             alt="Nine presentation slides from the IncluDesign case study"
-             onclick="openLightbox(this,'Presentation slides representing work by the full team, including the design system and immersive vision simulation game.')">
-        <p class="cs-img-caption">Slides from our class presentation — representing the full team's work across research, design system, and the projector game prototype.</p>
+      <div class="image-container reveal" onclick="openLightbox(this)">
+        <img src="img/includesign/presentation.jpg" alt="Nine presentation slides covering research, design system, and the projector game prototype" loading="lazy">
+        <div class="image-caption">Final class presentation — research, design system, and projector game prototype.</div>
       </div>
 
-      <p class="cs-p">Class feedback highlighted the engaging nature of the game but surfaced areas for improvement — particularly around explaining the ecosystem and adding more diverse simulation scenarios. We ideated four future goals:</p>
-
+      <p class="cs-p">Four areas identified for future development:</p>
       <ul class="cs-list">
-        <li>Add immersive video and sound to enhance the simulation experience.</li>
-        <li>Incorporate a wider range of visual impairments and scenarios.</li>
-        <li>Test the prototype with diverse users across the accessibility needs spectrum.</li>
-        <li>Source an interactive projector for real-world game design testing.</li>
+        <li>Add immersive video and spatial audio to deepen the simulation.</li>
+        <li>Expand to a wider range of visual impairments and real-world scenarios.</li>
+        <li>Test with diverse users across the accessibility needs spectrum.</li>
+        <li>Source a physical interactive projector for real-world playtesting.</li>
       </ul>
     </section>
 
-    <!-- ── 06 RESULTS ── -->
-    <section class="cs-section reveal" id="sec-5" data-section="6">
+    <!-- 06 RESULTS -->
+    <section class="cs-section reveal" id="sec-5" data-section="6" aria-labelledby="sec-5-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">06</div>
         <div class="cs-section-meta">
           <span class="cs-section-tag">Outcomes</span>
-          <h2 class="cs-section-title">Results &amp; <em>Impact</em></h2>
+          <h2 class="cs-section-title" id="sec-5-title">Results &amp; <em>Impact</em></h2>
         </div>
       </div>
-
-      <p class="cs-p">Completed in a three-week academic quarter, IncluDesign was well-received by peers and faculty alike. The projector game concept demonstrated a novel approach to teaching inclusive design principles through immersive technology.</p>
-
+      <p class="cs-p">Completed in three weeks, IncluDesign was well-received by peers and faculty. The projector game demonstrated a novel approach to inclusive design education — and deepened my practice in remote collaboration, interaction animation, and accessible prototyping.</p>
       <div class="cs-insights">
-        <div class="cs-insight">
-          <div class="cs-insight-icon">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </div>
-          <div class="cs-insight-title">Empathy through Experience</div>
-          <div class="cs-insight-text">The immersive game effectively fostered genuine empathy among design students.</div>
-        </div>
-        <div class="cs-insight">
-          <div class="cs-insight-icon">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <div class="cs-insight-title">Engagement in Learning</div>
-          <div class="cs-insight-text">Gamification elements increased student motivation to explore accessibility.</div>
-        </div>
-        <div class="cs-insight">
-          <div class="cs-insight-icon">
-            <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-          </div>
-          <div class="cs-insight-title">Future Potential</div>
-          <div class="cs-insight-text">Highlighted avenues for immersive tech in design education — worthy of further development.</div>
-        </div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cs-insight-title">Empathy through Experience</div><div class="cs-insight-text">The immersive game fostered genuine empathy among design students.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="cs-insight-title">Engagement in Learning</div><div class="cs-insight-text">Gamification increased student motivation to explore accessibility.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div><div class="cs-insight-title">Future Potential</div><div class="cs-insight-text">Highlighted immersive tech as a compelling vehicle for design education.</div></div>
       </div>
-
-      <p class="cs-p">Personally, this project deepened my understanding of remote collaboration, inclusive design principles, interactive projector affordances, and creative prototype animation. I came away with skills and perspectives I bring to every project since.</p>
     </section>
 
-    <!-- ── NEXT PROJECT ── -->
+    <!-- NEXT PROJECT -->
     <div class="cs-next reveal">
-      <div class="cs-next-left">
+      <div>
         <p class="cs-next-tag">Next Project</p>
         <a href="procrastigreat.html" class="cs-next-link">
           ProcrastiGreat <em>Planning App</em>
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
       <a href="#top" class="cs-back-top">
-        <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         Back to top
       </a>
     </div>
 
   </div><!-- /cs-body -->
-
 </main>
 
 <!-- FOOTER -->
 <footer>
   <span class="footer-name">Sara McKee — Digital Designer</span>
   <div class="footer-socials">
-    <a class="footer-social" href="https://www.linkedin.com/in/sara-mckee-a0807945" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    <a class="footer-social" href="https://www.linkedin.com/in/sara-mckee-a0807945" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in new tab)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
     </a>
-    <a class="footer-social" href="https://www.instagram.com/smcre8tive" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    <a class="footer-social" href="https://www.instagram.com/smcre8tive" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile (opens in new tab)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </a>
   </div>
 </footer>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-describedby="lightbox-caption">
   <div id="lightbox-inner">
     <button id="lightbox-close" aria-label="Close image viewer">&times;</button>
     <img id="lightbox-img" src="" alt="">
@@ -926,63 +488,63 @@ footer{
 </div>
 
 <script>
-/* ── EMAIL COPY ── */
+/* EMAIL */
 const emailBtn = document.getElementById('email-btn');
 const emailStatus = document.getElementById('email-status');
 emailBtn.addEventListener('click', () => {
   navigator.clipboard.writeText('saramckeecre8tive@gmail.com').then(() => {
     emailBtn.classList.add('flipped');
-    emailStatus.textContent = 'Email copied to clipboard';
+    emailStatus.textContent = 'Email address copied to clipboard';
     setTimeout(() => { emailBtn.classList.remove('flipped'); emailStatus.textContent = ''; }, 2500);
+  }).catch(() => {
+    emailStatus.textContent = 'Email: saramckeecre8tive@gmail.com';
+    setTimeout(() => { emailStatus.textContent = ''; }, 3000);
   });
 });
 
-/* ── NAV SCROLL EFFECT ── */
+/* NAV + PROGRESS */
 const siteNav = document.getElementById('site-nav');
-window.addEventListener('scroll', () => {
+const progressBar = document.getElementById('progress');
+function onScroll() {
   siteNav.classList.toggle('scrolled', window.scrollY > 60);
-  updateProgress(); updateGuide(); updateBackToTop();
-}, { passive: true });
-
-/* ── READING PROGRESS ── */
-function updateProgress() {
   const docH = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docH > 0 ? (window.scrollY / docH) * 100 : 0;
-  document.getElementById('progress').style.width = pct + '%';
+  const pct = docH > 0 ? Math.round((window.scrollY / docH) * 100) : 0;
+  progressBar.style.width = pct + '%';
+  progressBar.setAttribute('aria-valuenow', pct);
+  updateGuide();
+  updateBackToTop();
 }
+window.addEventListener('scroll', onScroll, { passive: true });
 
-/* ── SECTION GUIDE ── */
+/* SECTION GUIDE */
 const guideToggle = document.getElementById('guide-toggle');
 const sectionGuide = document.getElementById('section-guide');
 const sgItems = document.querySelectorAll('.sg-item');
+const sections = document.querySelectorAll('[data-section]');
 let guideOpen = false;
-guideToggle.addEventListener('click', (e) => {
+guideToggle.addEventListener('click', e => {
   e.stopPropagation();
   guideOpen = !guideOpen;
   sectionGuide.classList.toggle('open', guideOpen);
-  guideToggle.setAttribute('aria-expanded', guideOpen ? 'true' : 'false');
-  if (guideOpen) setTimeout(() => sgItems[0] && sgItems[0].focus(), 50);
+  guideToggle.setAttribute('aria-expanded', String(guideOpen));
+  if (guideOpen) setTimeout(() => sgItems[0]?.focus(), 50);
 });
 document.addEventListener('click', e => {
   if (guideOpen && !sectionGuide.contains(e.target) && e.target !== guideToggle) {
-    guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded', 'false');
+    guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded','false');
   }
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && guideOpen) {
-    guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded', 'false'); guideToggle.focus();
+    guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded','false'); guideToggle.focus();
   }
+  if (e.key === 'Escape') closeLightbox();
 });
-const sections = document.querySelectorAll('[data-section]');
 sgItems.forEach(item => {
   item.addEventListener('click', () => {
     const target = document.querySelector(`[data-section="${item.dataset.section}"]`);
-    if (target) {
-      const navH = document.getElementById('site-nav').offsetHeight;
-      const top = target.getBoundingClientRect().top + window.scrollY - navH;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-    guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded', 'false');
+    if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - siteNav.offsetHeight, behavior: 'smooth' });
+    guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded','false');
   });
 });
 function updateGuide() {
@@ -991,54 +553,46 @@ function updateGuide() {
   sgItems.forEach(item => item.classList.toggle('active', parseInt(item.dataset.section) === cur));
 }
 
-/* ── SCROLL REVEAL ── */
+/* SCROLL REVEAL */
 const reveals = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window) {
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-  }, { threshold: 0.07, rootMargin: '0px 0px -50px 0px' });
-  reveals.forEach(r => revealObs.observe(r));
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(r => obs.observe(r));
 } else { reveals.forEach(r => r.classList.add('visible')); }
 
-/* ── LIGHTBOX ── */
-function openLightbox(el, caption) {
-  const src = el.src || el.querySelector('img')?.src;
-  const alt = el.alt || el.querySelector('img')?.alt || '';
-  document.getElementById('lightbox-img').src = src;
-  document.getElementById('lightbox-img').alt = alt;
-  document.getElementById('lightbox-caption').textContent = caption || alt;
+/* LIGHTBOX */
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  const cap = el.querySelector('.image-caption');
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox-img').alt = img.alt || '';
+  document.getElementById('lightbox-caption').textContent = cap ? cap.textContent : '';
   document.getElementById('lightbox').classList.add('active');
   document.body.style.overflow = 'hidden';
+  document.getElementById('lightbox-close').focus();
 }
-document.getElementById('lightbox').addEventListener('click', e => {
-  if (e.target === document.getElementById('lightbox')) closeLightbox();
-});
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
 document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
   document.body.style.overflow = '';
 }
 
-/* ── SMOOTH BACK TO TOP ── */
+/* BACK TO TOP */
+function updateBackToTop() {
+  document.getElementById('back-to-top').classList.toggle('visible', window.scrollY > 400);
+}
+document.getElementById('back-to-top').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => document.querySelector('.nav-logo')?.focus(), 600);
+});
 document.querySelectorAll('a[href="#top"]').forEach(a => {
   a.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 });
 
-function updateBackToTop() {
-  const btn = document.getElementById('back-to-top');
-  if (btn) btn.classList.toggle('visible', window.scrollY > 400);
-}
-(function() {
-  const btn = document.getElementById('back-to-top');
-  if (btn) btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => { const logo = document.querySelector('.nav-logo'); if (logo) logo.focus(); }, 600);
-  });
-})();
-
-/* ── INIT ── */
-updateProgress(); updateGuide(); updateBackToTop();
+onScroll();
 </script>
 </body>
 </html>
