@@ -14,35 +14,42 @@
 html{scroll-behavior:smooth;}
 body{font-family:'Lexend',sans-serif;font-weight:400;background:#fdfdfd;color:#0f1014;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 :root{
-  --bg:#fdfdfd;--fg:#0f1014;
-  --gold:#8a6f1e;--gold-pale:rgba(138,111,30,.06);--gold-mid:rgba(138,111,30,.18);--gold-rule:rgba(138,111,30,.25);
-  --linen:#4a3f1a;--muted:rgba(15,16,20,.62);--body-text:rgba(15,16,20,.88);--rule:rgba(15,16,20,.1);
-  --serif:'Spectral',Georgia,serif;--sans:'Lexend',sans-serif;
-  --ease:cubic-bezier(.76,0,.24,1);--max:860px;--pad-x:clamp(1.4rem,6vw,6rem);
+  --bg:#FDFDFD;
+  --fg:#0F1014;
+  --gold:#857028;
+  --gold-pale:#E7E2D0;
+  --gold-mid:rgba(133,112,40,.2);
+  --sage:#4F564A;
+  --rule:rgba(15,16,20,.12);
+  --serif:'Spectral',Georgia,serif;
+  --sans:'Lexend',sans-serif;
+  --ease:cubic-bezier(.76,0,.24,1);
+  --max:860px;
+  --pad-x:clamp(1.4rem,6vw,6rem);
 }
 
 /* ── ACCESSIBILITY ── */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-.skip-link{position:fixed;top:-100%;left:1rem;z-index:9999;background:var(--fg);color:var(--bg);padding:.6rem 1.3rem;font-size:.875rem;text-decoration:none;border-radius:4px;transition:top .2s;}
+.skip-link{position:fixed;top:-100%;left:1rem;z-index:9999;background:var(--fg);color:var(--bg);padding:.6rem 1.3rem;font-size:1rem;font-weight:500;text-decoration:none;border-radius:4px;transition:top .2s;}
 .skip-link:focus{top:1rem;}
-*:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
+*:focus-visible{outline:3px solid var(--fg);outline-offset:3px;border-radius:2px;}
 
 /* ── PROGRESS BAR ── */
-#progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:600;width:0%;transition:width .15s linear;}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);z-index:600;width:0%;transition:width .15s linear;}
 
 /* ── NAV ── */
-nav#site-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem var(--pad-x);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(253,253,253,.96) 0%,transparent 100%);transition:background .4s,box-shadow .3s;}
-nav#site-nav.scrolled{background:rgba(253,253,253,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--rule);}
-.nav-logo{color:var(--fg);font-family:var(--serif);font-size:.85rem;font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;gap:.5rem;}
-.nav-logo-img{width:20px;height:20px;object-fit:contain;flex-shrink:0;opacity:.9;}
-.nav-logo:hover{opacity:.6;}
+nav#site-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem var(--pad-x);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(253,253,253,.98) 0%,transparent 100%);transition:background .4s,box-shadow .3s;}
+nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--rule);}
+.nav-logo{color:var(--fg);font-family:var(--serif);font-size:.9rem;font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;gap:.5rem;}
+.nav-logo-img{width:20px;height:20px;object-fit:contain;flex-shrink:0;}
+.nav-logo:hover{opacity:.7;}
 .nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none;}
-.nav-links a,.nav-links button{color:var(--fg);font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;background:none;border:none;cursor:pointer;font-family:var(--sans);font-weight:400;padding:0;min-height:44px;display:inline-flex;align-items:center;}
-.nav-links a:hover,.nav-links button:hover{opacity:.55;}
-.nav-social{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;opacity:.65;transition:opacity .2s;}
-.nav-social:hover{opacity:1!important;}
+.nav-links a,.nav-links button{color:var(--fg);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;background:none;border:none;cursor:pointer;font-family:var(--sans);font-weight:500;padding:0;min-height:44px;display:inline-flex;align-items:center;}
+.nav-links a:hover,.nav-links button:hover{opacity:.6;}
+.nav-social{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--fg);transition:opacity .2s;}
+.nav-social:hover{opacity:.6;}
 .nav-social svg{width:15px;height:15px;fill:currentColor;display:block;}
-.nav-sep{width:1px;height:14px;background:currentColor;opacity:.18;margin:0 .1rem;}
+.nav-sep{width:1px;height:14px;background:var(--fg);opacity:.2;margin:0 .1rem;}
 .email-btn{position:relative;height:1.1em;display:inline-flex;align-items:center;}
 .email-face-front,.email-face-back{display:flex;align-items:center;gap:.3rem;white-space:nowrap;transition:opacity .28s,transform .4s var(--ease);}
 .email-face-back{position:absolute;left:0;opacity:0;transform:translateY(5px);}
@@ -56,15 +63,15 @@ nav#site-nav.scrolled{background:rgba(253,253,253,.97);backdrop-filter:blur(12px
 @keyframes heroImgIn{to{opacity:1;transform:translateY(-50%) rotate(2.5deg) scale(1);}}
 .cs-hero-img-wrap img{width:100%;display:block;border-radius:8px;aspect-ratio:4/3;object-fit:cover;}
 .cs-hero-content{position:relative;z-index:3;max-width:min(54vw,640px);}
-.cs-eyebrow{font-size:.69rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeUp .8s var(--ease) .6s forwards;}
-.cs-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold);flex-shrink:0;}
-.cs-title{font-family:var(--serif);font-size:clamp(4rem,9.5vw,9rem);font-weight:800;line-height:.88;letter-spacing:-.04em;margin-bottom:1.8rem;opacity:0;animation:fadeUp .9s var(--ease) .75s forwards;}
-.cs-title em{font-style:italic;font-weight:600;color:var(--linen);}
-.cs-subtitle{font-size:clamp(.95rem,1.15vw,1.1rem);line-height:1.75;color:var(--muted);max-width:48ch;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s var(--ease) .9s forwards;}
+.cs-eyebrow{font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeUp .8s var(--ease) .6s forwards;font-weight:500;}
+.cs-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--sage);flex-shrink:0;}
+.cs-title{font-family:var(--serif);font-size:clamp(4rem,9.5vw,9rem);font-weight:800;line-height:.88;letter-spacing:-.04em;margin-bottom:1.8rem;opacity:0;animation:fadeUp .9s var(--ease) .75s forwards;color:var(--fg);}
+.cs-title em{font-style:italic;font-weight:600;color:var(--sage);}
+.cs-subtitle{font-size:clamp(1rem,1.15vw,1.15rem);line-height:1.75;color:var(--sage);max-width:48ch;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s var(--ease) .9s forwards;font-weight:400;}
 .cs-meta-row{display:flex;flex-wrap:wrap;gap:clamp(1.2rem,2.5vw,2.5rem);opacity:0;animation:fadeUp .8s var(--ease) 1.05s forwards;}
-.cs-meta-label{font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;font-weight:500;}
-.cs-meta-value{font-size:.85rem;letter-spacing:.02em;color:var(--fg);line-height:1.6;font-weight:400;}
-.cs-scroll-hint{position:absolute;right:var(--pad-x);bottom:2.5rem;z-index:2;display:flex;align-items:center;gap:.5rem;font-size:.61rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp .8s var(--ease) 1.4s forwards;}
+.cs-meta-label{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:.35rem;font-weight:500;}
+.cs-meta-value{font-size:.9rem;letter-spacing:.02em;color:var(--fg);line-height:1.6;font-weight:400;}
+.cs-scroll-hint{position:absolute;right:var(--pad-x);bottom:2.5rem;z-index:2;display:flex;align-items:center;gap:.5rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);opacity:0;animation:fadeUp .8s var(--ease) 1.4s forwards;font-weight:400;}
 .cs-scroll-line{width:22px;height:1px;background:currentColor;animation:lineGrow 2.4s var(--ease) infinite;}
 @keyframes lineGrow{0%{transform:scaleX(0);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}51%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -74,102 +81,115 @@ nav#site-nav.scrolled{background:rgba(253,253,253,.97);backdrop-filter:blur(12px
 
 /* ── SECTION HEADERS ── */
 .cs-section{margin-bottom:clamp(4rem,8vw,7rem);}
-.cs-section-header{display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.5rem;padding-bottom:1.8rem;border-bottom:1px solid var(--rule);}
+.cs-section-header{display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.5rem;padding-bottom:1.8rem;border-bottom:2px solid var(--gold-pale);}
 .cs-section-num{font-family:var(--serif);font-style:italic;font-size:clamp(3.5rem,7vw,7rem);font-weight:800;line-height:.85;letter-spacing:-.05em;color:var(--gold-mid);flex-shrink:0;margin-top:-.15rem;user-select:none;}
 .cs-section-meta{flex:1;}
-.cs-section-tag{font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:block;font-weight:500;}
-.cs-section-title{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
-.cs-section-title em{font-style:italic;font-weight:600;}
+.cs-section-tag{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:.6rem;display:block;font-weight:500;}
+.cs-section-title{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--fg);}
+.cs-section-title em{font-style:italic;font-weight:600;color:var(--sage);}
 
 /* ── PROSE ── */
-.cs-p{font-size:clamp(.95rem,1.05vw,1.08rem);line-height:1.95;color:var(--body-text);margin-bottom:1.6rem;font-weight:400;}
-.cs-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(138,111,30,.3);transition:border-color .2s,color .2s;}
-.cs-p a:hover{border-color:var(--gold);}
+.cs-p{font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.95;color:var(--fg);margin-bottom:1.6rem;font-weight:400;}
+.cs-p a{color:var(--sage);text-decoration:underline;text-underline-offset:3px;transition:color .2s;}
+.cs-p a:hover{color:var(--fg);}
 
 /* ── BLOCKQUOTE ── */
 .cs-quote{margin:2.5rem 0;padding:1.8rem 2rem;border-left:3px solid var(--gold);background:var(--gold-pale);border-radius:0 6px 6px 0;}
-.cs-quote p{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.3vw,1.2rem);line-height:1.72;color:var(--linen);margin:0;}
-.cs-quote cite{display:block;margin-top:.9rem;font-style:normal;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.cs-quote p{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.3vw,1.2rem);line-height:1.78;color:var(--fg);margin:0;font-weight:400;}
+.cs-quote cite{display:block;margin-top:.9rem;font-style:normal;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);font-weight:500;}
 
 /* ── STATS ── */
-.cs-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);margin:2.5rem 0;border-radius:8px;overflow:hidden;}
+.cs-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gold-pale);margin:2.5rem 0;border-radius:8px;overflow:hidden;}
 .cs-stat{background:var(--bg);padding:1.8rem 1.6rem;}
 .cs-stat-num{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:800;letter-spacing:-.04em;color:var(--gold);line-height:1;margin-bottom:.45rem;}
-.cs-stat-label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.65;font-weight:400;}
+.cs-stat-label{font-size:.9rem;letter-spacing:.04em;color:var(--fg);line-height:1.65;font-weight:400;}
 @media(max-width:520px){.cs-stats{grid-template-columns:1fr;}}
 
 /* ── INSIGHT CARDS ── */
-.cs-insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:1px;background:var(--rule);border-radius:8px;overflow:hidden;margin:2.2rem 0;}
+.cs-insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:2px;background:var(--gold-pale);border-radius:8px;overflow:hidden;margin:2.2rem 0;}
 .cs-insight{background:var(--bg);padding:1.6rem 1.4rem;}
 .cs-insight-icon{width:28px;height:28px;margin-bottom:.9rem;color:var(--gold);}
 .cs-insight-icon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.cs-insight-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);margin-bottom:.4rem;font-weight:500;}
-.cs-insight-text{font-size:.88rem;line-height:1.75;color:var(--muted);font-weight:400;}
-
-/* ── CHECKLIST ── */
-.cs-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 2rem;list-style:none;margin:1rem 0 2rem;}
-.cs-checklist li{display:flex;align-items:baseline;gap:.7rem;font-size:clamp(.95rem,1.05vw,1.05rem);line-height:1.75;color:var(--body-text);font-weight:400;}
-.cs-checklist li::before{content:'';display:block;width:13px;height:13px;flex-shrink:0;border-radius:3px;border:1.5px solid rgba(138,111,30,.4);background:rgba(138,111,30,.08);margin-top:.18em;}
-@media(max-width:520px){.cs-checklist{grid-template-columns:1fr;}}
+.cs-insight-title{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);margin-bottom:.5rem;font-weight:600;}
+.cs-insight-text{font-size:.95rem;line-height:1.75;color:var(--fg);font-weight:400;}
 
 /* ── SUB-LABEL ── */
-.cs-sublabel{display:block;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:.28rem .8rem;border-radius:100px;margin-bottom:1.4rem;font-weight:500;width:fit-content;}
+.cs-sublabel{display:block;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bg);background:var(--sage);padding:.3rem .9rem;border-radius:100px;margin-bottom:1.4rem;font-weight:500;width:fit-content;}
 
 /* ── BULLET LIST ── */
 .cs-list{list-style:none;margin:1.2rem 0 1.8rem;display:flex;flex-direction:column;gap:.8rem;}
-.cs-list li{display:flex;gap:.9rem;align-items:baseline;font-size:clamp(.95rem,1.05vw,1.05rem);line-height:1.85;color:var(--body-text);font-weight:400;}
-.cs-list li::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.6em;}
+.cs-list li{display:flex;gap:.9rem;align-items:baseline;font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.85;color:var(--fg);font-weight:400;}
+.cs-list li::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.65em;}
+
+/* ── CHECKLIST (ProcrastiGreat only) ── */
+.cs-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 2rem;list-style:none;margin:1rem 0 2rem;}
+.cs-checklist li{display:flex;align-items:baseline;gap:.7rem;font-size:clamp(1rem,1.1vw,1.05rem);line-height:1.75;color:var(--fg);font-weight:400;}
+.cs-checklist li::before{content:'';display:block;width:13px;height:13px;flex-shrink:0;border-radius:3px;border:2px solid var(--gold);background:var(--gold-pale);margin-top:.18em;}
+@media(max-width:520px){.cs-checklist{grid-template-columns:1fr;}}
 
 /* ── IMAGE CONTAINERS ── */
 .image-container{margin:2.5rem 0;cursor:pointer;transition:transform .35s var(--ease);}
-.image-container:hover{transform:translateY(-5px);}
-.image-container img{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.09);}
-.image-caption{font-size:.82rem;color:var(--muted);margin-top:.9rem;font-style:italic;text-align:center;line-height:1.7;padding:0 .5rem;font-weight:400;}
+.image-container:hover{transform:translateY(-4px);}
+.image-container img{width:100%;height:auto;display:block;border-radius:12px;box-shadow:0 4px 24px rgba(15,16,20,.1);}
+.image-caption{font-size:.9rem;color:var(--sage);margin-top:.9rem;text-align:center;line-height:1.7;padding:0 .5rem;font-weight:400;}
+.image-caption a{color:var(--sage);text-decoration:underline;text-underline-offset:2px;}
+.image-caption a:hover{color:var(--fg);}
+
+/* ── IMAGE PAIR (EvaKonopka only) ── */
+.image-pair{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2.5rem 0;}
+.image-pair .image-container{margin:0;}
+@media(max-width:600px){.image-pair{grid-template-columns:1fr;}}
+
+/* ── LIVE LINK (EvaKonopka only) ── */
+.cs-live-link{display:inline-flex;align-items:center;gap:.55rem;font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-weight:500;border:2px solid var(--sage);border-radius:100px;padding:.6rem 1.3rem;margin-top:1.6rem;transition:background .2s,color .2s;opacity:0;animation:fadeUp .8s var(--ease) 1.2s forwards;}
+.cs-live-link:hover{background:var(--sage);color:var(--bg);}
+.cs-live-link svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 
 /* ── NEXT PROJECT ── */
-.cs-next{margin-top:clamp(5rem,8vw,8rem);padding-top:2.5rem;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
-.cs-next-tag{font-size:.61rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.cs-next{margin-top:clamp(5rem,8vw,8rem);padding-top:2.5rem;border-top:2px solid var(--gold-pale);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
+.cs-next-tag{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:.5rem;font-weight:500;}
 .cs-next-link{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,3rem);font-weight:800;letter-spacing:-.03em;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;transition:gap .35s var(--ease),color .2s;}
-.cs-next-link em{font-style:italic;font-weight:600;}
-.cs-next-link:hover{gap:1.6rem;color:var(--linen);}
+.cs-next-link em{font-style:italic;font-weight:600;color:var(--sage);}
+.cs-next-link:hover{gap:1.6rem;color:var(--sage);}
 .cs-next-link svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .35s var(--ease);}
 .cs-next-link:hover svg{transform:translateX(5px);}
-.cs-back-top{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.45rem;min-height:44px;transition:color .2s;}
+.cs-back-top{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);text-decoration:none;display:flex;align-items:center;gap:.45rem;min-height:44px;transition:color .2s;font-weight:500;}
 .cs-back-top:hover{color:var(--fg);}
 .cs-back-top svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s;}
 .cs-back-top:hover svg{transform:translateY(-3px);}
 
 /* ── FOOTER ── */
-footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
-.footer-name{font-family:var(--serif);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400;}
+footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
+.footer-name{font-family:var(--serif);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);font-weight:500;}
 
 /* ── LIGHTBOX ── */
-#lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.93);align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
+#lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(15,16,20,.96);align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
 #lightbox.active{display:flex;}
 #lightbox-inner{position:relative;max-width:90vw;max-height:90vh;animation:lbIn .3s var(--ease);}
 @keyframes lbIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 #lightbox-img{max-width:100%;max-height:80vh;object-fit:contain;display:block;border-radius:4px;}
-#lightbox-caption{color:rgba(255,255,255,.65);font-size:.76rem;margin-top:.9rem;text-align:center;line-height:1.6;max-width:60ch;}
-#lightbox-close{position:absolute;top:-2.4rem;right:0;background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer;line-height:1;opacity:.65;transition:opacity .2s;padding:.5rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
-#lightbox-close:hover{opacity:1;}
+#lightbox-caption{color:#E7E2D0;font-size:.9rem;margin-top:.9rem;text-align:center;line-height:1.65;max-width:60ch;font-weight:400;}
+#lightbox-close{position:absolute;top:-2.8rem;right:0;background:none;border:2px solid #E7E2D0;color:#E7E2D0;font-size:1.2rem;cursor:pointer;line-height:1;transition:background .2s,color .2s;padding:.4rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;}
+#lightbox-close:hover{background:#E7E2D0;color:#0F1014;}
 
 /* ── SECTION GUIDE ── */
-#guide-toggle{position:fixed;left:1.4rem;bottom:5.5rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--bg);border:1.5px solid rgba(15,16,20,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.07);transition:background .2s,border-color .2s;}
-#guide-toggle:hover{background:#f0ece4;border-color:rgba(15,16,20,.3);}
-#guide-toggle svg{width:15px;height:15px;stroke:var(--fg);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease);}
+#guide-toggle{position:fixed;left:1.4rem;bottom:5.5rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px solid var(--fg);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.1);transition:background .2s,color .2s;}
+#guide-toggle:hover{background:var(--fg);}
+#guide-toggle:hover svg{stroke:var(--bg);}
+#guide-toggle svg{width:15px;height:15px;stroke:var(--fg);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease),stroke .2s;}
 #guide-toggle[aria-expanded="true"] svg{transform:rotate(45deg);}
-#section-guide{position:fixed;left:1.4rem;bottom:calc(5.5rem + 52px);z-index:409;background:var(--bg);border:1.5px solid rgba(15,16,20,.09);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.09);padding:.4rem 0;min-width:186px;opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom left;pointer-events:none;transition:opacity .22s var(--ease),transform .25s var(--ease);}
+#section-guide{position:fixed;left:1.4rem;bottom:calc(5.5rem + 52px);z-index:409;background:var(--bg);border:2px solid var(--gold-pale);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.1);padding:.4rem 0;min-width:186px;opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom left;pointer-events:none;transition:opacity .22s var(--ease),transform .25s var(--ease);}
 #section-guide.open{opacity:1;transform:none;pointer-events:auto;}
-.sg-item{display:flex;align-items:center;gap:.85rem;padding:.5rem 1rem;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--sans);transition:background .15s;min-height:44px;color:var(--muted);}
-.sg-item:hover{background:rgba(15,16,20,.035);}
+.sg-item{display:flex;align-items:center;gap:.85rem;padding:.5rem 1rem;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--sans);transition:background .15s;min-height:44px;color:var(--sage);}
+.sg-item:hover{background:var(--gold-pale);}
 .sg-item.active{color:var(--fg);}
-.sg-dot{width:6px;height:6px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s,transform .2s;}
+.sg-dot{width:6px;height:6px;border-radius:50%;border:2px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s,transform .2s;}
 .sg-item.active .sg-dot{background:var(--gold);border-color:var(--gold);transform:scale(1.25);}
-.sg-num{font-size:.6rem;letter-spacing:.18em;font-weight:500;flex-shrink:0;width:1.3rem;}
-.sg-label{font-size:.73rem;letter-spacing:.05em;font-weight:400;line-height:1.3;}
+.sg-num{font-size:.7rem;letter-spacing:.15em;font-weight:600;flex-shrink:0;width:1.3rem;}
+.sg-label{font-size:.8rem;letter-spacing:.04em;font-weight:400;line-height:1.3;}
 
 /* ── BACK TO TOP ── */
-#back-to-top{position:fixed;right:1.8rem;bottom:1.8rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.16);opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),background .2s;pointer-events:none;}
+#back-to-top{position:fixed;right:1.8rem;bottom:1.8rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.2);opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),background .2s;pointer-events:none;}
 #back-to-top.visible{opacity:1;transform:none;pointer-events:auto;}
 #back-to-top:hover{background:var(--gold);}
 #back-to-top svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
@@ -179,89 +199,38 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
 .reveal.visible{opacity:1;transform:none;}
 
 /* ── HAMBURGER ── */
-.nav-hamburger{
-  display:none;
-  flex-direction:column;justify-content:center;align-items:center;
-  width:44px;height:44px;background:none;border:none;cursor:pointer;
-  padding:0;gap:5px;flex-shrink:0;
-  -webkit-tap-highlight-color:transparent;
-}
-.nav-hamburger span{
-  display:block;width:22px;height:1.5px;background:var(--fg);
-  border-radius:2px;
-  transition:transform .38s var(--ease),opacity .25s,width .3s var(--ease);
-  transform-origin:center;
-}
-.nav-hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;gap:5px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;transition:transform .38s var(--ease),opacity .25s,width .3s var(--ease);transform-origin:center;}
+.nav-hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-hamburger[aria-expanded="true"] span:nth-child(2){opacity:0;width:0;}
-.nav-hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.nav-hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* ── MOBILE DRAWER ── */
-#mobile-menu{
-  position:fixed;inset:0;z-index:490;
-  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
-  padding:5rem var(--pad-x) 3rem;
-  background:var(--bg);
-  opacity:0;pointer-events:none;
-  transition:opacity .38s var(--ease);
-}
+#mobile-menu{position:fixed;inset:0;z-index:490;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:5rem var(--pad-x) 3rem;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .38s var(--ease);}
 #mobile-menu.open{opacity:1;pointer-events:auto;}
 .mobile-menu-links{list-style:none;display:flex;flex-direction:column;gap:.4rem;width:100%;}
 .mobile-menu-links li{overflow:hidden;}
-.mobile-menu-links a,
-.mobile-menu-links button{
-  display:block;width:100%;background:none;border:none;cursor:pointer;text-align:left;
-  font-family:var(--sans);font-weight:400;font-size:clamp(.95rem,3.5vw,1.05rem);
-  letter-spacing:.2em;text-transform:uppercase;line-height:1;color:var(--fg);text-decoration:none;
-  padding:.9rem 0;min-height:44px;display:flex;align-items:center;
-  opacity:0;transform:translateY(14px);
-  transition:color .2s,opacity .4s var(--ease),transform .45s var(--ease);
-  border-bottom:1px solid var(--rule);
-}
-#mobile-menu.open .mobile-menu-links a,
-#mobile-menu.open .mobile-menu-links button{opacity:1;transform:none;}
-#mobile-menu.open .mobile-menu-links li:nth-child(1) a,
-#mobile-menu.open .mobile-menu-links li:nth-child(1) button{transition-delay:.05s;}
-#mobile-menu.open .mobile-menu-links li:nth-child(2) a,
-#mobile-menu.open .mobile-menu-links li:nth-child(2) button{transition-delay:.1s;}
-#mobile-menu.open .mobile-menu-links li:nth-child(3) a,
-#mobile-menu.open .mobile-menu-links li:nth-child(3) button{transition-delay:.15s;}
-#mobile-menu.open .mobile-menu-links li:nth-child(4) a,
-#mobile-menu.open .mobile-menu-links li:nth-child(4) button{transition-delay:.2s;}
-.mobile-menu-links a:hover,
-.mobile-menu-links button:hover{color:var(--gold);}
-.mobile-menu-rule{width:40px;height:1px;background:var(--rule);margin:1.6rem 0;}
-.mobile-menu-socials{
-  display:flex;gap:1.6rem;align-items:center;
-  opacity:0;transform:translateY(12px);
-  transition:opacity .4s var(--ease) .25s,transform .45s var(--ease) .25s;
-}
+.mobile-menu-links a,.mobile-menu-links button{display:flex;align-items:center;width:100%;background:none;border:none;cursor:pointer;text-align:left;font-family:var(--sans);font-weight:500;font-size:clamp(1rem,3.5vw,1.1rem);letter-spacing:.18em;text-transform:uppercase;line-height:1;color:var(--fg);text-decoration:none;padding:.9rem 0;min-height:44px;opacity:0;transform:translateY(14px);transition:color .2s,opacity .4s var(--ease),transform .45s var(--ease);border-bottom:1px solid var(--gold-pale);}
+#mobile-menu.open .mobile-menu-links a,#mobile-menu.open .mobile-menu-links button{opacity:1;transform:none;}
+#mobile-menu.open .mobile-menu-links li:nth-child(1) a,#mobile-menu.open .mobile-menu-links li:nth-child(1) button{transition-delay:.05s;}
+#mobile-menu.open .mobile-menu-links li:nth-child(2) a,#mobile-menu.open .mobile-menu-links li:nth-child(2) button{transition-delay:.1s;}
+#mobile-menu.open .mobile-menu-links li:nth-child(3) a,#mobile-menu.open .mobile-menu-links li:nth-child(3) button{transition-delay:.15s;}
+.mobile-menu-links a:hover,.mobile-menu-links button:hover{color:var(--sage);}
+.mobile-menu-rule{width:40px;height:2px;background:var(--gold-pale);margin:1.6rem 0;}
+.mobile-menu-socials{display:flex;gap:1.6rem;align-items:center;opacity:0;transform:translateY(12px);transition:opacity .4s var(--ease) .2s,transform .45s var(--ease) .2s;}
 #mobile-menu.open .mobile-menu-socials{opacity:1;transform:none;}
-.mobile-menu-socials a{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:44px;height:44px;opacity:.6;transition:opacity .2s;
-}
-.mobile-menu-socials a:hover{opacity:1;}
+.mobile-menu-socials a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--fg);transition:color .2s;}
+.mobile-menu-socials a:hover{color:var(--sage);}
 .mobile-menu-socials svg{width:17px;height:17px;fill:currentColor;}
-/* email button in mobile menu — matches nav caps style */
-.mobile-email-btn{
-  font-family:var(--sans)!important;font-size:clamp(.95rem,3.5vw,1.05rem)!important;
-  letter-spacing:.2em!important;text-transform:uppercase!important;
-  line-height:1!important;font-weight:400!important;
-  position:relative;
-}
-.mobile-email-copied{
-  position:absolute;left:0;bottom:-1.4rem;
-  font-family:var(--sans);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--gold);opacity:0;transition:opacity .25s;pointer-events:none;
-}
+.mobile-email-btn{font-family:var(--sans)!important;font-size:clamp(1rem,3.5vw,1.1rem)!important;letter-spacing:.18em!important;text-transform:uppercase!important;line-height:1!important;font-weight:500!important;position:relative;}
+.mobile-email-copied{position:absolute;left:0;bottom:-1.2rem;font-family:var(--sans);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);opacity:0;transition:opacity .25s;pointer-events:none;font-weight:500;}
 .mobile-email-btn.flipped .mobile-email-copied{opacity:1;}
 
 /* ── REDUCED MOTION ── */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
   .cs-hero-img-wrap{opacity:1;transform:translateY(-50%) rotate(2.5deg)!important;}
-  .cs-eyebrow,.cs-title,.cs-subtitle,.cs-meta-row,.cs-scroll-hint{opacity:1;transform:none!important;}
+  .cs-eyebrow,.cs-title,.cs-subtitle,.cs-meta-row,.cs-scroll-hint,.cs-live-link{opacity:1;transform:none!important;}
   .reveal{opacity:1;transform:none!important;}
 }
 
@@ -286,6 +255,7 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
 @media(max-width:480px){
   .cs-meta-row{gap:1.2rem;}
 }
+
 </style>
 </head>
 <body id="top">
@@ -369,15 +339,14 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
 
 <main id="main-content">
 
-  <!-- ══ HERO ══ -->
   <section class="cs-hero" data-section="0" aria-labelledby="cs-title">
     <div class="cs-hero-img-wrap">
-      <img src="img/procrastigreat/mock2.jpeg" alt="Person holding a smartphone showing the ProcrastiGreat app in pastel pink" loading="eager">
+      <img src="img/procrastigreat/mock2.jpeg" alt="Person holding a smartphone displaying the ProcrastiGreat app home dashboard with pastel pink interface, habit tracker circles, and motivational text. The app features a calm, accessible design with muted color palette and clear typography, set against a minimal workspace with design materials visible in the background." loading="eager">
     </div>
     <div class="cs-hero-content">
       <p class="cs-eyebrow">UI Design — Case Study 02</p>
       <h1 class="cs-title" id="cs-title">Procrasti<em>Great</em></h1>
-      <p class="cs-subtitle">A calming iOS productivity app designed for neurodivergent Gen-Z students — built to help them procrastinate powerfully.</p>
+      <p class="cs-subtitle">A calming iOS productivity app for neurodivergent Gen-Z students.</p>
       <div class="cs-meta-row">
         <div><p class="cs-meta-label">Role</p><p class="cs-meta-value">UI Designer</p></div>
         <div><p class="cs-meta-label">Duration</p><p class="cs-meta-value">2 Weeks</p></div>
@@ -389,10 +358,8 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
     <div class="cs-scroll-hint" aria-hidden="true"><span class="cs-scroll-line"></span>Scroll</div>
   </section>
 
-  <!-- ══ BODY ══ -->
   <div class="cs-body">
 
-    <!-- 01 CHALLENGE -->
     <section class="cs-section reveal" id="sec-0" data-section="1" aria-labelledby="sec-0-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">01</div>
@@ -401,18 +368,16 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-0-title">The <em>Challenge</em></h2>
         </div>
       </div>
-      <p class="cs-p">During a UI course, I was given the opportunity to identify a user demographic that would benefit from a mobile productivity app and create interface visuals to support their needs. I chose to support neurodivergent Gen-Z students.</p>
-      <p class="cs-p">Neurodivergent individuals have conditions such as autism spectrum disorder, ADHD, dyslexia, and more. As awareness of these conditions continues to grow, more and more Gen-Z students are being diagnosed every day.</p>
+      <p class="cs-p">A UI course brief: design a mobile productivity app for a specific user group. I chose neurodivergent Gen-Z students — a generation increasingly diagnosed with ADHD, autism, and dyslexia, who value planning but find existing apps overwhelming.</p>
       <div class="cs-quote">
-        <p>Neurodivergent Gen-Z students value planning but find that current apps overwhelm and stress them out. How might we help them plan with a mobile app that feels calming instead?</p>
+        <p>How might we help neurodivergent students plan with an app that feels calming instead of stressful?</p>
       </div>
       <div class="cs-stats">
-        <div class="cs-stat"><div class="cs-stat-num">53%</div><div class="cs-stat-label">of Gen-Z say they identify as neurodiverse — Pew Research Center, 2023</div></div>
-        <div class="cs-stat"><div class="cs-stat-num">65%</div><div class="cs-stat-label">of Gen-Z students report feeling overwhelmed by traditional planning apps due to cluttered interfaces — Statista</div></div>
+        <div class="cs-stat"><div class="cs-stat-num">53%</div><div class="cs-stat-label">of Gen-Z identify as neurodiverse — Pew Research Center, 2023</div></div>
+        <div class="cs-stat"><div class="cs-stat-num">65%</div><div class="cs-stat-label">of Gen-Z students feel overwhelmed by cluttered planning apps — Statista</div></div>
       </div>
     </section>
 
-    <!-- 02 RESEARCH -->
     <section class="cs-section reveal" id="sec-1" data-section="2" aria-labelledby="sec-1-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">02</div>
@@ -421,65 +386,64 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-1-title">Research &amp; <em>Insights</em></h2>
         </div>
       </div>
-      <p class="cs-p">Secondary research and competitive analysis uncovered key insights about neurodiversity, Gen-Z students, and their pain points related to digital planner features. Two areas guided every design decision: visual design and feature needs.</p>
+      <p class="cs-p">Secondary research and competitive analysis shaped two design pillars: visual accessibility and feature needs.</p>
 
-      <p class="cs-sublabel">Neurodivergent Visual Design Checklist</p>
+      <p class="cs-sublabel">Visual Design</p>
       <ul class="cs-checklist">
         <li>Sans-serif fonts</li>
-        <li>Pastel or muted color palettes</li>
+        <li>Pastel or muted palettes</li>
         <li>Clear visual hierarchy</li>
-        <li>Soothing, encouraging content &amp; visuals</li>
-        <li>Accessible contrast ratio</li>
-        <li>Readable text at all sizes</li>
+        <li>Soothing, encouraging visuals</li>
+        <li>Accessible contrast ratios</li>
+        <li>Readable at all sizes</li>
       </ul>
 
       <p class="cs-sublabel">Feature Needs</p>
       <ul class="cs-checklist">
         <li>Task chunking &amp; prioritization</li>
-        <li>Processing and planning tool variety</li>
-        <li>Habit growth visualization over time</li>
-        <li>Planned breaks reduce stress</li>
+        <li>Variety of planning tools</li>
+        <li>Habit growth over time</li>
+        <li>Planned breaks</li>
         <li>Engagement without overwhelm</li>
         <li>Reframe progress, not failure</li>
       </ul>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/Mock1.jpeg" alt="Person holding a smartphone with the ProcrastiGreat to-do list app in pastel pink" loading="lazy">
-        <div class="image-caption">To-do lists with optional automated reminders are essential tools for neurodivergent Gen-Z students.</div>
+        <div class="image-caption">To-do lists with optional reminders — a core need for neurodivergent students.</div>
       </div>
 
-      <p class="cs-p">A competitive analysis of popular productivity apps — Streaks, Apple Freeform, Notion, Toggl, and Apple Notes — revealed the feature set that would make ProcrastiGreat both familiar and distinctly better suited to this audience.</p>
+      <p class="cs-p">Competitive analysis of Streaks, Notion, Toggl, and Apple Notes revealed which features to adapt for this audience.</p>
 
       <div class="cs-insights">
         <div class="cs-insight">
           <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
           <div class="cs-insight-title">Streaks</div>
-          <div class="cs-insight-text">Circular progress indicators with editable icons and linked data graphs for habit progress over time.</div>
+          <div class="cs-insight-text">Circular progress indicators and habit data graphs.</div>
         </div>
         <div class="cs-insight">
           <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
           <div class="cs-insight-title">Notion</div>
-          <div class="cs-insight-text">Smart table filters with Kanban board and list toggle options for to-do items.</div>
+          <div class="cs-insight-text">Kanban board and list toggle for to-do items.</div>
         </div>
         <div class="cs-insight">
           <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div class="cs-insight-title">Toggl</div>
-          <div class="cs-insight-text">Pomodoro timer with circular progress indicator for task anchoring to time charts.</div>
+          <div class="cs-insight-text">Pomodoro timer with task-anchored time charts.</div>
         </div>
         <div class="cs-insight">
           <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
           <div class="cs-insight-title">Apple Notes</div>
-          <div class="cs-insight-text">Minimal note taking with hashtag-based categorization features.</div>
+          <div class="cs-insight-text">Minimal notes with hashtag categorization.</div>
         </div>
       </div>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/competition.jpeg" alt="Four smartphones showing competitor apps: habit tracker, Apple Freeform, Notion Kanban, and Toggl Pomodoro timer" loading="lazy">
-        <div class="image-caption">Competitive features from Streaks, Apple Freeform, Notion, and Toggl — each adapted to better suit Gen-Z neurodivergent students without the overwhelm.</div>
+        <div class="image-caption">Competitor features adapted for a calmer, neurodivergent-first experience.</div>
       </div>
     </section>
 
-    <!-- 03 WIREFRAMES -->
     <section class="cs-section reveal" id="sec-2" data-section="3" aria-labelledby="sec-2-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">03</div>
@@ -488,20 +452,19 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-2-title">Wireframes &amp; <em>Iteration</em></h2>
         </div>
       </div>
-      <p class="cs-p">Using research insights, planner app features were prioritized, sketched, and translated into low-fidelity wireframes and user-centered structures. The app covers nine core screens: Login, Home, Kanban To-Do, Notes, Whiteboard, Pomodoro Timer, Habits Tracker, Profile, and Stats.</p>
+      <p class="cs-p">Research insights were sketched and refined into nine core screens: Login, Home, Kanban To-Do, Notes, Whiteboard, Pomodoro Timer, Habit Tracker, Stats, and Profile.</p>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/sketcheswireframes.jpeg" alt="Side-by-side: hand-drawn sketches of 10 mobile screens alongside digital wireframes of 9 refined screens" loading="lazy">
-        <div class="image-caption">Early hand-drawn ideation progressing into digital wireframes — nine screens covering every core feature.</div>
+        <div class="image-caption">Sketches to digital wireframes — nine screens, every core feature.</div>
       </div>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/midfi.jpeg" alt="Nine grayscale mid-fidelity wireframes: Login, Home, Kanban, Notes, Whiteboard, Pomodoro, Profile, Habits, Stats" loading="lazy">
-        <div class="image-caption">Mid-fidelity wireframes refined user flows and screen structures before visual design began.</div>
+        <div class="image-caption">Mid-fidelity wireframes refined flows before visual design began.</div>
       </div>
     </section>
 
-    <!-- 04 VISUAL DESIGN -->
     <section class="cs-section reveal" id="sec-3" data-section="4" aria-labelledby="sec-3-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">04</div>
@@ -510,39 +473,38 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-3-title">Visual <em>Design</em></h2>
         </div>
       </div>
-      <p class="cs-p">With a clear app structure in place, I moved into type, color, and visual experience. A moodboard, style guide, and custom icon set shaped the soothing aesthetic before a single high-fidelity screen was built.</p>
+      <p class="cs-p">A moodboard, style guide, and custom icon set defined the aesthetic before any high-fidelity screen was built.</p>
 
       <p class="cs-sublabel">Moodboard</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/Moodboard.jpeg" alt="Moodboard with sections for Colors, Typography, Imagery and Wording, and Textures — pastels and motivational phrases" loading="lazy">
-        <div class="image-caption">A soothing, playful moodboard — motivational phrases like "Procrastinate Powerfully" and pastel palettes informed every visual decision.</div>
+        <div class="image-caption">Pastels and motivational phrases — "Procrastinate Powerfully."</div>
       </div>
 
       <p class="cs-sublabel">Type &amp; Color</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/TypeColor.jpeg" alt="Style guide showing updated color palettes, typography choices, and button styles in pastel green, pink, and white" loading="lazy">
-        <div class="image-caption">Early type and color explorations — iterating on contrast and palette to balance calm aesthetics with accessibility requirements.</div>
+        <div class="image-caption">Iterating on contrast and palette to balance calm aesthetics with accessibility.</div>
       </div>
 
       <p class="cs-sublabel">Icon Design</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/icons.jpeg" alt="Icon exploration: circular buttons with heart, bookmark, bell, checklist, calendar, photo, and camera icons in pastel tones" loading="lazy">
-        <div class="image-caption">Icon set evolution — from black and white to color to higher contrast, the icons grew through multiple iterations.</div>
+        <div class="image-caption">Icon set evolution — black and white through to accessible colour.</div>
       </div>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/StyleSheet.jpeg" alt="Final style sheet showing refined icon set, color palette, and typography with improved contrast and accessibility" loading="lazy">
-        <div class="image-caption">Final style sheet with accessibility-driven refinements to contrast and type.</div>
+        <div class="image-caption">Final style sheet — refined for contrast and accessibility.</div>
       </div>
 
       <p class="cs-sublabel">Dashboard &amp; Mock-ups</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/mock2.jpeg" alt="Three smartphones showing the dashboard with charts and habit trackers, a Pomodoro timer, and a profile/menu screen" loading="lazy">
-        <div class="image-caption">Dashboard, Pomodoro timer, and profile screens — soothing self-compassion-driven visuals that guide without overwhelming.</div>
+        <div class="image-caption">Dashboard, timer, and profile — calming by design.</div>
       </div>
     </section>
 
-    <!-- 05 RESULTS -->
     <section class="cs-section reveal" id="sec-4" data-section="5" aria-labelledby="sec-4-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">05</div>
@@ -551,56 +513,53 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-4-title">Results &amp; <em>Impact</em></h2>
         </div>
       </div>
-      <p class="cs-p">With strong user research, competitive analysis, and a clear structure, the visual design came together efficiently. The final ProcrastiGreat app is a complete eight-screen iOS UI ready for user testing and developer handoff — all files annotated for a smooth transition.</p>
+      <p class="cs-p">Eight annotated screens — ready for user testing and developer handoff.</p>
 
       <ul class="cs-list">
-        <li>Login / Sign Up Screen</li>
-        <li>Home / Dashboard Screen</li>
-        <li>To-Do List with Kanban Board View</li>
+        <li>Login / Sign Up</li>
+        <li>Home Dashboard</li>
+        <li>Kanban To-Do List</li>
         <li>Notes with Hashtag Organization</li>
-        <li>Whiteboard for Brainstorming</li>
-        <li>Pomodoro Timer with Task Anchoring</li>
-        <li>Habit Tracker with Progress Visualization and hand-made icons</li>
-        <li>Profile &amp; Settings Screen</li>
+        <li>Whiteboard</li>
+        <li>Pomodoro Timer</li>
+        <li>Habit Tracker with custom icons</li>
+        <li>Profile &amp; Settings</li>
       </ul>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/hifi1.jpeg" alt="High-fidelity ProcrastiGreat mobile app screens — original version" loading="lazy">
-        <div class="image-caption">Original high-fidelity screens — strong foundation, but contrast and title font needed refinement for accessibility.</div>
+        <div class="image-caption">Original screens — strong foundation, contrast refinements needed.</div>
       </div>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/hifiv2.jpeg" alt="Final high-fidelity ProcrastiGreat screens — updated with higher contrast type and color" loading="lazy">
-        <div class="image-caption">Final screens — higher color and type contrast, stronger title treatment, accessibility improvements throughout.</div>
+        <div class="image-caption">Final screens — accessibility improvements throughout.</div>
       </div>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/procrastigreat/mock3.jpeg" alt="ProcrastiGreat app displayed on a smartphone in a lifestyle context" loading="lazy">
-        <div class="image-caption">ProcrastiGreat in use — calming, purposeful, and built around the student.</div>
+        <div class="image-caption">ProcrastiGreat in use.</div>
       </div>
 
       <div class="cs-insights">
         <div class="cs-insight">
           <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
           <div class="cs-insight-title">First Icon Set</div>
-          <div class="cs-insight-text">Designed and iterated a complete custom icon set from scratch — a new skill built during this project.</div>
+          <div class="cs-insight-text">Built a complete custom icon set from scratch.</div>
         </div>
         <div class="cs-insight">
           <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-          <div class="cs-insight-title">Accessibility Challenges</div>
-          <div class="cs-insight-text">Learned firsthand how pastel palettes create contrast challenges — and how to solve them without losing the calming aesthetic.</div>
+          <div class="cs-insight-title">Contrast vs. Calm</div>
+          <div class="cs-insight-text">Solved pastel palette contrast issues without losing the soothing aesthetic.</div>
         </div>
         <div class="cs-insight">
           <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
           <div class="cs-insight-title">Ready for Handoff</div>
-          <div class="cs-insight-text">All screens annotated and structured for a clean developer handoff — needs only user testing before build.</div>
+          <div class="cs-insight-text">Annotated screens ready — user testing is the only remaining step.</div>
         </div>
       </div>
-
-      <p class="cs-p">This project sharpened my visual design eye considerably — from building a custom icon set to navigating the tension between soothing aesthetics and accessibility contrast requirements. Every iteration made the app more genuinely useful for the students it was designed to serve.</p>
     </section>
 
-    <!-- NEXT PROJECT -->
     <div class="cs-next reveal">
       <div>
         <p class="cs-next-tag">Next Project</p>
@@ -615,7 +574,7 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
       </a>
     </div>
 
-  </div><!-- /cs-body -->
+  </div>
 </main>
 
 <!-- FOOTER -->

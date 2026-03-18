@@ -14,35 +14,42 @@
 html{scroll-behavior:smooth;}
 body{font-family:'Lexend',sans-serif;font-weight:400;background:#fdfdfd;color:#0f1014;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 :root{
-  --bg:#fdfdfd;--fg:#0f1014;
-  --gold:#8a6f1e;--gold-pale:rgba(138,111,30,.06);--gold-mid:rgba(138,111,30,.18);--gold-rule:rgba(138,111,30,.25);
-  --linen:#4a3f1a;--muted:rgba(15,16,20,.62);--body-text:rgba(15,16,20,.88);--rule:rgba(15,16,20,.1);
-  --serif:'Spectral',Georgia,serif;--sans:'Lexend',sans-serif;
-  --ease:cubic-bezier(.76,0,.24,1);--max:860px;--pad-x:clamp(1.4rem,6vw,6rem);
+  --bg:#FDFDFD;
+  --fg:#0F1014;
+  --gold:#857028;
+  --gold-pale:#E7E2D0;
+  --gold-mid:rgba(133,112,40,.2);
+  --sage:#4F564A;
+  --rule:rgba(15,16,20,.12);
+  --serif:'Spectral',Georgia,serif;
+  --sans:'Lexend',sans-serif;
+  --ease:cubic-bezier(.76,0,.24,1);
+  --max:860px;
+  --pad-x:clamp(1.4rem,6vw,6rem);
 }
 
 /* ── ACCESSIBILITY ── */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-.skip-link{position:fixed;top:-100%;left:1rem;z-index:9999;background:var(--fg);color:var(--bg);padding:.6rem 1.3rem;font-size:.875rem;text-decoration:none;border-radius:4px;transition:top .2s;}
+.skip-link{position:fixed;top:-100%;left:1rem;z-index:9999;background:var(--fg);color:var(--bg);padding:.6rem 1.3rem;font-size:1rem;font-weight:500;text-decoration:none;border-radius:4px;transition:top .2s;}
 .skip-link:focus{top:1rem;}
-*:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
+*:focus-visible{outline:3px solid var(--fg);outline-offset:3px;border-radius:2px;}
 
 /* ── PROGRESS BAR ── */
-#progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:600;width:0%;transition:width .15s linear;}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);z-index:600;width:0%;transition:width .15s linear;}
 
 /* ── NAV ── */
-nav#site-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem var(--pad-x);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(253,253,253,.96) 0%,transparent 100%);transition:background .4s,box-shadow .3s;}
-nav#site-nav.scrolled{background:rgba(253,253,253,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--rule);}
-.nav-logo{color:var(--fg);font-family:var(--serif);font-size:.85rem;font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;gap:.5rem;}
-.nav-logo-img{width:20px;height:20px;object-fit:contain;flex-shrink:0;opacity:.9;}
-.nav-logo:hover{opacity:.6;}
+nav#site-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem var(--pad-x);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(253,253,253,.98) 0%,transparent 100%);transition:background .4s,box-shadow .3s;}
+nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--rule);}
+.nav-logo{color:var(--fg);font-family:var(--serif);font-size:.9rem;font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;gap:.5rem;}
+.nav-logo-img{width:20px;height:20px;object-fit:contain;flex-shrink:0;}
+.nav-logo:hover{opacity:.7;}
 .nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none;}
-.nav-links a,.nav-links button{color:var(--fg);font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;background:none;border:none;cursor:pointer;font-family:var(--sans);font-weight:400;padding:0;min-height:44px;display:inline-flex;align-items:center;}
-.nav-links a:hover,.nav-links button:hover{opacity:.55;}
-.nav-social{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;opacity:.65;transition:opacity .2s;}
-.nav-social:hover{opacity:1!important;}
+.nav-links a,.nav-links button{color:var(--fg);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;background:none;border:none;cursor:pointer;font-family:var(--sans);font-weight:500;padding:0;min-height:44px;display:inline-flex;align-items:center;}
+.nav-links a:hover,.nav-links button:hover{opacity:.6;}
+.nav-social{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--fg);transition:opacity .2s;}
+.nav-social:hover{opacity:.6;}
 .nav-social svg{width:15px;height:15px;fill:currentColor;display:block;}
-.nav-sep{width:1px;height:14px;background:currentColor;opacity:.18;margin:0 .1rem;}
+.nav-sep{width:1px;height:14px;background:var(--fg);opacity:.2;margin:0 .1rem;}
 .email-btn{position:relative;height:1.1em;display:inline-flex;align-items:center;}
 .email-face-front,.email-face-back{display:flex;align-items:center;gap:.3rem;white-space:nowrap;transition:opacity .28s,transform .4s var(--ease);}
 .email-face-back{position:absolute;left:0;opacity:0;transform:translateY(5px);}
@@ -56,134 +63,133 @@ nav#site-nav.scrolled{background:rgba(253,253,253,.97);backdrop-filter:blur(12px
 @keyframes heroImgIn{to{opacity:1;transform:translateY(-50%) rotate(2.5deg) scale(1);}}
 .cs-hero-img-wrap img{width:100%;display:block;border-radius:8px;aspect-ratio:4/3;object-fit:cover;}
 .cs-hero-content{position:relative;z-index:3;max-width:min(54vw,640px);}
-.cs-eyebrow{font-size:.69rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeUp .8s var(--ease) .6s forwards;}
-.cs-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold);flex-shrink:0;}
-.cs-title{font-family:var(--serif);font-size:clamp(4rem,9.5vw,9rem);font-weight:800;line-height:.88;letter-spacing:-.04em;margin-bottom:1.8rem;opacity:0;animation:fadeUp .9s var(--ease) .75s forwards;}
-.cs-title em{font-style:italic;font-weight:600;color:var(--linen);}
-.cs-subtitle{font-size:clamp(.95rem,1.15vw,1.1rem);line-height:1.8;color:var(--muted);max-width:48ch;margin-bottom:2rem;opacity:0;animation:fadeUp .8s var(--ease) .9s forwards;}
+.cs-eyebrow{font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeUp .8s var(--ease) .6s forwards;font-weight:500;}
+.cs-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--sage);flex-shrink:0;}
+.cs-title{font-family:var(--serif);font-size:clamp(4rem,9.5vw,9rem);font-weight:800;line-height:.88;letter-spacing:-.04em;margin-bottom:1.8rem;opacity:0;animation:fadeUp .9s var(--ease) .75s forwards;color:var(--fg);}
+.cs-title em{font-style:italic;font-weight:600;color:var(--sage);}
+.cs-subtitle{font-size:clamp(1rem,1.15vw,1.15rem);line-height:1.75;color:var(--sage);max-width:48ch;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s var(--ease) .9s forwards;font-weight:400;}
 .cs-meta-row{display:flex;flex-wrap:wrap;gap:clamp(1.2rem,2.5vw,2.5rem);opacity:0;animation:fadeUp .8s var(--ease) 1.05s forwards;}
-.cs-meta-label{font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;font-weight:500;}
-.cs-meta-value{font-size:.85rem;letter-spacing:.02em;color:var(--fg);line-height:1.6;font-weight:400;}
-.cs-scroll-hint{position:absolute;right:var(--pad-x);bottom:2.5rem;z-index:2;display:flex;align-items:center;gap:.5rem;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp .8s var(--ease) 1.4s forwards;}
+.cs-meta-label{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:.35rem;font-weight:500;}
+.cs-meta-value{font-size:.9rem;letter-spacing:.02em;color:var(--fg);line-height:1.6;font-weight:400;}
+.cs-scroll-hint{position:absolute;right:var(--pad-x);bottom:2.5rem;z-index:2;display:flex;align-items:center;gap:.5rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);opacity:0;animation:fadeUp .8s var(--ease) 1.4s forwards;font-weight:400;}
 .cs-scroll-line{width:22px;height:1px;background:currentColor;animation:lineGrow 2.4s var(--ease) infinite;}
 @keyframes lineGrow{0%{transform:scaleX(0);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}51%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-
-/* ── LIVE LINK ── */
-.cs-live-link{
-  display:inline-flex;align-items:center;gap:.55rem;
-  font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);text-decoration:none;font-weight:400;
-  border:1.5px solid var(--gold-rule);border-radius:100px;
-  padding:.55rem 1.2rem;margin-top:1.6rem;
-  transition:background .2s,border-color .2s;
-  opacity:0;animation:fadeUp .8s var(--ease) 1.2s forwards;
-}
-.cs-live-link:hover{background:var(--gold-pale);border-color:var(--gold);}
-.cs-live-link svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 
 /* ── BODY ── */
 .cs-body{max-width:1000px;margin:0 auto;padding:clamp(4rem,8vw,7rem) clamp(1.4rem,4vw,40px) clamp(5rem,8vw,8rem);}
 
 /* ── SECTION HEADERS ── */
 .cs-section{margin-bottom:clamp(4rem,8vw,7rem);}
-.cs-section-header{display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.5rem;padding-bottom:1.8rem;border-bottom:1px solid var(--rule);}
+.cs-section-header{display:flex;align-items:flex-start;gap:2rem;margin-bottom:2.5rem;padding-bottom:1.8rem;border-bottom:2px solid var(--gold-pale);}
 .cs-section-num{font-family:var(--serif);font-style:italic;font-size:clamp(3.5rem,7vw,7rem);font-weight:800;line-height:.85;letter-spacing:-.05em;color:var(--gold-mid);flex-shrink:0;margin-top:-.15rem;user-select:none;}
 .cs-section-meta{flex:1;}
-.cs-section-tag{font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:block;font-weight:500;}
-.cs-section-title{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
-.cs-section-title em{font-style:italic;font-weight:600;}
+.cs-section-tag{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:.6rem;display:block;font-weight:500;}
+.cs-section-title{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--fg);}
+.cs-section-title em{font-style:italic;font-weight:600;color:var(--sage);}
 
 /* ── PROSE ── */
-.cs-p{font-size:clamp(.95rem,1.05vw,1.08rem);line-height:1.95;color:var(--body-text);margin-bottom:1.6rem;font-weight:400;}
-.cs-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(138,111,30,.3);transition:border-color .2s,color .2s;}
-.cs-p a:hover{border-color:var(--gold);}
+.cs-p{font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.95;color:var(--fg);margin-bottom:1.6rem;font-weight:400;}
+.cs-p a{color:var(--sage);text-decoration:underline;text-underline-offset:3px;transition:color .2s;}
+.cs-p a:hover{color:var(--fg);}
 
 /* ── BLOCKQUOTE ── */
 .cs-quote{margin:2.5rem 0;padding:1.8rem 2rem;border-left:3px solid var(--gold);background:var(--gold-pale);border-radius:0 6px 6px 0;}
-.cs-quote p{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.3vw,1.2rem);line-height:1.78;color:var(--linen);margin:0;}
-.cs-quote cite{display:block;margin-top:.9rem;font-style:normal;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400;}
+.cs-quote p{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.3vw,1.2rem);line-height:1.78;color:var(--fg);margin:0;font-weight:400;}
+.cs-quote cite{display:block;margin-top:.9rem;font-style:normal;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);font-weight:500;}
 
 /* ── STATS ── */
-.cs-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);margin:2.5rem 0;border-radius:8px;overflow:hidden;}
+.cs-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gold-pale);margin:2.5rem 0;border-radius:8px;overflow:hidden;}
 .cs-stat{background:var(--bg);padding:1.8rem 1.6rem;}
 .cs-stat-num{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:800;letter-spacing:-.04em;color:var(--gold);line-height:1;margin-bottom:.45rem;}
-.cs-stat-label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.65;font-weight:400;}
+.cs-stat-label{font-size:.9rem;letter-spacing:.04em;color:var(--fg);line-height:1.65;font-weight:400;}
 @media(max-width:520px){.cs-stats{grid-template-columns:1fr;}}
 
 /* ── INSIGHT CARDS ── */
-.cs-insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:1px;background:var(--rule);border-radius:8px;overflow:hidden;margin:2.2rem 0;}
+.cs-insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:2px;background:var(--gold-pale);border-radius:8px;overflow:hidden;margin:2.2rem 0;}
 .cs-insight{background:var(--bg);padding:1.6rem 1.4rem;}
 .cs-insight-icon{width:28px;height:28px;margin-bottom:.9rem;color:var(--gold);}
 .cs-insight-icon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.cs-insight-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);margin-bottom:.4rem;font-weight:500;}
-.cs-insight-text{font-size:.88rem;line-height:1.75;color:var(--muted);font-weight:400;}
+.cs-insight-title{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);margin-bottom:.5rem;font-weight:600;}
+.cs-insight-text{font-size:.95rem;line-height:1.75;color:var(--fg);font-weight:400;}
 
 /* ── SUB-LABEL ── */
-.cs-sublabel{display:block;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:.28rem .8rem;border-radius:100px;margin-bottom:1.4rem;font-weight:500;width:fit-content;}
+.cs-sublabel{display:block;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bg);background:var(--sage);padding:.3rem .9rem;border-radius:100px;margin-bottom:1.4rem;font-weight:500;width:fit-content;}
 
 /* ── BULLET LIST ── */
 .cs-list{list-style:none;margin:1.2rem 0 1.8rem;display:flex;flex-direction:column;gap:.8rem;}
-.cs-list li{display:flex;gap:.9rem;align-items:baseline;font-size:clamp(.95rem,1.05vw,1.05rem);line-height:1.85;color:var(--body-text);font-weight:400;}
-.cs-list li::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.6em;}
+.cs-list li{display:flex;gap:.9rem;align-items:baseline;font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.85;color:var(--fg);font-weight:400;}
+.cs-list li::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.65em;}
+
+/* ── CHECKLIST (ProcrastiGreat only) ── */
+.cs-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 2rem;list-style:none;margin:1rem 0 2rem;}
+.cs-checklist li{display:flex;align-items:baseline;gap:.7rem;font-size:clamp(1rem,1.1vw,1.05rem);line-height:1.75;color:var(--fg);font-weight:400;}
+.cs-checklist li::before{content:'';display:block;width:13px;height:13px;flex-shrink:0;border-radius:3px;border:2px solid var(--gold);background:var(--gold-pale);margin-top:.18em;}
+@media(max-width:520px){.cs-checklist{grid-template-columns:1fr;}}
 
 /* ── IMAGE CONTAINERS ── */
 .image-container{margin:2.5rem 0;cursor:pointer;transition:transform .35s var(--ease);}
-.image-container:hover{transform:translateY(-5px);}
-.image-container img{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.09);}
-.image-caption{font-size:.82rem;color:var(--muted);margin-top:.9rem;font-style:italic;text-align:center;line-height:1.7;padding:0 .5rem;font-weight:400;}
-.image-caption a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(138,111,30,.3);}
-.image-caption a:hover{border-color:var(--gold);}
+.image-container:hover{transform:translateY(-4px);}
+.image-container img{width:100%;height:auto;display:block;border-radius:12px;box-shadow:0 4px 24px rgba(15,16,20,.1);}
+.image-caption{font-size:.9rem;color:var(--sage);margin-top:.9rem;text-align:center;line-height:1.7;padding:0 .5rem;font-weight:400;}
+.image-caption a{color:var(--sage);text-decoration:underline;text-underline-offset:2px;}
+.image-caption a:hover{color:var(--fg);}
 
-/* ── IMAGE PAIR ── */
+/* ── IMAGE PAIR (EvaKonopka only) ── */
 .image-pair{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2.5rem 0;}
 .image-pair .image-container{margin:0;}
 @media(max-width:600px){.image-pair{grid-template-columns:1fr;}}
 
+/* ── LIVE LINK (EvaKonopka only) ── */
+.cs-live-link{display:inline-flex;align-items:center;gap:.55rem;font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-weight:500;border:2px solid var(--sage);border-radius:100px;padding:.6rem 1.3rem;margin-top:1.6rem;transition:background .2s,color .2s;opacity:0;animation:fadeUp .8s var(--ease) 1.2s forwards;}
+.cs-live-link:hover{background:var(--sage);color:var(--bg);}
+.cs-live-link svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+
 /* ── NEXT PROJECT ── */
-.cs-next{margin-top:clamp(5rem,8vw,8rem);padding-top:2.5rem;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
-.cs-next-tag{font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-weight:400;}
+.cs-next{margin-top:clamp(5rem,8vw,8rem);padding-top:2.5rem;border-top:2px solid var(--gold-pale);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
+.cs-next-tag{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:.5rem;font-weight:500;}
 .cs-next-link{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,3rem);font-weight:800;letter-spacing:-.03em;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;transition:gap .35s var(--ease),color .2s;}
-.cs-next-link em{font-style:italic;font-weight:600;}
-.cs-next-link:hover{gap:1.6rem;color:var(--linen);}
+.cs-next-link em{font-style:italic;font-weight:600;color:var(--sage);}
+.cs-next-link:hover{gap:1.6rem;color:var(--sage);}
 .cs-next-link svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .35s var(--ease);}
 .cs-next-link:hover svg{transform:translateX(5px);}
-.cs-back-top{font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.45rem;min-height:44px;transition:color .2s;font-weight:400;}
+.cs-back-top{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);text-decoration:none;display:flex;align-items:center;gap:.45rem;min-height:44px;transition:color .2s;font-weight:500;}
 .cs-back-top:hover{color:var(--fg);}
 .cs-back-top svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s;}
 .cs-back-top:hover svg{transform:translateY(-3px);}
 
 /* ── FOOTER ── */
-footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
-.footer-name{font-family:var(--serif);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400;}
+footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
+.footer-name{font-family:var(--serif);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);font-weight:500;}
 
 /* ── LIGHTBOX ── */
-#lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.93);align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
+#lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(15,16,20,.96);align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
 #lightbox.active{display:flex;}
 #lightbox-inner{position:relative;max-width:90vw;max-height:90vh;animation:lbIn .3s var(--ease);}
 @keyframes lbIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 #lightbox-img{max-width:100%;max-height:80vh;object-fit:contain;display:block;border-radius:4px;}
-#lightbox-caption{color:rgba(255,255,255,.72);font-size:.82rem;margin-top:.9rem;text-align:center;line-height:1.65;max-width:60ch;font-weight:400;}
-#lightbox-close{position:absolute;top:-2.4rem;right:0;background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer;line-height:1;opacity:.65;transition:opacity .2s;padding:.5rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
-#lightbox-close:hover{opacity:1;}
+#lightbox-caption{color:#E7E2D0;font-size:.9rem;margin-top:.9rem;text-align:center;line-height:1.65;max-width:60ch;font-weight:400;}
+#lightbox-close{position:absolute;top:-2.8rem;right:0;background:none;border:2px solid #E7E2D0;color:#E7E2D0;font-size:1.2rem;cursor:pointer;line-height:1;transition:background .2s,color .2s;padding:.4rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;}
+#lightbox-close:hover{background:#E7E2D0;color:#0F1014;}
 
 /* ── SECTION GUIDE ── */
-#guide-toggle{position:fixed;left:1.4rem;bottom:5.5rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--bg);border:1.5px solid rgba(15,16,20,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.07);transition:background .2s,border-color .2s;}
-#guide-toggle:hover{background:#f0ece4;border-color:rgba(15,16,20,.3);}
-#guide-toggle svg{width:15px;height:15px;stroke:var(--fg);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease);}
+#guide-toggle{position:fixed;left:1.4rem;bottom:5.5rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px solid var(--fg);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.1);transition:background .2s,color .2s;}
+#guide-toggle:hover{background:var(--fg);}
+#guide-toggle:hover svg{stroke:var(--bg);}
+#guide-toggle svg{width:15px;height:15px;stroke:var(--fg);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease),stroke .2s;}
 #guide-toggle[aria-expanded="true"] svg{transform:rotate(45deg);}
-#section-guide{position:fixed;left:1.4rem;bottom:calc(5.5rem + 52px);z-index:409;background:var(--bg);border:1.5px solid rgba(15,16,20,.09);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.09);padding:.4rem 0;min-width:210px;opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom left;pointer-events:none;transition:opacity .22s var(--ease),transform .25s var(--ease);}
+#section-guide{position:fixed;left:1.4rem;bottom:calc(5.5rem + 52px);z-index:409;background:var(--bg);border:2px solid var(--gold-pale);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.1);padding:.4rem 0;min-width:186px;opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom left;pointer-events:none;transition:opacity .22s var(--ease),transform .25s var(--ease);}
 #section-guide.open{opacity:1;transform:none;pointer-events:auto;}
-.sg-item{display:flex;align-items:center;gap:.85rem;padding:.5rem 1rem;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--sans);transition:background .15s;min-height:44px;color:var(--muted);}
-.sg-item:hover{background:rgba(15,16,20,.035);}
+.sg-item{display:flex;align-items:center;gap:.85rem;padding:.5rem 1rem;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--sans);transition:background .15s;min-height:44px;color:var(--sage);}
+.sg-item:hover{background:var(--gold-pale);}
 .sg-item.active{color:var(--fg);}
-.sg-dot{width:6px;height:6px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s,transform .2s;}
+.sg-dot{width:6px;height:6px;border-radius:50%;border:2px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s,transform .2s;}
 .sg-item.active .sg-dot{background:var(--gold);border-color:var(--gold);transform:scale(1.25);}
-.sg-num{font-size:.62rem;letter-spacing:.18em;font-weight:500;flex-shrink:0;width:1.3rem;}
-.sg-label{font-size:.75rem;letter-spacing:.05em;font-weight:400;line-height:1.3;}
+.sg-num{font-size:.7rem;letter-spacing:.15em;font-weight:600;flex-shrink:0;width:1.3rem;}
+.sg-label{font-size:.8rem;letter-spacing:.04em;font-weight:400;line-height:1.3;}
 
 /* ── BACK TO TOP ── */
-#back-to-top{position:fixed;right:1.8rem;bottom:1.8rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.16);opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),background .2s;pointer-events:none;}
+#back-to-top{position:fixed;right:1.8rem;bottom:1.8rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.2);opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),background .2s;pointer-events:none;}
 #back-to-top.visible{opacity:1;transform:none;pointer-events:auto;}
 #back-to-top:hover{background:var(--gold);}
 #back-to-top svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
@@ -194,30 +200,30 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
 
 /* ── HAMBURGER ── */
 .nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;gap:5px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
-.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--fg);border-radius:2px;transition:transform .38s var(--ease),opacity .25s,width .3s var(--ease);transform-origin:center;}
-.nav-hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;transition:transform .38s var(--ease),opacity .25s,width .3s var(--ease);transform-origin:center;}
+.nav-hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-hamburger[aria-expanded="true"] span:nth-child(2){opacity:0;width:0;}
-.nav-hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.nav-hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* ── MOBILE DRAWER ── */
 #mobile-menu{position:fixed;inset:0;z-index:490;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:5rem var(--pad-x) 3rem;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .38s var(--ease);}
 #mobile-menu.open{opacity:1;pointer-events:auto;}
 .mobile-menu-links{list-style:none;display:flex;flex-direction:column;gap:.4rem;width:100%;}
 .mobile-menu-links li{overflow:hidden;}
-.mobile-menu-links a,.mobile-menu-links button{display:flex;align-items:center;width:100%;background:none;border:none;cursor:pointer;text-align:left;font-family:var(--sans);font-weight:400;font-size:clamp(.95rem,3.5vw,1.05rem);letter-spacing:.2em;text-transform:uppercase;line-height:1;color:var(--fg);text-decoration:none;padding:.9rem 0;min-height:44px;opacity:0;transform:translateY(14px);transition:color .2s,opacity .4s var(--ease),transform .45s var(--ease);border-bottom:1px solid var(--rule);}
+.mobile-menu-links a,.mobile-menu-links button{display:flex;align-items:center;width:100%;background:none;border:none;cursor:pointer;text-align:left;font-family:var(--sans);font-weight:500;font-size:clamp(1rem,3.5vw,1.1rem);letter-spacing:.18em;text-transform:uppercase;line-height:1;color:var(--fg);text-decoration:none;padding:.9rem 0;min-height:44px;opacity:0;transform:translateY(14px);transition:color .2s,opacity .4s var(--ease),transform .45s var(--ease);border-bottom:1px solid var(--gold-pale);}
 #mobile-menu.open .mobile-menu-links a,#mobile-menu.open .mobile-menu-links button{opacity:1;transform:none;}
 #mobile-menu.open .mobile-menu-links li:nth-child(1) a,#mobile-menu.open .mobile-menu-links li:nth-child(1) button{transition-delay:.05s;}
 #mobile-menu.open .mobile-menu-links li:nth-child(2) a,#mobile-menu.open .mobile-menu-links li:nth-child(2) button{transition-delay:.1s;}
 #mobile-menu.open .mobile-menu-links li:nth-child(3) a,#mobile-menu.open .mobile-menu-links li:nth-child(3) button{transition-delay:.15s;}
-.mobile-menu-links a:hover,.mobile-menu-links button:hover{color:var(--gold);}
-.mobile-menu-rule{width:40px;height:1px;background:var(--rule);margin:1.6rem 0;}
+.mobile-menu-links a:hover,.mobile-menu-links button:hover{color:var(--sage);}
+.mobile-menu-rule{width:40px;height:2px;background:var(--gold-pale);margin:1.6rem 0;}
 .mobile-menu-socials{display:flex;gap:1.6rem;align-items:center;opacity:0;transform:translateY(12px);transition:opacity .4s var(--ease) .2s,transform .45s var(--ease) .2s;}
 #mobile-menu.open .mobile-menu-socials{opacity:1;transform:none;}
-.mobile-menu-socials a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;opacity:.6;transition:opacity .2s;}
-.mobile-menu-socials a:hover{opacity:1;}
+.mobile-menu-socials a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--fg);transition:color .2s;}
+.mobile-menu-socials a:hover{color:var(--sage);}
 .mobile-menu-socials svg{width:17px;height:17px;fill:currentColor;}
-.mobile-email-btn{font-family:var(--sans)!important;font-size:clamp(.95rem,3.5vw,1.05rem)!important;letter-spacing:.2em!important;text-transform:uppercase!important;line-height:1!important;font-weight:400!important;position:relative;}
-.mobile-email-copied{position:absolute;left:0;bottom:-1.2rem;font-family:var(--sans);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);opacity:0;transition:opacity .25s;pointer-events:none;font-weight:400;}
+.mobile-email-btn{font-family:var(--sans)!important;font-size:clamp(1rem,3.5vw,1.1rem)!important;letter-spacing:.18em!important;text-transform:uppercase!important;line-height:1!important;font-weight:500!important;position:relative;}
+.mobile-email-copied{position:absolute;left:0;bottom:-1.2rem;font-family:var(--sans);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);opacity:0;transition:opacity .25s;pointer-events:none;font-weight:500;}
 .mobile-email-btn.flipped .mobile-email-copied{opacity:1;}
 
 /* ── REDUCED MOTION ── */
@@ -249,6 +255,7 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
 @media(max-width:480px){
   .cs-meta-row{gap:1.2rem;}
 }
+
 </style>
 </head>
 <body id="top">
@@ -332,7 +339,6 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
 
 <main id="main-content">
 
-  <!-- ══ HERO ══ -->
   <section class="cs-hero" data-section="0" aria-labelledby="cs-title">
     <div class="cs-hero-img-wrap">
       <img src="img/evakonopka/hero.jpeg" alt="Eva Konopka art website shown on desktop and mobile devices" loading="eager">
@@ -340,7 +346,7 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
     <div class="cs-hero-content">
       <p class="cs-eyebrow">UX Design — Case Study 03</p>
       <h1 class="cs-title" id="cs-title">Eva <em>Konopka</em> Art</h1>
-      <p class="cs-subtitle">A UX-led Squarespace redesign that transformed a local artist's blog into a fully functional art sales website — and helped her sell her first artwork online.</p>
+      <p class="cs-subtitle">A Squarespace redesign that turned a local artist's blog into an art sales website — and helped her sell her first piece online.</p>
       <div class="cs-meta-row">
         <div><p class="cs-meta-label">Role</p><p class="cs-meta-value">UX Designer · Freelance</p></div>
         <div><p class="cs-meta-label">Duration</p><p class="cs-meta-value">4 Months</p></div>
@@ -355,10 +361,8 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
     <div class="cs-scroll-hint" aria-hidden="true"><span class="cs-scroll-line"></span>Scroll</div>
   </section>
 
-  <!-- ══ BODY ══ -->
   <div class="cs-body">
 
-    <!-- 01 CHALLENGE -->
     <section class="cs-section reveal" id="sec-0" data-section="1" aria-labelledby="sec-0-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">01</div>
@@ -367,19 +371,16 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-0-title">The <em>Challenge</em></h2>
         </div>
       </div>
-      <p class="cs-p">Eva Konopka, a talented local artist, wanted to expand her art sales beyond the market booth and into an online presence. Her existing Squarespace site was formatted as a blog — it lacked e-commerce functionality, intuitive navigation, and the visual storytelling that art buyers respond to.</p>
-      <p class="cs-p">The challenge was to redesign the website within her existing platform to enhance user experience, communicate Eva's artistic identity, and ultimately convert visitors into buyers.</p>
+      <p class="cs-p">Eva's existing Squarespace site was a blog — no e-commerce, no clear navigation, no visual storytelling. The goal: redesign within her existing platform to convert first-time visitors into buyers.</p>
       <div class="cs-quote">
-        <p>How might we redesign Eva's website so that first-time visitors can discover her story, connect with her art, and purchase a piece — all in one seamless experience?</p>
+        <p>How might we redesign Eva's site so visitors can discover her story, connect with her art, and purchase — all in one experience?</p>
       </div>
-
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/scope.jpeg" alt="Project scope and timeline document" loading="lazy">
-        <div class="image-caption">A shared project scope and timeline kept Eva and I aligned across four months of collaboration.</div>
+        <div class="image-caption">Shared scope and timeline — four months of collaboration.</div>
       </div>
     </section>
 
-    <!-- 02 RESEARCH -->
     <section class="cs-section reveal" id="sec-1" data-section="2" aria-labelledby="sec-1-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">02</div>
@@ -388,42 +389,39 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-1-title">Research &amp; <em>Insights</em></h2>
         </div>
       </div>
-      <p class="cs-p">To understand the needs of Eva's potential buyers, I combined secondary research, direct observation at her art market booth, and informal interviews with visitors. I also audited competitor art sales websites to identify best practices and common friction points.</p>
+      <p class="cs-p">Secondary research, booth observation, visitor interviews, and a competitor audit of local artist websites.</p>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/research.jpeg" alt="Secondary research findings including website platform comparisons" loading="lazy">
-        <div class="image-caption">Platform research helped us decide to stay with Squarespace — saving time and budget while giving us the flexibility we needed.</div>
+        <div class="image-caption">Platform research confirmed: stay with Squarespace.</div>
       </div>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/competition.jpeg" alt="Competitive analysis of local artists and their websites" loading="lazy">
-        <div class="image-caption">Competitive analysis revealed that buyer testimonials, an artist story section, and a filterable gallery were the features most correlated with online sales.</div>
+        <div class="image-caption">Buyer testimonials, artist story, and filterable gallery drive online art sales.</div>
       </div>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/empathy.jpeg" alt="Empathy map built from art market observation and interviews" loading="lazy">
-        <div class="image-caption">The empathy map revealed that buyers are moved by Eva's story and process — not just the finished artwork.</div>
+        <div class="image-caption">Buyers are moved by Eva's story and process — not just the finished work.</div>
       </div>
 
-      <p class="cs-p">Key findings that shaped the redesign:</p>
       <ul class="cs-list">
-        <li>Users loved the handmade quality and price point, but found the existing site hard to navigate.</li>
-        <li>Eva's art process and the stories behind each piece were primary emotional drivers for purchase.</li>
-        <li>Shoppers aged 26–41 highly valued online and social shopping options.</li>
-        <li>People prefer buying from local artists — supporting the maker matters.</li>
-        <li>Buyer quotes and images of Eva with her work were features other artists used to build trust and drive sales.</li>
-        <li>Potential buyers wanted to learn the story and inspiration behind each individual artwork.</li>
+        <li>Quality and price resonated, but the site was hard to navigate.</li>
+        <li>Eva's story and creative process were the primary emotional purchase drivers.</li>
+        <li>Shoppers aged 26–41 prioritize online and social shopping.</li>
+        <li>Supporting the local maker matters to buyers.</li>
+        <li>Buyer quotes and photos build trust for first-time online purchasers.</li>
       </ul>
 
       <div class="cs-insights">
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cs-insight-title">Story First</div><div class="cs-insight-text">Buyers connect through Eva's process and inspiration — the story sells the art.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="cs-insight-title">Navigation Friction</div><div class="cs-insight-text">The blog format buried artwork — buyers couldn't easily find or filter pieces.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="cs-insight-title">Social Proof</div><div class="cs-insight-text">Buyer quotes and photos with Eva build trust for first-time online purchasers.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="cs-insight-title">Mobile-Ready</div><div class="cs-insight-text">The 26–41 demographic shops on mobile — responsiveness was non-negotiable.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cs-insight-title">Story First</div><div class="cs-insight-text">Eva's process and inspiration sell the art.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="cs-insight-title">Navigation Friction</div><div class="cs-insight-text">The blog buried artwork — pieces were hard to find.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="cs-insight-title">Social Proof</div><div class="cs-insight-text">Buyer quotes build trust for first-time purchasers.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="cs-insight-title">Mobile-Ready</div><div class="cs-insight-text">The 26–41 age group shops on mobile — non-negotiable.</div></div>
       </div>
     </section>
 
-    <!-- 03 PERSONAS & ARCHITECTURE -->
     <section class="cs-section reveal" id="sec-2" data-section="3" aria-labelledby="sec-2-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">03</div>
@@ -432,35 +430,32 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-2-title">Personas &amp; <em>Architecture</em></h2>
         </div>
       </div>
-      <p class="cs-p">Eva and I collaborated on two user personas representing her primary buyer segments. These personas grounded every design decision — from navigation structure to the tone of the about page copy.</p>
+      <p class="cs-p">Two personas representing Eva's primary buyers grounded every design decision.</p>
 
-      <p class="cs-sublabel">Market Buyer Persona</p>
+      <p class="cs-sublabel">Market Buyer</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/personaartmarket.png" alt="User persona for the art market buyer" loading="lazy">
-        <div class="image-caption">The market buyer persona — someone who discovers Eva's work at a show and wants to browse and purchase online later.</div>
+        <div class="image-caption">Discovers Eva's work in person — wants to browse and buy online later.</div>
       </div>
 
-      <p class="cs-sublabel">Online Buyer Persona</p>
+      <p class="cs-sublabel">Online Buyer</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/personaonline.png" alt="User persona for the online art buyer" loading="lazy">
-        <div class="image-caption">The online buyer persona — a social media user who needs story, imagery, and trust signals to purchase art sight-unseen.</div>
+        <div class="image-caption">Finds Eva on social — needs story and trust signals to buy sight-unseen.</div>
       </div>
-
-      <p class="cs-p">With both personas in mind, I redesigned the site architecture to prioritize discovery and reduce friction to purchase. A clear user flow mapped the path from landing page to completed sale.</p>
 
       <div class="image-pair reveal">
         <div class="image-container" onclick="openLightbox(this)">
           <img src="img/evakonopka/sitemap.jpeg" alt="Updated site architecture / sitemap" loading="lazy">
-          <div class="image-caption">Updated site architecture — reorganized around discover, learn, and purchase.</div>
+          <div class="image-caption">Sitemap — discover, learn, purchase.</div>
         </div>
         <div class="image-container" onclick="openLightbox(this)">
           <img src="img/evakonopka/userflow.jpeg" alt="User flow diagram for online art purchase" loading="lazy">
-          <div class="image-caption">User flow mapping the path from homepage to completed purchase.</div>
+          <div class="image-caption">User flow — homepage to completed sale.</div>
         </div>
       </div>
     </section>
 
-    <!-- 04 VISUAL DESIGN -->
     <section class="cs-section reveal" id="sec-3" data-section="4" aria-labelledby="sec-3-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">04</div>
@@ -469,35 +464,33 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-3-title">Visual <em>Design</em></h2>
         </div>
       </div>
-      <p class="cs-p">To save time and resources, we stayed with Eva's existing Squarespace platform and selected a new template together — one that natively supported e-commerce galleries, customer quotes, and full-width imagery. I also committed to teaching Eva how to manage and update the site independently after handoff.</p>
-      <p class="cs-p">We held regular working sessions to align on visual direction, color palette, and typography — drawing directly from Eva's artist business card to ensure the digital presence felt continuous with her physical brand.</p>
+      <p class="cs-p">We chose a new Squarespace template that natively supports e-commerce galleries, customer quotes, and full-width imagery. Colours and type were drawn directly from Eva's artist business card.</p>
 
       <p class="cs-sublabel">Before &amp; After</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/compare.jpeg" alt="Before and after comparison of Eva's homepage" loading="lazy">
-        <div class="image-caption">Before and after — the new template replaced a cluttered blog layout with a clean, brand-aligned sales experience. Colors and type came directly from Eva's artist business card.</div>
+        <div class="image-caption">Blog layout → brand-aligned sales experience.</div>
       </div>
 
       <p class="cs-sublabel">Final Homepage</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/homepage.jpeg" alt="Final homepage design with art sales features" loading="lazy">
-        <div class="image-caption">The final homepage — hero image, featured works, buyer quotes, and clear navigation built to welcome and convert first-time visitors.</div>
+        <div class="image-caption">Hero image, featured works, buyer quotes, clear navigation.</div>
       </div>
 
       <p class="cs-sublabel">Art Gallery</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/artgallery.jpeg" alt="Art gallery page with filterable artwork grid" loading="lazy">
-        <div class="image-caption">The gallery page — filterable by category, price, and size. I uploaded and organized the initial inventory and trained Eva to maintain it going forward.</div>
+        <div class="image-caption">Filterable by category, price, and size.</div>
       </div>
 
       <p class="cs-sublabel">About Page</p>
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/aboutpage.jpeg" alt="About page sharing Eva's art story and process" loading="lazy">
-        <div class="image-caption">The about page addresses the most consistent finding from research — buyers want to know the artist's story before committing to a purchase.</div>
+        <div class="image-caption">Eva's story and process — the most consistent purchase driver from research.</div>
       </div>
     </section>
 
-    <!-- 05 RESULTS -->
     <section class="cs-section reveal" id="sec-4" data-section="5" aria-labelledby="sec-4-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">05</div>
@@ -506,34 +499,31 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
           <h2 class="cs-section-title" id="sec-4-title">Results &amp; <em>Impact</em></h2>
         </div>
       </div>
-      <p class="cs-p">After launch, I promoted the new site at Eva's art market booth in person and helped her distribute a feedback survey to begin building a regular practice of user awareness. The response from existing customers and new visitors was immediate and positive.</p>
+      <p class="cs-p">The site launched to immediate positive feedback. Eva sold her first artwork online the same day.</p>
 
       <div class="image-container reveal" onclick="openLightbox(this)">
         <img src="img/evakonopka/hero2.jpeg" alt="Responsive site mockup showing desktop and mobile views" loading="lazy">
-        <div class="image-caption">Responsiveness was tested and refined throughout — ensuring a seamless experience for Eva's mobile-first audience.</div>
+        <div class="image-caption">Tested and refined across screen sizes.</div>
       </div>
 
       <div class="cs-quote">
         <p>"Overall the website is very clean and easy to use. Looks great!"</p>
-        <cite>— Website visitor feedback</cite>
+        <cite>— Website visitor</cite>
       </div>
 
       <div class="cs-quote">
-        <p>"Thank you so much Sara for re-designing my art website! I had my first online art sale today!"</p>
+        <p>"Thank you so much Sara — I had my first online art sale today!"</p>
         <cite>— Eva Konopka, Artist</cite>
       </div>
 
-      <p class="cs-p">Beyond the initial launch, the site continued to generate value. Eva used it to promote a children's book she and her son wrote and illustrated together — and the website helped drive those sales as well.</p>
-
       <div class="cs-insights">
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="cs-insight-title">First Online Sale</div><div class="cs-insight-text">Eva sold her first artwork online the day the redesigned site launched.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="cs-insight-title">User Confidence</div><div class="cs-insight-text">Visitor feedback praised the improved navigation and visual clarity of the site.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div class="cs-insight-title">Lasting Ownership</div><div class="cs-insight-text">Eva now manages updates, adds new artworks, and uses the site as her primary sales channel.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="cs-insight-title">Book Sales</div><div class="cs-insight-text">The site went on to help promote and sell a children's book Eva co-wrote with her son.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="cs-insight-title">First Online Sale</div><div class="cs-insight-text">Eva sold her first artwork online the day the site launched.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="cs-insight-title">User Confidence</div><div class="cs-insight-text">Visitors praised the improved navigation and visual clarity.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div class="cs-insight-title">Lasting Ownership</div><div class="cs-insight-text">Eva manages updates independently and uses it as her primary sales channel.</div></div>
+        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="cs-insight-title">Book Sales</div><div class="cs-insight-text">The site also helped promote a children's book Eva co-wrote with her son.</div></div>
       </div>
     </section>
 
-    <!-- NEXT PROJECT -->
     <div class="cs-next reveal">
       <div>
         <p class="cs-next-tag">Next Project</p>
@@ -548,7 +538,7 @@ footer{padding:2.5rem var(--pad-x);border-top:1px solid var(--rule);}
       </a>
     </div>
 
-  </div><!-- /cs-body -->
+  </div>
 </main>
 
 <!-- FOOTER -->
