@@ -27,7 +27,7 @@
   --nav-h:      5rem;
 }
 
-/* ── THEME: dark (default) ── */
+/* ── THEMES ── */
 [data-theme="light"] {
   --gold:        #857028;
   --gold-glow:   #6a5820;
@@ -50,7 +50,6 @@
   --nav-bg:      rgba(79,86,74,.95);
   --footer-border: rgba(231,226,208,.15);
 }
-
 [data-theme="warm"] {
   --gold:        #857028;
   --gold-glow:   #6a5820;
@@ -87,7 +86,7 @@ body {
   }
 }
 
-/* ── SKIP LINK — AAA: must be visible on focus ── */
+/* ── SKIP LINK ── */
 .skip-link {
   position: fixed; top: -100%; left: 1rem; z-index: 9999;
   background: var(--bg); color: var(--text);
@@ -99,6 +98,10 @@ body {
 }
 .skip-link:focus { top: 1rem; }
 
+/* When skip link target receives programmatic focus, show a ring */
+#main-content:focus { outline: none; }
+#main-content:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 4px; border-radius: 3px; }
+
 /* ── GLOBAL FOCUS ── */
 :focus-visible {
   outline: 3px solid var(--focus-ring);
@@ -106,7 +109,7 @@ body {
   border-radius: 3px;
 }
 
-/* ── KEY CURSOR (desktop only, pointer device) ── */
+/* ── KEY CURSOR (desktop hover only) ── */
 #key-cursor {
   position: fixed;
   pointer-events: none;
@@ -115,7 +118,6 @@ body {
   transform: translate(-50%, -50%) rotate(-35deg);
   opacity: 0;
   transition: opacity .18s ease;
-  /* Only show on non-touch devices */
   display: none;
 }
 @media (hover: hover) and (pointer: fine) {
@@ -130,7 +132,6 @@ body > nav {
   z-index: 500;
   padding: 0 3rem;
   display: flex; align-items: center; justify-content: space-between;
-  /* Subtle backdrop so nav is readable over content */
   background: linear-gradient(to bottom, var(--nav-bg) 0%, rgba(0,0,0,0) 100%);
 }
 .nav-logo {
@@ -140,7 +141,6 @@ body > nav {
   text-decoration: none; letter-spacing: .08em; text-transform: uppercase;
   display: flex; align-items: center; gap: .55rem;
   transition: opacity .2s;
-  /* Minimum 44×44px touch target */
   min-height: 44px;
 }
 .nav-logo:hover { opacity: .75; }
@@ -154,15 +154,24 @@ body > nav {
   color: var(--text); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
   text-decoration: none; background: none; border: none; cursor: pointer;
   font-family: 'Lexend', sans-serif; font-weight: 300;
-  padding: .5rem 0; /* touch-friendly height */
+  padding: .5rem 0;
   min-height: 44px; display: inline-flex; align-items: center;
   transition: opacity .2s;
 }
 .nav-links a:hover, .nav-links button:hover { opacity: .65; }
+
+/* FIX 1: Active nav link — gold underline for current page */
+.nav-links a.nav-active {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  opacity: 1;
+}
+.nav-links a.nav-active:hover { opacity: .8; }
+
 .nav-sep { width: 1px; height: 14px; background: var(--text); opacity: .2; }
 .nav-social {
   display: inline-flex; align-items: center; justify-content: center;
-  /* 44×44 touch target */
   width: 44px; height: 44px;
   opacity: .75; transition: opacity .2s;
 }
@@ -180,7 +189,7 @@ body > nav {
 }
 .nav-hamburger span {
   display: block; width: 22px; height: 1.5px;
-  background: #FDFDFD; /* always white so visible on all nav backgrounds */
+  background: #FDFDFD;
   border-radius: 2px;
   transition: transform .3s ease, opacity .2s ease;
 }
@@ -189,11 +198,11 @@ body > nav {
 #mobile-menu {
   display: none;
   position: fixed; inset: 0;
-  z-index: 510; /* FIX: raised above theme-switcher (505) and nav (500) */
-  background: rgba(15,16,20,.97); /* always dark, never theme-dependent */
+  z-index: 510;
+  background: rgba(15,16,20,.97);
   backdrop-filter: blur(12px);
   flex-direction: column;
-  justify-content: flex-end; /* links sit in lower portion */
+  justify-content: flex-end;
   align-items: flex-start;
   padding: 0 0 4rem 2rem;
   opacity: 0;
@@ -202,17 +211,17 @@ body > nav {
 #mobile-menu.open    { display: flex; }
 #mobile-menu.visible { opacity: 1; }
 
-/* Close button — bordered box top-LEFT (away from theme switcher) */
+/* Close button */
 #mob-close-btn {
   position: absolute;
-  top: 5rem; right: 1rem; /* right side, below the theme switcher */
+  top: 5rem; right: 1rem;
   width: 52px; height: 52px;
   display: flex; align-items: center; justify-content: center;
   background: none;
-  border: 1.5px solid rgba(255,255,255,.35); /* always white border */
+  border: 1.5px solid rgba(255,255,255,.35);
   border-radius: 6px;
   cursor: pointer;
-  color: #FDFDFD; /* always white, never theme-dependent */
+  color: #FDFDFD;
   transition: border-color .2s, opacity .2s;
 }
 #mob-close-btn:hover { border-color: #FDFDFD; opacity: 1; }
@@ -228,7 +237,7 @@ body > nav {
 }
 #mobile-menu .mob-nav-list li a,
 #mobile-menu .mob-nav-list li button {
-  color: #FDFDFD; /* always white, never theme-dependent */
+  color: #FDFDFD;
   font-family: 'Lexend', sans-serif;
   font-size: 1.55rem; letter-spacing: .18em; text-transform: uppercase;
   text-decoration: none; background: none; border: none; cursor: pointer;
@@ -239,11 +248,11 @@ body > nav {
 #mobile-menu .mob-nav-list li a:hover,
 #mobile-menu .mob-nav-list li button:hover { opacity: 1; color: var(--gold); }
 
-/* Active/current page underline */
 #mobile-menu .mob-nav-list li a.mob-active {
   text-decoration: underline;
   text-underline-offset: 5px;
   opacity: 1;
+  color: var(--gold); /* FIX 2: gold tint on active mobile link to match desktop */
 }
 
 .mob-socials {
@@ -254,7 +263,7 @@ body > nav {
   width: 44px; height: 44px; opacity: .6; transition: opacity .2s;
 }
 .mob-social:hover { opacity: 1; }
-.mob-social svg { width: 20px; height: 20px; fill: #FDFDFD; /* always white */ }
+.mob-social svg { width: 20px; height: 20px; fill: #FDFDFD; }
 
 /* ── EMAIL FLIP ── */
 .email-btn {
@@ -279,7 +288,7 @@ main {
   padding: calc(var(--nav-h) + 2rem) 3rem 4rem;
 }
 
-/* ── SITE HERO — title + subtitle above the grid ── */
+/* ── SITE HERO ── */
 .site-hero {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -298,9 +307,9 @@ main {
   font-weight: 600;
 }
 
+/* FIX 3: subtitle promoted outside hero <h1>, styled as sibling */
 .doors-label {
   font-size: .75rem; letter-spacing: .32em; text-transform: uppercase;
-  /* AAA contrast: #c8c8c8 on #0f1014 = 7.5:1 */
   color: var(--text-muted);
   margin-bottom: 0;
   display: flex; align-items: center; gap: .7rem;
@@ -318,11 +327,37 @@ main {
   width: 100%; max-width: 1200px;
   list-style: none;
 }
-/* Each list item is a flex column: card on top, label below */
 .doors-grid > li {
   display: flex;
   flex-direction: column;
 }
+
+/* FIX 4: skeleton loader — grid shows shimmer until JS populates cards */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+.doors-grid.loading > li {
+  aspect-ratio: 3/5;
+}
+.doors-grid.loading > li::before {
+  content: '';
+  display: block;
+  width: 100%;
+  aspect-ratio: 3/5;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,.04) 0%,
+    rgba(255,255,255,.08) 40%,
+    rgba(255,255,255,.04) 80%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+[data-theme="light"]  .doors-grid.loading > li::before,
+[data-theme="warm"]   .doors-grid.loading > li::before { background: linear-gradient(90deg, rgba(0,0,0,.04) 0%, rgba(0,0,0,.09) 40%, rgba(0,0,0,.04) 80%); background-size: 400px 100%; }
+[data-theme="forest"] .doors-grid.loading > li::before { background: linear-gradient(90deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.1) 40%, rgba(255,255,255,.05) 80%); background-size: 400px 100%; }
 
 /* ── DOOR CARD ── */
 .door-card {
@@ -330,7 +365,6 @@ main {
   display: block;
   text-decoration: none; color: inherit;
   aspect-ratio: 3/5;
-  /* Grow to fill the li width */
   width: 100%;
   user-select: none;
   cursor: pointer;
@@ -339,8 +373,9 @@ main {
   will-change: filter;
   border-radius: 2px;
 }
-/* Hover: pointer devices only */
-@media (hover: hover) {
+
+/* FIX 5: Hover (pointer) and focus-visible are separate — keyboard users see ring without cursor:none */
+@media (hover: hover) and (pointer: fine) {
   .door-card:hover {
     filter:
       drop-shadow(0 0 14px rgba(133,112,40,.75))
@@ -354,16 +389,25 @@ main {
   .door-card:hover .door-frame-lines {
     filter: drop-shadow(0 0 4px rgba(200,168,75,.9)) drop-shadow(0 0 10px rgba(133,112,40,.55));
   }
+  /* Only hide cursor when actually hovering — never on focus */
   .door-card:hover { cursor: none; }
   .door-card:hover + .door-label .door-label-title { color: var(--gold); }
 }
-/* Touch/keyboard: show open state on focus */
+
+/* Keyboard focus: door opens + visible ring, no cursor:none interference */
+.door-card:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 5px;
+  border-radius: 4px;
+}
 .door-card:focus-visible .door-panel {
   transform: perspective(480px) rotateY(-72deg);
 }
 .door-card:focus-visible .door-frame-lines {
   filter: drop-shadow(0 0 6px rgba(200,168,75,1));
 }
+/* Also light up the label on keyboard focus */
+.door-card:focus-visible + .door-label .door-label-title { color: var(--gold); }
 
 /* ── DOOR CARD INNER ── */
 .door-card-inner {
@@ -382,14 +426,9 @@ main {
   transition: transform .78s cubic-bezier(.76,0,.24,1);
 }
 
-/* Frame glow */
 .door-frame-lines { transition: filter .45s ease; }
 
-/* Exterior scene */
-
-/* ── DOOR LABEL ──
-   In normal document flow below the card so it never overlaps
-   neighbouring rows at any viewport width. */
+/* ── DOOR LABEL ── */
 .door-label {
   display: block;
   text-align: center;
@@ -414,31 +453,46 @@ footer {
   padding: 2.5rem 3rem;
   margin-top: 2rem;
   width: 100%;
+  /* FIX 6: footer flex row for potential future links + copyright */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 .footer-name {
   font-family: 'Spectral', Georgia, serif; font-size: .88rem;
   font-weight: 600; font-style: italic;
-  /* AAA contrast */
   color: var(--text-muted);
   letter-spacing: .04em;
 }
+/* FIX 7: "Back to top" link in footer — keyboard & touch accessible */
+.footer-top-link {
+  font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: .4rem;
+  opacity: .7;
+  transition: opacity .2s, color .2s;
+  min-height: 44px;
+}
+.footer-top-link:hover { opacity: 1; color: var(--gold); }
+.footer-top-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+
 
 /* ══════════════════════════════════════════════════════
    RESPONSIVE BREAKPOINTS
 ══════════════════════════════════════════════════════ */
 
-/* ── Large desktop ── */
 @media (max-width: 1280px) {
   .doors-grid { max-width: 960px; gap: 2rem; }
 }
 
-/* ── Tablet landscape / small desktop ── */
 @media (max-width: 1050px) {
   .doors-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 680px; }
   main { padding: calc(var(--nav-h) + 1.5rem) 2rem 4rem; }
 }
 
-/* ── Tablet portrait ── */
 @media (max-width: 768px) {
   nav { padding: 0 1.5rem; }
   .nav-links { display: none; }
@@ -449,7 +503,6 @@ footer {
   footer { padding: 2rem 1.5rem; }
 }
 
-/* ── Mobile ── */
 @media (max-width: 560px) {
   :root { --nav-h: 4rem; }
   .doors-grid {
@@ -467,16 +520,101 @@ footer {
   .footer-name { font-size: .78rem; }
 }
 
-/* ── Very small (320px) ── */
 @media (max-width: 360px) {
   .doors-grid { gap: .75rem; }
   main { padding-left: .75rem; padding-right: .75rem; }
 }
+
+/* ── THEME SWITCHER WIDGET ── */
+#theme-switcher {
+  position: fixed;
+  top: calc(var(--nav-h) + .6rem);
+  right: 1.2rem;
+  z-index: 505;
+  font-family: 'Lexend', sans-serif;
+}
+
+/* FIX 8: theme switcher nudges up on small screens so it doesn't crowd content */
+@media (max-width: 560px) {
+  #theme-switcher {
+    top: calc(var(--nav-h) - 2.6rem);
+    right: .75rem;
+  }
+}
+
+#theme-toggle-btn {
+  display: flex; align-items: center; gap: .45rem;
+  height: 36px; padding: 0 .75rem 0 .6rem;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 40px;
+  color: var(--text);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background .2s, border-color .2s, box-shadow .2s;
+}
+[data-theme="light"] #theme-toggle-btn,
+[data-theme="warm"]  #theme-toggle-btn {
+  background: rgba(0,0,0,.07);
+  border-color: rgba(0,0,0,.18);
+}
+#theme-toggle-btn:hover {
+  background: rgba(200,168,75,.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(200,168,75,.25);
+}
+#theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+#theme-current-icon { display:flex; align-items:center; }
+#theme-current-icon svg { width: 15px; height: 15px; display: block; }
+.theme-chevron { width: 9px; height: 6px; opacity: .6; transition: transform .25s; }
+#theme-toggle-btn[aria-expanded="true"] .theme-chevron { transform: rotate(180deg); }
+#theme-panel {
+  position: absolute;
+  top: calc(100% + .55rem);
+  right: 0;
+  min-width: 162px;
+  background: var(--bg);
+  border: 1px solid rgba(200,168,75,.3);
+  border-radius: 12px;
+  padding: .6rem .5rem .5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(200,168,75,.08);
+  animation: theme-panel-in .18s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes theme-panel-in {
+  from { opacity: 0; transform: translateY(-6px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+.theme-panel-label {
+  font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--text-muted); padding: 0 .5rem .45rem;
+  border-bottom: 1px solid rgba(200,168,75,.15);
+  margin-bottom: .35rem;
+}
+#theme-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+#theme-list button {
+  width: 100%; display: flex; align-items: center; gap: .6rem;
+  padding: .5rem .6rem;
+  border: none; background: none; cursor: pointer;
+  color: var(--text); border-radius: 8px;
+  font-family: 'Lexend', sans-serif; font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  transition: background .15s, color .15s;
+  text-align: left;
+}
+#theme-list button:hover { background: rgba(200,168,75,.12); color: var(--gold); }
+#theme-list button.ts-active { background: rgba(200,168,75,.18); color: var(--gold); }
+#theme-list button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.theme-btn-icon { width: 18px; height: 18px; display: flex; align-items: center; flex-shrink: 0; }
+.theme-btn-icon svg { width: 18px; height: 18px; }
+.theme-btn-label { flex: 1; }
+#theme-list button.ts-active .theme-btn-label::after { content: ' ✓'; font-size: .65rem; opacity: .7; }
 </style>
 </head>
 <body>
 
-<!-- Key cursor (pointer devices only — shown via CSS + JS) -->
 <svg id="key-cursor" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"
      aria-hidden="true" focusable="false">
   <circle cx="12" cy="12" r="8"   stroke="#c8a84b" stroke-width="2.2"/>
@@ -489,27 +627,30 @@ footer {
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- ── NAV ── -->
-<nav aria-label="Primary navigation">
+<!-- FIX 9: nav aria-label disambiguated from inner mobile nav -->
+<nav aria-label="Site navigation">
   <a class="nav-logo" href="/" aria-label="Sara McKee — home">
     <img src="img/logowhite.png" alt="" aria-hidden="true" class="nav-logo-img">
     <span>Sara McKee</span>
   </a>
 
   <!-- Desktop nav -->
-  <ul class="nav-links" role="list" aria-label="Site links">
+  <ul class="nav-links" role="list" aria-label="Primary links">
     <li><a href="about.html">About</a></li>
     <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer"
            aria-label="Résumé (opens PDF in new tab)">Résumé</a></li>
     <li>
+      <!-- FIX 10: email button — aria-live moved to the status region, not the button itself -->
       <button class="email-btn" id="email-btn"
-              aria-label="Contact — click to copy email address"
-              aria-live="polite">
+              aria-label="Contact — click to copy email address">
         <span class="email-face-front" aria-hidden="false">Contact</span>
         <span class="email-face-back"  aria-hidden="true">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"/></svg>
           Copied!
         </span>
       </button>
+      <!-- Dedicated live region so screen readers announce copy confirmation -->
+      <span id="email-status" role="status" aria-live="polite" class="sr-only"></span>
     </li>
     <li aria-hidden="true"><span class="nav-sep"></span></li>
     <li>
@@ -544,30 +685,28 @@ footer {
 
 <!-- Mobile menu drawer -->
 <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-
-  <!-- Close button — bordered box, top-LEFT (away from theme switcher) -->
   <button id="mob-close-btn" aria-label="Close navigation menu">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
     </svg>
   </button>
 
-  <!-- Nav links — left-aligned, lower half -->
+  <!-- FIX 9: inner nav label differentiated from outer -->
   <nav aria-label="Mobile navigation">
     <ul class="mob-nav-list">
       <li><a href="about.html">About</a></li>
-      <li><a href="index.html" class="mob-active">Work</a></li>
+      <li><a href="index.html" class="mob-active" aria-current="page">Work</a></li>
       <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer"
              aria-label="Résumé (opens PDF in new tab)">Résumé</a></li>
       <li>
-        <button id="mob-email-btn" aria-label="Copy email address" aria-live="polite">
+        <button id="mob-email-btn" aria-label="Copy email address">
           Contact
         </button>
+        <span id="mob-email-status" role="status" aria-live="polite" class="sr-only"></span>
       </li>
     </ul>
   </nav>
 
-  <!-- Social icons -->
   <div class="mob-socials">
     <a class="mob-social" href="https://www.linkedin.com/in/sara-mckee-a0807945"
        target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">
@@ -586,28 +725,44 @@ footer {
 
 <!-- ── MAIN CONTENT ── -->
 <main id="main-content" tabindex="-1">
-  <header class="site-hero" aria-label="Key Story Designs">
+  <!-- FIX 3: subtitle is a sibling <p> outside the <h1>, correctly structured -->
+  <header class="site-hero">
     <h1 class="site-title">Key Story<br><em>Designs</em></h1>
-    <p class="doors-label" aria-label="Case Studies">Digital Design Case Studies</p>
+    <p class="doors-label">Digital Design Case Studies</p>
   </header>
 
-  <!-- role="list" restores list semantics removed by CSS in some browsers -->
-  <ul class="doors-grid" id="doors-grid" role="list" aria-label="Portfolio case studies"></ul>
+  <ul class="doors-grid loading" id="doors-grid" role="list" aria-label="Portfolio case studies">
+    <!-- JS populates; 4 skeleton placeholder items -->
+    <li aria-hidden="true"></li>
+    <li aria-hidden="true"></li>
+    <li aria-hidden="true"></li>
+    <li aria-hidden="true"></li>
+  </ul>
 </main>
 
 <footer role="contentinfo">
   <p class="footer-name">Sara McKee &copy; 2026</p>
+  <!-- FIX 7: Back to top link -->
+  <a href="#main-content" class="footer-top-link" aria-label="Back to top of page">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <line x1="12" y1="19" x2="12" y2="5"/>
+      <polyline points="5 12 12 5 19 12"/>
+    </svg>
+    Back to top
+  </a>
 </footer>
+
+<!-- Visually-hidden utility class -->
+<style>.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }</style>
 
 <script>
 (function () {
 'use strict';
 
-/* ── CONSTANTS ── */
-const G  = '#c8a84b';  /* gold line-art — AAA contrast on dark */
-const GD = '#857028';  /* brand gold — glow effects */
-const D  = '#0f1014';  /* dark bg */
-const DM = '#16140a';  /* warm dark interior */
+const G  = '#c8a84b';
+const GD = '#857028';
+const D  = '#0f1014';
+const DM = '#16140a';
 const SW = 1.5;
 
 const PROJECTS = [
@@ -616,8 +771,6 @@ const PROJECTS = [
   { num:'03', plain:'Eva Konopka Art Website',     short:'Eva Konopka',    link:'evakonopkaart.html',  delay:'.31s' },
   { num:'04', plain:'SoloDareity Travel App',      short:'SoloDareity',    link:'solodareity.html',    delay:'.44s' },
 ];
-
-/* ── DOOR SVG FUNCTIONS ── */
 
 function door1() {
   return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
@@ -896,13 +1049,20 @@ const DOOR_FNS = [door1, door2, door3, door4];
 /* ── BUILD DOOR CARDS ── */
 const doorsGrid = document.getElementById('doors-grid');
 
+// Clear skeleton placeholders, remove loading class
+doorsGrid.innerHTML = '';
+doorsGrid.classList.remove('loading');
+
 PROJECTS.forEach((p, i) => {
   const li = document.createElement('li');
 
   const a = document.createElement('a');
   a.href = p.link;
   a.className = 'door-card';
-  a.setAttribute('aria-label', `${p.plain} — view case study`);
+  // FIX 11: aria-label includes number for screen reader orientation
+  a.setAttribute('aria-label', `Case study ${p.num}: ${p.plain}`);
+  // FIX 12: aria-current not needed on cards (not nav), but describedby links label
+  a.setAttribute('aria-describedby', `door-label-${i}`);
 
   const inner = document.createElement('div');
   inner.className = 'door-card-inner';
@@ -912,6 +1072,7 @@ PROJECTS.forEach((p, i) => {
 
   const label = document.createElement('div');
   label.className = 'door-label';
+  label.id = `door-label-${i}`;
   label.setAttribute('aria-hidden', 'true');
   label.innerHTML = `
     <span class="door-label-num">${p.num}</span>
@@ -922,9 +1083,26 @@ PROJECTS.forEach((p, i) => {
   doorsGrid.appendChild(li);
 });
 
-/* ── KEY CURSOR (pointer devices only) ── */
+// FIX 1: Mark the Work link active in desktop nav (index page = Work)
+// We look for the About link and mark the sibling — or handle via pathname
+const navLinks = document.querySelectorAll('.nav-links a[href]');
+navLinks.forEach(link => {
+  const href = link.getAttribute('href');
+  const currentPath = window.location.pathname;
+  // Index page is /, /index.html, or similar
+  const isHome = href === '/' || href === 'index.html' || href === './index.html';
+  const isCurrentHome = currentPath === '/' || currentPath.endsWith('index.html') || currentPath.endsWith('/');
+  if (isHome && isCurrentHome) {
+    link.classList.add('nav-active');
+    link.setAttribute('aria-current', 'page');
+  }
+});
+// Since there's no explicit "Work" link in the desktop nav markup, we add one awareness note —
+// if the designer adds a Work link later, it will auto-activate. For now, the mobile menu
+// already marks Work as active.
+
+/* ── KEY CURSOR ── */
 const keyCursor = document.getElementById('key-cursor');
-/* Only initialise if device supports hover (not touch) */
 if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
   document.addEventListener('mousemove', e => {
     keyCursor.style.left = e.clientX + 'px';
@@ -946,12 +1124,13 @@ if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
 /* ── EMAIL COPY ── */
 const EMAIL = 'hello@saramckeedesign.com';
 
-function setupEmailCopy(btnId, frontSelector, backSelector) {
+function setupEmailCopy(btnId, statusId, frontSelector, backSelector) {
   const btn = document.getElementById(btnId);
+  const statusEl = document.getElementById(statusId);
   if (!btn) return;
   let copied = false, timer;
-  const front = btn.querySelector(frontSelector);
-  const back  = btn.querySelector(backSelector);
+  const front = frontSelector ? btn.querySelector(frontSelector) : null;
+  const back  = backSelector  ? btn.querySelector(backSelector)  : null;
 
   function doCopy() {
     if (copied) return;
@@ -960,12 +1139,15 @@ function setupEmailCopy(btnId, frontSelector, backSelector) {
     if (back)  back.removeAttribute('aria-hidden');
     if (front) front.setAttribute('aria-hidden', 'true');
     navigator.clipboard.writeText(EMAIL).catch(() => {});
+    // FIX 10: announce to screen readers via dedicated live region
+    if (statusEl) statusEl.textContent = 'Email address copied to clipboard.';
     clearTimeout(timer);
     timer = setTimeout(() => {
       btn.classList.remove('flipped');
       copied = false;
       if (back)  back.setAttribute('aria-hidden', 'true');
       if (front) front.removeAttribute('aria-hidden');
+      if (statusEl) statusEl.textContent = '';
     }, 2600);
   }
 
@@ -975,10 +1157,11 @@ function setupEmailCopy(btnId, frontSelector, backSelector) {
   });
 }
 
-setupEmailCopy('email-btn',     '.email-face-front', '.email-face-back');
+setupEmailCopy('email-btn', 'email-status', '.email-face-front', '.email-face-back');
 
-/* ── MOBILE EMAIL (simple text swap) ── */
+/* ── MOBILE EMAIL ── */
 const mobEmailBtn = document.getElementById('mob-email-btn');
+const mobEmailStatus = document.getElementById('mob-email-status');
 if (mobEmailBtn) {
   let mCopied = false, mTimer;
   function mobCopy() {
@@ -986,10 +1169,12 @@ if (mobEmailBtn) {
     mCopied = true;
     navigator.clipboard.writeText(EMAIL).catch(() => {});
     mobEmailBtn.textContent = 'Copied!';
+    if (mobEmailStatus) mobEmailStatus.textContent = 'Email address copied to clipboard.';
     clearTimeout(mTimer);
     mTimer = setTimeout(() => {
       mobEmailBtn.textContent = 'Contact';
       mCopied = false;
+      if (mobEmailStatus) mobEmailStatus.textContent = '';
     }, 2500);
   }
   mobEmailBtn.addEventListener('click', mobCopy);
@@ -1001,7 +1186,6 @@ const mobileMenu = document.getElementById('mobile-menu');
 const mobCloseBtn = document.getElementById('mob-close-btn');
 
 if (hamburger && mobileMenu) {
-  /* All focusable elements inside the drawer */
   const getFocusable = () => [
     ...mobileMenu.querySelectorAll('a, button')
   ].filter(el => !el.disabled);
@@ -1025,12 +1209,10 @@ if (hamburger && mobileMenu) {
   hamburger.addEventListener('click', openMenu);
   if (mobCloseBtn) mobCloseBtn.addEventListener('click', closeMenu);
 
-  /* Close on Escape */
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
   });
 
-  /* Focus trap inside drawer */
   mobileMenu.addEventListener('keydown', e => {
     if (e.key !== 'Tab') return;
     const focusable = getFocusable();
@@ -1043,95 +1225,15 @@ if (hamburger && mobileMenu) {
     }
   });
 
-  /* Close on backdrop click */
   mobileMenu.addEventListener('click', e => {
     if (e.target === mobileMenu) closeMenu();
   });
 }
 
-})(); /* end IIFE */
+})();
 </script>
 
-<style>
-/* ── THEME SWITCHER WIDGET ── */
-#theme-switcher {
-  position: fixed;
-  top: calc(var(--nav-h) + .6rem);
-  right: 1.2rem;
-  z-index: 505; /* FIX: raised above nav (500), below open mobile menu (510) */
-  font-family: 'Lexend', sans-serif;
-}
-#theme-toggle-btn {
-  display: flex; align-items: center; gap: .45rem;
-  height: 36px; padding: 0 .75rem 0 .6rem;
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 40px;
-  color: var(--text);
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: background .2s, border-color .2s, box-shadow .2s;
-}
-[data-theme="light"] #theme-toggle-btn,
-[data-theme="warm"]  #theme-toggle-btn {
-  background: rgba(0,0,0,.07);
-  border-color: rgba(0,0,0,.18);
-}
-#theme-toggle-btn:hover {
-  background: rgba(200,168,75,.15);
-  border-color: var(--gold);
-  box-shadow: 0 0 12px rgba(200,168,75,.25);
-}
-#theme-toggle-btn:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-#theme-current-icon { display:flex; align-items:center; }
-#theme-current-icon svg { width: 15px; height: 15px; display: block; }
-.theme-chevron { width: 9px; height: 6px; opacity: .6; transition: transform .25s; }
-#theme-toggle-btn[aria-expanded="true"] .theme-chevron { transform: rotate(180deg); }
-#theme-panel {
-  position: absolute;
-  top: calc(100% + .55rem);
-  right: 0;
-  min-width: 162px;
-  background: var(--bg);
-  border: 1px solid rgba(200,168,75,.3);
-  border-radius: 12px;
-  padding: .6rem .5rem .5rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(200,168,75,.08);
-  animation: theme-panel-in .18s cubic-bezier(.22,1,.36,1) both;
-}
-@keyframes theme-panel-in {
-  from { opacity: 0; transform: translateY(-6px) scale(.97); }
-  to   { opacity: 1; transform: none; }
-}
-.theme-panel-label {
-  font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--text-muted); padding: 0 .5rem .45rem;
-  border-bottom: 1px solid rgba(200,168,75,.15);
-  margin-bottom: .35rem;
-}
-#theme-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-#theme-list button {
-  width: 100%; display: flex; align-items: center; gap: .6rem;
-  padding: .5rem .6rem;
-  border: none; background: none; cursor: pointer;
-  color: var(--text); border-radius: 8px;
-  font-family: 'Lexend', sans-serif; font-size: .72rem;
-  letter-spacing: .08em; text-transform: uppercase;
-  transition: background .15s, color .15s;
-  text-align: left;
-}
-#theme-list button:hover { background: rgba(200,168,75,.12); color: var(--gold); }
-#theme-list button.ts-active { background: rgba(200,168,75,.18); color: var(--gold); }
-#theme-list button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
-.theme-btn-icon { width: 18px; height: 18px; display: flex; align-items: center; flex-shrink: 0; }
-.theme-btn-icon svg { width: 18px; height: 18px; }
-.theme-btn-label { flex: 1; }
-#theme-list button.ts-active .theme-btn-label::after { content: ' ✓'; font-size: .65rem; opacity: .7; }
-</style>
-
+<!-- ── THEME SWITCHER ── -->
 <div id="theme-switcher" aria-label="Theme switcher">
   <button id="theme-toggle-btn" aria-label="Open theme options" aria-expanded="false" aria-haspopup="true">
     <span id="theme-current-icon" aria-hidden="true"></span>
@@ -1147,15 +1249,14 @@ if (hamburger && mobileMenu) {
 (function(){
 'use strict';
 var THEMES=[
-  {id:'dark',    label:'Dark mode',           title:'Dark',
+  {id:'dark',   label:'Dark mode',           title:'Dark',
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'},
-  {id:'light',   label:'Light mode',          title:'Light',
+  {id:'light',  label:'Light mode',          title:'Light',
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'},
-  {id:'warm',    label:'Warm parchment mode', title:'Warm',
+  {id:'warm',   label:'Warm parchment mode', title:'Warm',
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0 0 20c1 0 2-.8 2-2 0-.5-.2-1-.4-1.4-.2-.4-.4-.8-.4-1.2 0-1.1.9-2 2-2h2.5A5.5 5.5 0 0 0 22 9.5C22 5.36 17.46 2 12 2z"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="14.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="7.5" cy="13" r="1" fill="currentColor" stroke="none"/></svg>'},
-  {id:'forest',  label:'Forest mode',         title:'Forest',
+  {id:'forest', label:'Forest mode',         title:'Forest',
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 4,12 8,12 6,22 18,22 16,12 20,12"/></svg>'},
-
 ];
 var KEY='ks-theme';
 var toggleBtn=document.getElementById('theme-toggle-btn');

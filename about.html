@@ -12,7 +12,6 @@
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box }
 
 /* ── THEME DEFINITIONS ── */
-/* Default / dark */
 :root {
   --page-bg:          #0f1014;
   --page-fg:          #FDFDFD;
@@ -23,7 +22,6 @@
   --page-chip-hover:  rgba(253,253,253,.06);
   --page-logo:        url('img/logowhite.png');
 }
-
 [data-theme="light"] {
   --page-bg:          #E7E2D0;
   --page-fg:          #0F1014;
@@ -33,7 +31,6 @@
   --page-chip-border: rgba(15,16,20,.28);
   --page-chip-hover:  rgba(15,16,20,.05);
 }
-
 [data-theme="warm"] {
   --page-bg:          #FDFDFD;
   --page-fg:          #0F1014;
@@ -43,7 +40,6 @@
   --page-chip-border: rgba(15,16,20,.24);
   --page-chip-hover:  rgba(15,16,20,.04);
 }
-
 [data-theme="forest"] {
   --page-bg:          #4F564A;
   --page-fg:          #E7E2D0;
@@ -59,7 +55,6 @@
   --sans:  'Lexend', sans-serif;
   --ease:  cubic-bezier(.76,0,.24,1);
   --max:   820px;
-
   --nav-px: clamp(1rem, 4vw, 3rem);
   --nav-py: clamp(1rem, 2.5vw, 1.8rem);
   --hero-px: clamp(1.2rem, 6vw, 6vw);
@@ -101,10 +96,9 @@ body {
 .skip-link:focus { top: 1rem; }
 
 :focus-visible {
-  outline: 3px solid var(--page-fg);
+  outline: 3px solid var(--page-gold);
   outline-offset: 3px;
   border-radius: 2px;
-  box-shadow: 0 0 0 6px var(--page-bg);
 }
 
 .sr-only {
@@ -138,8 +132,10 @@ body {
   opacity: 0; animation: fadeUp .8s var(--ease) .3s both;
   transition: color 0.35s ease, opacity .2s;
   display: flex; align-items: center; gap: .55rem;
+  min-height: 44px;
 }
 .nav-logo:hover { opacity: .75; }
+/* FIX 11: alt="" on logo img since adjacent text "Sara McKee" is the real label */
 .nav-logo-img {
   width: 22px; height: 22px;
   object-fit: contain; flex-shrink: 0;
@@ -158,11 +154,19 @@ body {
   letter-spacing: .12em; text-transform: uppercase;
   text-decoration: none; background: none; border: none;
   cursor: pointer; padding: 0; transition: opacity .2s;
+  min-height: 44px; display: inline-flex; align-items: center;
 }
 .nav-links a:hover, .nav-links button:hover { opacity: .65; }
+
+/* FIX: consistent active link style — gold tint + underline (aligns with index.html) */
 .nav-links a[aria-current="page"] {
-  opacity: .55; text-decoration: underline; text-underline-offset: 3px;
+  color: var(--page-gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  opacity: 1;
 }
+.nav-links a[aria-current="page"]:hover { opacity: .8; }
+
 .nav-social {
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; opacity: .85; transition: opacity .2s;
@@ -208,7 +212,12 @@ body {
   min-height: 44px; display: flex; align-items: center;
 }
 .mobile-menu a:hover, .mobile-menu button:hover { opacity: 1; }
-.mobile-menu a[aria-current="page"] { opacity: .45; text-decoration: underline; text-underline-offset: 3px; }
+.mobile-menu a[aria-current="page"] {
+  color: var(--page-gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  opacity: 1;
+}
 .mobile-menu-socials { display: flex; gap: .4rem; margin-top: 3rem; }
 .mobile-menu-socials a {
   display: inline-flex; align-items: center; justify-content: center;
@@ -267,6 +276,7 @@ body {
   padding: 0 0 var(--hero-pb) var(--hero-px);
   max-width: clamp(280px, 54vw, 700px);
 }
+/* FIX 3: eyebrow is meaningful context — removed aria-hidden, shown to AT */
 .page-eyebrow {
   font-size: clamp(.75rem, 1.2vw, .85rem); font-weight: 400;
   letter-spacing: .22em; text-transform: uppercase;
@@ -279,6 +289,7 @@ body {
 .page-eyebrow::before {
   content:''; display:block; width:18px; height:1px;
   background:currentColor; flex-shrink:0;
+  /* FIX: decorative dash is presentational — aria-hidden not needed on a pseudo-element */
 }
 .greeting {
   font-family: var(--serif);
@@ -434,6 +445,15 @@ body {
   transition: color .2s, border-color .2s;
 }
 .pause-btn:hover { color: var(--page-fg); border-color: var(--page-fg); }
+
+/* FIX 6: Two SVG states in markup toggled by class, not innerHTML swap */
+.pause-btn .icon-pause { display: block; }
+.pause-btn .icon-play  { display: none; }
+.pause-btn[aria-pressed="true"] .icon-pause { display: none; }
+.pause-btn[aria-pressed="true"] .icon-play  { display: block; }
+.pause-btn[aria-pressed="true"] .btn-label::before { content: 'Resume '; }
+.pause-btn[aria-pressed="false"] .btn-label::before { content: 'Pause '; }
+
 .pause-btn svg { width: 10px; height: 10px; fill: currentColor; flex-shrink: 0; }
 .likes-track.paused { animation-play-state: paused; }
 .likes-row {
@@ -465,6 +485,7 @@ body {
   color: var(--page-body); white-space: nowrap;
   transition: color 0.35s ease;
 }
+/* FIX 8: artwork CTA shows underline on keyboard focus */
 .artwork-cta {
   display: inline-flex; align-items: center; gap: .55rem;
   font-family: var(--sans); font-size: clamp(.82rem, 1.2vw, .9rem); font-weight: 400;
@@ -473,32 +494,63 @@ body {
   border-bottom: 2px solid var(--page-chip-border);
   padding-bottom: .25rem; margin-top: 1.8rem; min-height: 44px;
   transition: gap .3s var(--ease), border-color .2s, color 0.35s ease;
+  display: inline-flex; align-items: center;
 }
 .artwork-cta:hover { gap: 1rem; border-color: var(--page-fg); }
-.artwork-cta svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.artwork-cta:focus-visible {
+  border-color: var(--page-gold);
+  outline-offset: 6px;
+}
+.artwork-cta svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-/* CLIENT GRID */
-.client-list {
-  list-style: none; display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 22%, 150px), 1fr));
-  gap: .75rem; margin-top: 1.5rem;
+/* CLIENT / BRAND GRID */
+.brand-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
-.client-item {
-  display: flex; flex-direction: column; align-items: center; gap: .75rem;
-  padding: clamp(1.2rem, 2.5vw, 1.6rem) 1rem clamp(1rem, 2vw, 1.3rem);
-  border: 1px solid var(--page-border); border-radius: 14px;
-  font-size: clamp(.75rem, 1vw, .8rem); font-weight: 400;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--page-body); text-align: center; line-height: 1.5;
-  transition: border-color .25s, color .25s, background .25s;
+.brand-item {
+  display: flex; flex-direction: column; align-items: center; gap: .65rem;
+  text-align: center;
 }
-.client-item:hover {
-  border-color: var(--page-fg); background: var(--page-chip-hover); color: var(--page-fg);
+.brand-img-wrap {
+  position: relative;
+  width: 100%; aspect-ratio: 3/2;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--page-border);
+  background: var(--page-chip-hover);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .25s, background .25s;
 }
-.client-logo { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.client-logo svg { width: 100%; height: 100%; display: block; }
+.brand-item:hover .brand-img-wrap {
+  border-color: var(--page-chip-border);
+  background: var(--page-chip-hover);
+}
+.brand-img-wrap img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: contain;
+  padding: 16%; display: block;
+  transition: opacity .2s;
+}
+.brand-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+  color: var(--page-body); opacity: .55;
+}
+.brand-placeholder svg { width: 36px; height: 36px; }
+.brand-img-wrap img[src]:not([src=""]) + .brand-placeholder { display: none; }
+.brand-name {
+  font-family: var(--sans); font-size: clamp(.68rem, 1vw, .76rem);
+  font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--page-body); transition: color 0.35s ease;
+  line-height: 1.4;
+}
 
 /* QUOTE CARDS */
+/* FIX 5: Removed CSS quotes pseudo-content — blockquote already conveys quotation
+   semantically; CSS-generated marks get double-announced by some screen readers */
 .quotes-track { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
 .quote-card {
   background: var(--page-chip-hover); border: 1px solid var(--page-border);
@@ -512,10 +564,8 @@ body {
   font-size: clamp(.95rem, 1.2vw, 1.1rem); line-height: 1.75;
   color: var(--page-fg); margin-bottom: 1.4rem;
   transition: color 0.35s ease;
-  quotes: "\201C" "\201D";
+  /* No CSS quotes: blockquote semantics handle this */
 }
-.quote-text::before { content: open-quote; }
-.quote-text::after  { content: close-quote; }
 .quote-meta { display: flex; flex-direction: column; gap: .25rem; }
 .quote-name {
   font-family: var(--sans); font-size: .9rem; font-weight: 400;
@@ -528,6 +578,8 @@ body {
 }
 
 /* SPECIALTY CHIPS */
+/* FIX 9: removed per-chip aria-label overrides — nav label provides context,
+   visible text is the accessible name */
 .spec-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
 .spec-chip {
   font-family: var(--sans); font-size: clamp(.78rem, 1.1vw, .85rem); font-weight: 400;
@@ -540,6 +592,8 @@ body {
 }
 .spec-chip:hover { border-color: var(--page-gold); color: var(--page-fg); }
 .spec-chip.active { border-color: var(--page-gold); color: var(--page-gold); text-decoration: underline; text-underline-offset: 3px; }
+/* FIX 8: spec chips also get clear focus style */
+.spec-chip:focus-visible { border-color: var(--page-gold); color: var(--page-gold); }
 
 /* ══════════════════════════════════════════
    THEME SWITCHER
@@ -551,6 +605,15 @@ body {
   z-index: 490;
   font-family: var(--sans);
 }
+
+/* FIX 10: prevent theme switcher from overlapping body content on mobile */
+@media (max-width: 560px) {
+  #theme-switcher {
+    top: calc(var(--nav-h) - 2.6rem);
+    right: .75rem;
+  }
+}
+
 #theme-toggle-btn {
   display: flex; align-items: center; gap: .45rem;
   height: 36px; padding: 0 .75rem 0 .6rem;
@@ -639,13 +702,14 @@ footer {
   transition: gap .3s var(--ease), border-color .2s, color 0.35s ease;
 }
 .cta-link:hover { gap: 1.1rem; border-color: var(--page-fg); }
-.cta-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cta-link:focus-visible { border-color: var(--page-gold); }
+.cta-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
 /* ══════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .client-list { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .brand-list  { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   .tools-grid  { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
 }
 @media (max-width: 700px) {
@@ -655,7 +719,7 @@ footer {
   .spec-chips { gap: .4rem; }
 }
 @media (max-width: 600px) {
-  .client-list { grid-template-columns: repeat(2, 1fr); }
+  .brand-list  { grid-template-columns: repeat(2, 1fr); }
   .tools-grid  { grid-template-columns: repeat(3, 1fr); }
   .likes-row {
     -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
@@ -665,8 +729,8 @@ footer {
   .like-item-img { height: clamp(70px, 21vw, 95px); }
   footer { flex-direction: column; align-items: flex-start; }
 }
-@media (max-width: 380px) {
-  .client-list { grid-template-columns: 1fr; }
+@media (max-width: 480px) {
+  .brand-list  { grid-template-columns: 1fr; }
   .tools-grid  { grid-template-columns: repeat(2, 1fr); }
   .spec-chips  { gap: .35rem; }
   .spec-chip   { font-size: .72rem; padding: .5rem .9rem; }
@@ -680,68 +744,19 @@ footer {
   .avail-dot { background: Highlight; }
   :focus-visible { outline: 3px solid ButtonText; box-shadow: none; }
 }
-
-/* ── BRAND LOGO LIST ── */
-.brand-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-.brand-item {
-  display: flex; flex-direction: column; align-items: center; gap: .65rem;
-  text-align: center;
-}
-.brand-img-wrap {
-  position: relative;
-  width: 100%; aspect-ratio: 3/2;
-  border-radius: 14px; overflow: hidden;
-  border: 1px solid var(--page-border);
-  background: var(--page-chip-hover);
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color .25s, background .25s;
-}
-.brand-item:hover .brand-img-wrap {
-  border-color: var(--page-chip-border);
-  background: var(--page-chip-hover);
-}
-.brand-img-wrap img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: contain;
-  padding: 16%;
-  display: block;
-  transition: opacity .2s;
-}
-.brand-placeholder {
-  display: flex; align-items: center; justify-content: center;
-  width: 100%; height: 100%;
-  color: var(--page-body); opacity: .55;
-}
-.brand-placeholder svg { width: 36px; height: 36px; }
-/* Hide placeholder once image loads */
-.brand-img-wrap img[src]:not([src=""]) + .brand-placeholder { display: none; }
-.brand-name {
-  font-family: var(--sans); font-size: clamp(.68rem, 1vw, .76rem);
-  font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--page-body); transition: color 0.35s ease;
-  line-height: 1.4;
-}
-@media (max-width: 480px) {
-  .brand-list { grid-template-columns: repeat(2, 1fr); }
-}
-
 </style>
 </head>
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<!-- FIX 5: dedicated live region for email copy confirmation (already correct here — preserved) -->
 <div id="email-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <!-- ── NAV ── -->
 <nav id="site-nav" aria-label="Site navigation">
   <a class="nav-logo" href="index.html">
-    <img src="img/logowhite.png" alt="SM logo" class="nav-logo-img" id="nav-logo-img">
+    <!-- FIX 11: alt="" is correct — adjacent text "Sara McKee" is the accessible name -->
+    <img src="img/logowhite.png" alt="" class="nav-logo-img" id="nav-logo-img">
     Sara McKee
   </a>
   <ul class="nav-links" role="list">
@@ -749,7 +764,7 @@ footer {
     <li><a href="resume.pdf" target="_blank" rel="noopener" aria-label="Download Résumé, opens PDF in new tab">Résumé</a></li>
     <li>
       <button class="email-btn" id="email-btn" aria-label="Contact — click to copy email address">
-        <span class="email-face-front" aria-hidden="true">Contact</span>
+        <span class="email-face-front">Contact</span>
         <span class="email-face-back" aria-hidden="true">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"/></svg>Copied!
         </span>
@@ -802,8 +817,13 @@ footer {
   </div>
 </div>
 
-<!-- ── MAIN ── -->
-<div id="main-content">
+<!-- ── MAIN CONTENT ──
+  FIX 1 & 2: Changed outer <div id="main-content"> to <main> so the skip link
+  lands on a proper main landmark. screen readers use <main> to expose the
+  "main content" region. The original <div> was invisible to landmark navigation.
+-->
+<main id="main-content" tabindex="-1">
+
   <section class="hero" aria-labelledby="hero-heading">
     <div class="headshot-wrap">
       <img src="img/about/headshot.jpg"
@@ -811,7 +831,8 @@ footer {
            width="480" height="640" decoding="async">
     </div>
     <div class="hero-content">
-      <p class="page-eyebrow" aria-hidden="true">Digital Designer</p>
+      <!-- FIX 3: removed aria-hidden — "Digital Designer" is meaningful context for AT users -->
+      <p class="page-eyebrow">Digital Designer</p>
       <h1 class="greeting" id="hero-heading">Hello,<br>I'm <em>Sara.</em></h1>
       <p class="intro">
         I'm an artist and digital designer with a background in art education.
@@ -824,7 +845,9 @@ footer {
 
   <div class="page-body">
 
-    <p class="avail">
+    <!-- FIX 4: role="status" on pill makes the availability message a live region
+         so if the page loads asynchronously, AT users hear it -->
+    <p class="avail" role="status">
       <span class="avail-dot" aria-hidden="true"></span>
       <span>Available for work in 2026</span>
     </p>
@@ -877,16 +900,18 @@ footer {
     <section class="about-section" aria-labelledby="life-heading">
       <h2 id="life-heading">In life</h2>
       <p>
-        When I'm not designing, you can find me making art — sketching in notebooks, 
-        or exploring new mediums just for the joy of it. I'm also a passionate traveler 
-        who loves discovering new places and cultures, a dedicated yoga practitioner, 
+        When I'm not designing, you can find me making art — sketching in notebooks,
+        or exploring new mediums just for the joy of it. I'm also a passionate traveler
+        who loves discovering new places and cultures, a dedicated yoga practitioner,
         and a devoted cat parent. I spend a lot of time with my husband and we are always on the hunt
         for the best art event or cup of coffee in town.
       </p>
       <div class="marquee-controls">
+        <!-- FIX 6: Two SVG states in markup — toggled by CSS class, no innerHTML swap -->
         <button class="pause-btn" id="marquee-pause" aria-pressed="false">
-          <svg viewBox="0 0 10 10" aria-hidden="true" focusable="false"><rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/></svg>
-          <span>Pause animation</span>
+          <svg class="icon-pause" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/></svg>
+          <svg class="icon-play"  viewBox="0 0 10 10" aria-hidden="true" focusable="false"><polygon points="2,1 9,5 2,9"/></svg>
+          <span class="btn-label">animation</span>
         </button>
       </div>
 
@@ -902,7 +927,7 @@ footer {
           <div class="like-item"><div class="like-item-img"><img src="img/life/books.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 6h4v12H2zM10 6h4v12h-4zM18 6h4v12h-4z"/></svg></div><span class="like-item-label">Bookshops</span></div>
           <div class="like-item"><div class="like-item-img"><img src="img/life/hiking.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 18l4-8 3 5 2-3 4 6"/><path d="M17 6l2-3"/><circle cx="17" cy="4" r="1.5"/></svg></div><span class="like-item-label">Hiking</span></div>
           <div class="like-item"><div class="like-item-img"><img src="img/life/thrift.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><span class="like-item-label">Thrift Stores</span></div>
-          <!-- Duplicate for seamless loop -->
+          <!-- Duplicate set for seamless CSS loop -->
           <div class="like-item"><div class="like-item-img"><img src="img/life/art.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19c0-4 3-7 3-10a3 3 0 0 0-6 0c0 3 3 6 3 10z"/><circle cx="12" cy="20.5" r="1"/><path d="M9 10h6"/></svg></div><span class="like-item-label">Making Art</span></div>
           <div class="like-item"><div class="like-item-img"><img src="img/life/yoga.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="4" r="1.5"/><path d="M5 12c2-2 4-3 7-3s5 1 7 3"/><path d="M7 21l2-5 3 2 3-2 2 5"/></svg></div><span class="like-item-label">Yoga</span></div>
           <div class="like-item"><div class="like-item-img"><img src="img/life/travel.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/></svg></div><span class="like-item-label">Traveling</span></div>
@@ -915,6 +940,7 @@ footer {
           <div class="like-item"><div class="like-item-img"><img src="img/life/thrift.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><span class="like-item-label">Thrift Stores</span></div>
         </div>
       </div>
+      <!-- Screen-reader equivalent of the visual marquee -->
       <p class="sr-only">Things Sara enjoys outside of work: Making Art, Yoga, Traveling, Watercolor painting, Cat Cuddles, Dark Coffee, Sketchbooks, Bookshops, Hiking, and Thrift Stores.</p>
       <a href="artwork.html" class="artwork-cta">
         See My Artwork
@@ -925,73 +951,58 @@ footer {
     <section class="about-section" aria-labelledby="clients-heading">
       <h2 id="clients-heading">Clients &amp; Experience</h2>
       <ul class="brand-list" aria-label="Clients and organisations I have worked with">
-
-         <!-- Electric Avenue E-Bikes — replace src: img/clients/electricavenue.png -->
         <li class="brand-item">
           <div class="brand-img-wrap">
-            <img src="img/about/ea.png" alt="Electric Avenue E-Bikes logo" loading="lazy"
-                 onerror="this.style.display='none'">
+            <img src="img/about/ea.png" alt="Electric Avenue E-Bikes logo" loading="lazy" onerror="this.style.display='none'">
             <div class="brand-placeholder" aria-hidden="true">
               <svg viewBox="0 0 44 44" fill="none"><circle cx="14" cy="29" r="6" stroke="currentColor" stroke-width="1.4" opacity=".7"/><circle cx="30" cy="29" r="6" stroke="currentColor" stroke-width="1.4" opacity=".7"/><path d="M14 29l7-11h5l4 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/><path d="M14 29l8-11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".7"/></svg>
             </div>
           </div>
           <span class="brand-name">Electric Avenue E-Bikes</span>
         </li>
-
-        <!-- Colearn Academy — replace src with actual logo: img/clients/edtech.png -->
         <li class="brand-item">
           <div class="brand-img-wrap">
-            <img src="img/about/colearn.png" alt="Colearn Academy logo" loading="lazy"
-                 onerror="this.style.display='none'">
-            <!-- Placeholder shown when image is missing -->
+            <img src="img/about/colearn.png" alt="Colearn Academy logo" loading="lazy" onerror="this.style.display='none'">
             <div class="brand-placeholder" aria-hidden="true">
               <svg viewBox="0 0 44 44" fill="none"><path d="M22 12l14 6-14 6-14-6 14-6z" fill="currentColor" opacity=".7"/><path d="M8 18v8c0 0 4 5 14 5s14-5 14-5v-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/></svg>
             </div>
           </div>
           <span class="brand-name">Colearn Academy</span>
         </li>
-
-        <!-- Datable — replace src: img/clients/datable.png -->
         <li class="brand-item">
           <div class="brand-img-wrap">
-            <img src="img/about/datable.png" alt="Datable logo" loading="lazy"
-                 onerror="this.style.display='none'">
+            <img src="img/about/datable.png" alt="Datable logo" loading="lazy" onerror="this.style.display='none'">
             <div class="brand-placeholder" aria-hidden="true">
               <svg viewBox="0 0 44 44" fill="none"><path d="M22 32s-10-6.5-10-13a6 6 0 0 1 10-4.5A6 6 0 0 1 32 19c0 6.5-10 13-10 13z" stroke="currentColor" stroke-width="1.4" opacity=".7"/></svg>
             </div>
           </div>
           <span class="brand-name">Datable</span>
         </li>
-
-        <!-- Eva Konopka Art — replace src: img/clients/evakonopka.png -->
         <li class="brand-item">
           <div class="brand-img-wrap">
-            <img src="img/about/evak.png" alt="Eva Konopka Art logo" loading="lazy"
-                 onerror="this.style.display='none'">
+            <img src="img/about/evak.png" alt="Eva Konopka Art logo" loading="lazy" onerror="this.style.display='none'">
             <div class="brand-placeholder" aria-hidden="true">
               <svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="10" stroke="currentColor" stroke-width="1.4" opacity=".7"/><circle cx="17" cy="20" r="2" fill="currentColor" opacity=".5"/><circle cx="22" cy="17" r="2" fill="currentColor" opacity=".8"/><circle cx="27" cy="20" r="2" fill="currentColor" opacity=".5"/><circle cx="26" cy="26" r="2" fill="currentColor" opacity=".8"/></svg>
             </div>
           </div>
           <span class="brand-name">Eva Konopka Art</span>
         </li>
-
-        <!-- Compudopt — replace src: img/clients/compudopt.png -->
         <li class="brand-item">
           <div class="brand-img-wrap">
-            <img src="img/about/compudopt.png" alt="Compudopt logo" loading="lazy"
-                 onerror="this.style.display='none'">
+            <img src="img/about/compudopt.png" alt="Compudopt logo" loading="lazy" onerror="this.style.display='none'">
             <div class="brand-placeholder" aria-hidden="true">
               <svg viewBox="0 0 44 44" fill="none"><path d="M22 32s-10-6.5-10-13a6 6 0 0 1 10-4.5A6 6 0 0 1 32 19c0 6.5-10 13-10 13z" stroke="currentColor" stroke-width="1.4" opacity=".7"/></svg>
             </div>
           </div>
           <span class="brand-name">Compudopt</span>
         </li>
-
       </ul>
     </section>
 
     <section class="about-section" aria-labelledby="quotes-heading">
       <h2 id="quotes-heading">What people say</h2>
+      <!-- FIX 5: removed CSS quotes — blockquote semantics already convey quotation;
+           CSS ::before/::after quote chars get double-announced by some screen readers -->
       <div class="quotes-track">
         <figure class="quote-card">
           <blockquote class="quote-text">Sara brings both creative vision and deep empathy to every design challenge. She listens carefully, asks the right questions, and delivers work that truly serves the user.</blockquote>
@@ -1019,17 +1030,19 @@ footer {
 
     <section class="about-section" aria-labelledby="spec-heading">
       <h2 id="spec-heading">Specialties</h2>
-      <nav class="spec-chips" aria-label="Design specialties — each links to a related case study">
-        <a class="spec-chip active" href="includesign.html" aria-label="UX Design — view IncluDesign case study">UX Design</a>
-        <a class="spec-chip" href="procrastigreat.html" aria-label="UI Design — view ProcrastiGreat case study">UI Design</a>
-        <a class="spec-chip" href="includesign.html" aria-label="Accessibility — view IncluDesign case study">Accessibility</a>
-        <a class="spec-chip" href="evakonopkaart.html" aria-label="Web Design — view Eva Konopka Art case study">Web Design</a>
-        <a class="spec-chip" href="solodareity.html" aria-label="User Research — view SoloDareity case study">User Research</a>
+      <!-- FIX 9: removed per-chip aria-label overrides — visible text is the accessible name,
+           nav element label provides the surrounding context -->
+      <nav class="spec-chips" aria-label="Design specialties — links to related case studies">
+        <a class="spec-chip active" href="includesign.html">UX Design</a>
+        <a class="spec-chip" href="procrastigreat.html">UI Design</a>
+        <a class="spec-chip" href="includesign.html">Accessibility</a>
+        <a class="spec-chip" href="evakonopkaart.html">Web Design</a>
+        <a class="spec-chip" href="solodareity.html">User Research</a>
       </nav>
     </section>
 
   </div>
-</div>
+</main>
 
 <footer>
   <span class="footer-name">Sara McKee &copy; 2026</span>
@@ -1156,11 +1169,16 @@ emailBtn.addEventListener('keydown', function(e){
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doFlip(); }
 });
 
-/* ── HAMBURGER ── */
+/* ── HAMBURGER + FOCUS TRAP ── */
 var hamburger     = document.getElementById('hamburger');
 var mobileMenu    = document.getElementById('mobile-menu');
 var emailBtnMobile= document.getElementById('email-btn-mobile');
 var menuOpen = false;
+
+// FIX 7: focus trap implementation
+function getFocusable() {
+  return [].slice.call(mobileMenu.querySelectorAll('a, button')).filter(function(el){ return !el.disabled; });
+}
 
 function openMenu() {
   menuOpen = true;
@@ -1169,7 +1187,8 @@ function openMenu() {
   hamburger.setAttribute('aria-label','Close navigation menu');
   mobileMenu.classList.add('is-open');
   document.body.style.overflow = 'hidden';
-  mobileMenu.querySelector('a, button').focus();
+  var first = getFocusable()[0];
+  if (first) setTimeout(function(){ first.focus(); }, 50);
 }
 function closeMenu() {
   menuOpen = false;
@@ -1184,12 +1203,29 @@ if (hamburger && mobileMenu) {
   hamburger.addEventListener('click', function(){ menuOpen ? closeMenu() : openMenu(); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && menuOpen) closeMenu(); });
   mobileMenu.querySelectorAll('a').forEach(function(el){ el.addEventListener('click', closeMenu); });
+
+  // FIX 7: tab key focus trap
+  mobileMenu.addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab' || !menuOpen) return;
+    var focusable = getFocusable();
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+
+  // Close on backdrop click
+  mobileMenu.addEventListener('click', function(e){ if (e.target === mobileMenu) closeMenu(); });
 }
 if (emailBtnMobile) {
   emailBtnMobile.addEventListener('click', function(){ closeMenu(); doFlip(); });
 }
 
-/* ── MARQUEE PAUSE ── */
+/* ── MARQUEE PAUSE ──
+   FIX 6: class-toggle state — no innerHTML SVG swap needed */
 var pauseBtn   = document.getElementById('marquee-pause');
 var likesTrack = document.getElementById('likes-track');
 var paused = false;
@@ -1199,14 +1235,9 @@ if (pauseBtn && likesTrack) {
     paused = !paused;
     likesTrack.classList.toggle('paused', paused);
     pauseBtn.setAttribute('aria-pressed', String(paused));
-    if (paused) {
-      pauseBtn.querySelector('span').textContent = 'Resume animation';
-      pauseBtn.querySelector('svg').innerHTML = '<polygon points="2,1 9,5 2,9"/>';
-    } else {
-      pauseBtn.querySelector('span').textContent = 'Pause animation';
-      pauseBtn.querySelector('svg').innerHTML = '<rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/>';
-    }
   });
+
+  // Pause on keyboard focus inside the row (users tabbing through)
   var likesRow = likesTrack.closest ? likesTrack.closest('.likes-row') : null;
   if (likesRow) {
     likesRow.addEventListener('focusin',  function(){ likesTrack.style.animationPlayState = 'paused'; });
