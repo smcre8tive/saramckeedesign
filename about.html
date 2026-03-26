@@ -175,18 +175,15 @@ body {
 
 /* ── RESPONSIVE: show/hide nav clusters ── */
 @media (max-width:600px) {
-  /* Show mobile cluster, hide desktop nav links and standalone hamburger */
   .nav-mobile-right { display:flex; }
-  .hamburger { display:none; } /* hamburger is now inside .nav-mobile-right */
+  .hamburger { display:none; }
   .nav-links { display:none; }
-  /* Hide fixed desktop theme switcher — inline one takes over */
   #theme-switcher { display:none; }
 }
 @media (min-width:601px) {
   .mobile-menu { display:none; }
   .nav-mobile-right { display:none; }
 }
-/* Hamburger inside mobile cluster needs display:flex */
 .nav-mobile-right .hamburger {
   display:flex;
   opacity:1;
@@ -218,7 +215,6 @@ body {
 .inline-chevron { width:9px; height:6px; opacity:.6; transition:transform .25s; }
 #theme-toggle-inline[aria-expanded="true"] .inline-chevron { transform:rotate(180deg); }
 
-/* Inline panel — drops down from nav */
 #theme-panel-inline {
   position:fixed;
   top:var(--nav-h);
@@ -349,21 +345,82 @@ body {
 .likes-track { display:flex; gap:1rem; width:max-content; animation:ticker 36s linear infinite; align-items:flex-start; }
 .likes-row:hover .likes-track { animation-play-state:paused; }
 .like-item { display:flex; flex-direction:column; align-items:center; gap:.6rem; flex-shrink:0; width:clamp(110px,18vw,140px); }
-.like-item-img { width:clamp(110px,18vw,140px); height:clamp(75px,13vw,100px); border-radius:10px; overflow:hidden; background:var(--page-chip-hover); border:1px solid var(--page-border); display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; }
-.like-item-img img { width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0; }
-.like-item-img svg { width:44px; height:44px; opacity:.35; position:relative; z-index:0; }
+
+/* ── LIKE ITEM IMAGE — now always shows icon, photo sits on top ── */
+.like-item-img {
+  width:clamp(110px,18vw,140px);
+  height:clamp(75px,13vw,100px);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--page-chip-hover);
+  border:1px solid var(--page-border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  position:relative;
+}
+/* The icon always sits centered behind the photo */
+.like-fallback-icon {
+  width:40px;
+  height:40px;
+  color:var(--page-body);
+  opacity:.5;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:0;
+  flex-shrink:0;
+  display:block;
+  stroke:currentColor;
+  transition:color .35s ease;
+}
+/* Photo sits on top and covers the icon when it loads */
+.like-item-img img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
 .like-item-label { font-size:clamp(.72rem,1.1vw,.8rem); font-weight:400; letter-spacing:.1em; text-transform:uppercase; color:var(--page-body); white-space:nowrap; transition:color .35s ease; }
 .artwork-cta { display:inline-flex; align-items:center; gap:.55rem; font-family:var(--sans); font-size:clamp(.82rem,1.2vw,.9rem); font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--page-fg); text-decoration:none; border-bottom:2px solid var(--page-chip-border); padding-bottom:.25rem; margin-top:1.8rem; min-height:44px; transition:gap .3s var(--ease), border-color .2s, color .35s ease; }
 .artwork-cta:hover { gap:1rem; border-color:var(--page-fg); }
 .artwork-cta:focus-visible { border-color:var(--page-gold); outline-offset:6px; }
 .artwork-cta svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 
-/* Brand grid */
+/* ── Brand grid — adjusted for better logo fit ── */
 .brand-list { list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }
 .brand-item { display:flex; flex-direction:column; align-items:center; gap:.65rem; text-align:center; }
-.brand-img-wrap { position:relative; width:100%; aspect-ratio:3/2; border-radius:14px; overflow:hidden; border:1px solid var(--page-border); background:var(--page-chip-hover); display:flex; align-items:center; justify-content:center; transition:border-color .25s, background .25s; }
+.brand-img-wrap {
+  position:relative;
+  width:100%;
+  aspect-ratio:3/3;
+  border-radius:5px;
+  overflow:hidden;
+  border:1px solid var(--page-border);
+  background:var(--page-chip-hover);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:border-color .25s, background .25s;
+}
 .brand-item:hover .brand-img-wrap { border-color:var(--page-chip-border); }
-.brand-img-wrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; padding:16%; display:block; transition:opacity .2s; }
+/* Logo image: contain with comfortable padding, never cropped */
+.brand-img-wrap img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:18%;        /* comfortable breathing room on all sides */
+  display:block;
+  transition:opacity .2s, transform .25s var(--ease);
+}
+.brand-item:hover .brand-img-wrap img { transform:scale(1.04); }
 .brand-placeholder { display:flex; align-items:center; justify-content:center; width:100%; height:100%; color:var(--page-body); opacity:.55; }
 .brand-placeholder svg { width:36px; height:36px; }
 .brand-img-wrap img[src]:not([src=""])+.brand-placeholder { display:none; }
@@ -432,7 +489,6 @@ footer { border-top:1px solid var(--page-border); padding:clamp(2rem,4vw,2.8rem)
     </li>
   </ul>
 
-  <!-- ── MOBILE RIGHT CLUSTER: theme toggle + hamburger side by side ── -->
   <div class="nav-mobile-right" id="nav-mobile-right">
     <button id="theme-toggle-inline"
             aria-label="Open theme options"
@@ -550,26 +606,169 @@ footer { border-top:1px solid var(--page-border); padding:clamp(2rem,4vw,2.8rem)
       </div>
       <div class="likes-row" aria-hidden="true">
         <div class="likes-track" id="likes-track">
-          <div class="like-item"><div class="like-item-img"><img src="img/life/art.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Making Art</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/yoga.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Yoga</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/travel.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Traveling</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/watercolor.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Watercolor</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/cats.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Cat Cuddles</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/coffee.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Dark Coffee</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/sketchbook.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Sketchbooks</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/books.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Bookshops</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/hiking.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Hiking</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/thrift.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Thrift Stores</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/art.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Making Art</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/yoga.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Yoga</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/travel.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Traveling</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/watercolor.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Watercolor</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/cats.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Cat Cuddles</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/coffee.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Dark Coffee</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/sketchbook.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Sketchbooks</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/books.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Bookshops</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/hiking.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Hiking</span></div>
-          <div class="like-item"><div class="like-item-img"><img src="img/life/thrift.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="like-item-label">Thrift Stores</span></div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M8 34l10-10 6 6 8-12 10 16H8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="14" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+              <img src="img/life/art.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Making Art</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M22 12v10M14 16l8 6 8-6M14 32c2-4 4-6 8-6s6 2 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <img src="img/life/yoga.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Yoga</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="20" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M22 27v10M16 37h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 20c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/travel.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Traveling</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M12 32c0-8 8-18 10-22 2 4 10 14 10 22a10 10 0 0 1-20 0z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M17 30c0 2.761 2.239 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/watercolor.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Watercolor</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M10 14v-4l6 4M34 14v-4l-6 4M10 14c0 0-2 2-2 8s4 12 14 12 14-6 14-12-2-8-2-8H10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="17" cy="22" r="1.5" fill="currentColor"/><circle cx="27" cy="22" r="1.5" fill="currentColor"/><path d="M19 27c.8 1 5.2 1 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/cats.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Cat Cuddles</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M10 16h20v14a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V16z" stroke="currentColor" stroke-width="1.5"/><path d="M30 20h4a3 3 0 0 1 0 6h-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 10c0 0 1-2 0-4M22 10c0 0 1-2 0-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/coffee.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Dark Coffee</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><rect x="9" y="8" width="22" height="28" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 12h22M13 8v28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18 20h8M18 25h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/sketchbook.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Sketchbooks</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><rect x="8" y="10" width="10" height="24" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="10" width="10" height="24" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M32 12l4 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/books.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Bookshops</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M8 34l10-14 8 8 6-8 8 14H8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="30" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+              <img src="img/life/hiking.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Hiking</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M12 18h20l-2 16H14L12 18z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 18h28M16 18c0-6 12-6 12 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/thrift.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Thrift Stores</span>
+          </div>
+
+          <!-- Duplicate set for seamless loop -->
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M8 34l10-10 6 6 8-12 10 16H8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="14" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+              <img src="img/life/art.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Making Art</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M22 12v10M14 16l8 6 8-6M14 32c2-4 4-6 8-6s6 2 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <img src="img/life/yoga.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Yoga</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="20" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M22 27v10M16 37h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 20c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/travel.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Traveling</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M12 32c0-8 8-18 10-22 2 4 10 14 10 22a10 10 0 0 1-20 0z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M17 30c0 2.761 2.239 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/watercolor.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Watercolor</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M10 14v-4l6 4M34 14v-4l-6 4M10 14c0 0-2 2-2 8s4 12 14 12 14-6 14-12-2-8-2-8H10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="17" cy="22" r="1.5" fill="currentColor"/><circle cx="27" cy="22" r="1.5" fill="currentColor"/><path d="M19 27c.8 1 5.2 1 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/cats.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Cat Cuddles</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M10 16h20v14a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V16z" stroke="currentColor" stroke-width="1.5"/><path d="M30 20h4a3 3 0 0 1 0 6h-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 10c0 0 1-2 0-4M22 10c0 0 1-2 0-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/coffee.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Dark Coffee</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><rect x="9" y="8" width="22" height="28" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 12h22M13 8v28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18 20h8M18 25h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/sketchbook.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Sketchbooks</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><rect x="8" y="10" width="10" height="24" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="10" width="10" height="24" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M32 12l4 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/books.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Bookshops</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M8 34l10-14 8 8 6-8 8 14H8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="30" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+              <img src="img/life/hiking.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Hiking</span>
+          </div>
+
+          <div class="like-item">
+            <div class="like-item-img">
+              <svg class="like-fallback-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M12 18h20l-2 16H14L12 18z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 18h28M16 18c0-6 12-6 12 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <img src="img/life/thrift.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            </div>
+            <span class="like-item-label">Thrift Stores</span>
+          </div>
+
         </div>
       </div>
       <p class="sr-only">Things Sara enjoys outside of work: Making Art, Yoga, Traveling, Watercolor painting, Cat Cuddles, Dark Coffee, Sketchbooks, Bookshops, Hiking, and Thrift Stores.</p>
@@ -595,7 +794,7 @@ footer { border-top:1px solid var(--page-border); padding:clamp(2rem,4vw,2.8rem)
       <div class="quotes-track">
         <figure class="quote-card">
           <blockquote class="quote-text">Sara brings both creative vision and deep empathy to every design challenge. She listens carefully, asks the right questions, and delivers work that truly serves the user.</blockquote>
-          <figcaption class="quote-meta"><span class="quote-name">Colleague</span><span class="quote-title">Ed-Tech Startup</span></figcaption>
+          <figcaption class="quote-meta"><span class="quote-name">Colleague</span><span class="quote-title">CoLearn Academy</span></figcaption>
         </figure>
         <figure class="quote-card">
           <blockquote class="quote-text">Working with Sara transformed how my artwork is presented online. She understood my aesthetic immediately and built something that feels completely authentic to my practice.</blockquote>
@@ -647,7 +846,6 @@ var THEMES = [
 var KEY = 'ks-theme';
 var logoImgEl = document.getElementById('nav-logo-img');
 
-/* ── Build a theme list into any <ul> ── */
 function buildThemeList(listEl, toggleBtnEl, panelEl) {
   THEMES.forEach(function(t) {
     var li = document.createElement('li'); li.setAttribute('role','none');
@@ -673,12 +871,10 @@ function applyTheme(id, save) {
   document.documentElement.setAttribute('data-theme',id);
   if (save) try { localStorage.setItem(KEY,id); } catch(e){}
   var t = THEMES.find(function(x){ return x.id===id; })||THEMES[0];
-  // Update both icon displays
   var desktopIcon = document.getElementById('theme-current-icon');
   var inlineIcon  = document.getElementById('inline-current-icon');
   if (desktopIcon) desktopIcon.innerHTML = t.icon;
   if (inlineIcon)  inlineIcon.innerHTML  = t.icon;
-  // Swap logo
   if (logoImgEl && t.logo) {
     logoImgEl.style.opacity='0';
     setTimeout(function(){ logoImgEl.src=t.logo; logoImgEl.style.opacity='1'; },200);
@@ -695,7 +891,6 @@ function closePanel(panelEl, toggleBtnEl, ret) {
   if(ret!==false) toggleBtnEl.focus();
 }
 
-/* ── Desktop switcher ── */
 var toggleBtn   = document.getElementById('theme-toggle-btn');
 var panel       = document.getElementById('theme-panel');
 var list        = document.getElementById('theme-list');
@@ -708,7 +903,6 @@ panel.addEventListener('keydown', function(e){
   else if(e.key==='Escape'||e.key==='Tab'){closePanel(panel, toggleBtn);}
 });
 
-/* ── Inline (mobile) switcher ── */
 var toggleInline  = document.getElementById('theme-toggle-inline');
 var panelInline   = document.getElementById('theme-panel-inline');
 var listInline    = document.getElementById('theme-list-inline');
@@ -721,7 +915,6 @@ panelInline.addEventListener('keydown', function(e){
   else if(e.key==='Escape'||e.key==='Tab'){closePanel(panelInline, toggleInline);}
 });
 
-/* ── Close panels on outside click ── */
 document.addEventListener('pointerdown', function(e){
   var switcher = document.getElementById('theme-switcher');
   var mobileRight = document.getElementById('nav-mobile-right');
@@ -730,7 +923,6 @@ document.addEventListener('pointerdown', function(e){
   if (mobileRight && !mobileRight.contains(e.target) && panelInlineEl && !panelInlineEl.contains(e.target)) closePanel(panelInline, toggleInline, false);
 });
 
-/* ── Init saved/preferred theme ── */
 var saved; try { saved=localStorage.getItem(KEY); } catch(e){}
 if (saved && THEMES.find(function(t){ return t.id===saved; })) applyTheme(saved,false);
 else if (window.matchMedia && window.matchMedia('(prefers-color-scheme:light)').matches) applyTheme('light',false);
