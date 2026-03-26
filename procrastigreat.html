@@ -16,10 +16,10 @@ body{font-family:'Lexend',sans-serif;font-weight:400;background:#fdfdfd;color:#0
 :root{
   --bg:#FDFDFD;
   --fg:#0F1014;
-  --gold:#857028;
+  --gold:#7A6520;
   --gold-pale:#E7E2D0;
   --gold-mid:rgba(133,112,40,.2);
-  --sage:#4F564A;
+  --sage:#474E42;
   --rule:rgba(15,16,20,.12);
   --serif:'Spectral',Georgia,serif;
   --sans:'Lexend',sans-serif;
@@ -278,6 +278,29 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 @media(max-width:480px){
   .cs-meta-row{gap:1.2rem;}
 }
+
+/* ─── BRAND FIX: consistent email link + mobile contact style ─────────────── */
+/* email-btn is now an <a> tag — remove default link decoration */
+.email-btn { text-decoration:none; color:inherit; }
+
+/* Mobile menu Contact link — same visual as other mobile menu items */
+.mobile-menu-contact {
+  display:flex; align-items:center; width:100%;
+  background:none; border:none; cursor:pointer;
+  color:var(--fg); text-decoration:none;
+  font-family:var(--sans); font-weight:500;
+  font-size:clamp(1rem, 3.5vw, 1.1rem);
+  letter-spacing:.18em; text-transform:uppercase;
+  line-height:1; padding:.9rem 0; min-height:44px;
+  opacity:0; transform:translateY(14px);
+  transition:color .2s, opacity .4s var(--ease), transform .45s var(--ease);
+  border-bottom:1px solid var(--gold-pale);
+}
+#mobile-menu.open .mobile-menu-contact {
+  opacity:1; transform:none; transition-delay:.15s;
+}
+.mobile-menu-contact:hover { color:var(--sage); }
+/* ──────────────────────────────────────────────────────────────────────────── */
 </style>
 </head>
 <!-- FIX 7: tabindex="-1" so back-to-top can focus #top programmatically -->
@@ -298,12 +321,12 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
     <li><a href="about.html">About</a></li>
     <li><a href="resume.pdf" target="_blank" rel="noopener" aria-label="Download Résumé (PDF, opens in new tab)">Résumé</a></li>
     <li>
-      <button class="email-btn" id="email-btn" aria-label="Copy email address">
+            <a class="email-btn" id="email-btn" href="mailto:saramckeecre8tive@gmail.com" aria-label="Contact — send an email">
         <span class="email-face-front" aria-hidden="true">Contact</span>
         <span class="email-face-back" aria-hidden="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Copied!
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Opening…
         </span>
-      </button>
+      </a>
     </li>
     <li aria-hidden="true"><span class="nav-sep"></span></li>
     <li>
@@ -329,7 +352,7 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
     <li><a href="resume.pdf" target="_blank" rel="noopener" aria-label="Download Résumé (PDF)">Résumé</a></li>
     <li>
       <!-- FIX 3: removed inline aria-live span — shared #email-status handles announcement -->
-      <button class="mobile-email-btn" id="mobile-email-btn" aria-label="Copy email address">Contact</button>
+            <a href="mailto:saramckeecre8tive@gmail.com" id="mobile-email-btn" class="mobile-menu-contact" aria-label="Contact — send an email">Contact</a>
     </li>
   </ul>
   <div class="mobile-menu-rule" aria-hidden="true"></div>
@@ -629,31 +652,19 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 <script>
 'use strict';
 
-/* ── EMAIL ── */
+/* ── ✅ EMAIL: mailto href is primary — JS adds flip animation only ── */
 const emailBtn = document.getElementById('email-btn');
-const emailStatus = document.getElementById('email-status');
-const EMAIL = 'saramckeecre8tive@gmail.com';
-
-function doEmailCopy() {
-  navigator.clipboard.writeText(EMAIL).then(() => {
+if (emailBtn) {
+  emailBtn.addEventListener('click', () => {
     emailBtn.classList.add('flipped');
-    emailStatus.textContent = 'Email address copied to clipboard';
-    setTimeout(() => { emailBtn.classList.remove('flipped'); emailStatus.textContent = ''; }, 2500);
-  }).catch(() => {
-    emailStatus.textContent = 'Email: ' + EMAIL;
-    setTimeout(() => { emailStatus.textContent = ''; }, 3000);
+    setTimeout(() => emailBtn.classList.remove('flipped'), 2500);
   });
 }
-emailBtn.addEventListener('click', doEmailCopy);
-
-/* FIX 3: mobile email uses shared live region — no duplicate announcement */
+/* Mobile email: mailto href handles opening mail client; JS closes the drawer */
 const mobileEmailBtn = document.getElementById('mobile-email-btn');
 if (mobileEmailBtn) {
   mobileEmailBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(EMAIL).then(() => {
-      emailStatus.textContent = 'Email address copied to clipboard';
-      setTimeout(() => { emailStatus.textContent = ''; }, 2500);
-    }).catch(() => {});
+    if (typeof closeMenu === 'function') closeMenu();
   });
 }
 

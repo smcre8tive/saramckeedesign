@@ -16,16 +16,20 @@ body{font-family:'Lexend',sans-serif;font-weight:400;background:#fdfdfd;color:#0
 :root{
   --bg:#FDFDFD;
   --fg:#0F1014;
-  --gold:#857028;
+  /* contrast-lifted from original for WCAG AA */
+  --gold:#7A6520;
   --gold-pale:#E7E2D0;
   --gold-mid:rgba(133,112,40,.2);
-  --sage:#4F564A;
+  --sage:#474E42;
   --rule:rgba(15,16,20,.12);
   --serif:'Spectral',Georgia,serif;
   --sans:'Lexend',sans-serif;
   --ease:cubic-bezier(.76,0,.24,1);
   --max:860px;
   --pad-x:clamp(1.4rem,6vw,6rem);
+  /* NAV OVERLAP FIX: single source of truth for nav height.
+     Used to push hero content clear of the fixed bar on every layout. */
+  --nav-h:80px;
 }
 
 /* ── ACCESSIBILITY ── */
@@ -34,11 +38,19 @@ body{font-family:'Lexend',sans-serif;font-weight:400;background:#fdfdfd;color:#0
 .skip-link:focus{top:1rem;}
 *:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px;}
 
-/* ── PROGRESS BAR — aria-hidden, decorative only ── */
+/* ── PROGRESS BAR ── */
 #progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);z-index:600;width:0%;transition:width .15s linear;}
 
 /* ── NAV ── */
-nav#site-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.6rem var(--pad-x);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(253,253,253,.98) 0%,transparent 100%);transition:background .4s,box-shadow .3s;}
+nav#site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  /* NAV OVERLAP FIX: min-height locked to --nav-h so the variable always reflects real height */
+  min-height:var(--nav-h);
+  padding:1.4rem var(--pad-x);
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(253,253,253,.98) 0%,transparent 100%);
+  transition:background .4s,box-shadow .3s;
+}
 nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--rule);}
 .nav-logo{color:var(--fg);font-family:var(--serif);font-size:.9rem;font-weight:600;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:opacity .2s;display:flex;align-items:center;gap:.5rem;min-height:44px;}
 .nav-logo-img{width:20px;height:20px;object-fit:contain;flex-shrink:0;}
@@ -58,7 +70,26 @@ nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-back
 .email-btn:hover .email-face-back,.email-btn.flipped .email-face-back{opacity:1;transform:none;}
 
 /* ── HERO ── */
-.cs-hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 clamp(3rem,6vw,5.5rem) var(--pad-x);position:relative;overflow:hidden;}
+/*
+  NAV OVERLAP FIX — desktop (justify-content:flex-end):
+    The title sits near the viewport bottom, well away from the nav — no fix needed there.
+    However the hero image is position:absolute and its top edge is at 50%, so no overlap.
+
+  NAV OVERLAP FIX — the actual problem:
+    The hero content column has no top clearance on desktop. When the viewport is short
+    (laptop, landscape phone) the large animated title can visually collide with the fixed nav.
+    Fix: add padding-top:var(--nav-h) as a minimum safe zone on the hero content block,
+    and on mobile where the layout is top-down, pad the entire hero section top instead.
+*/
+.cs-hero{
+  min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  /* NAV OVERLAP FIX: top padding ensures content never starts behind the nav bar */
+  padding:var(--nav-h) var(--pad-x) clamp(3rem,6vw,5.5rem);
+  /* shift left-only padding to shorthand above — keeps bottom/sides intact */
+  padding-left:var(--pad-x);
+  position:relative;overflow:hidden;
+}
 .cs-hero-img-wrap{position:absolute;right:var(--pad-x);top:50%;width:clamp(240px,34vw,500px);z-index:2;filter:drop-shadow(0 18px 44px rgba(0,0,0,.16));opacity:0;transform:translateY(-44%) rotate(2.5deg) scale(.96);animation:heroImgIn 1.1s var(--ease) .3s forwards;}
 @keyframes heroImgIn{to{opacity:1;transform:translateY(-50%) rotate(2.5deg) scale(1);}}
 .cs-hero-img-wrap img{width:100%;display:block;border-radius:8px;aspect-ratio:4/3;object-fit:cover;}
@@ -76,7 +107,7 @@ nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-back
 @keyframes lineGrow{0%{transform:scaleX(0);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}51%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-/* ── LIVE LINK — FIX 4: starts aria-hidden, JS removes it after animation ── */
+/* ── LIVE LINK ── */
 .cs-live-link{display:inline-flex;align-items:center;gap:.55rem;font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-weight:500;border:2px solid var(--sage);border-radius:100px;padding:.6rem 1.3rem;margin-top:1.6rem;transition:background .2s,color .2s;opacity:0;animation:fadeUp .8s var(--ease) 1.2s forwards;}
 .cs-live-link:hover{background:var(--sage);color:var(--bg);}
 .cs-live-link svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
@@ -118,7 +149,7 @@ nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-back
 .cs-insight-title{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);margin-bottom:.5rem;font-weight:600;}
 .cs-insight-text{font-size:.95rem;line-height:1.75;color:var(--fg);font-weight:400;}
 
-/* ── SUB-LABEL — now styled <h3> ── */
+/* ── SUB-LABEL ── */
 .cs-sublabel{display:block;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bg);background:var(--sage);padding:.3rem .9rem;border-radius:100px;margin-bottom:1.4rem;font-weight:500;width:fit-content;}
 
 /* ── BULLET LIST ── */
@@ -126,7 +157,8 @@ nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-back
 .cs-list li{display:flex;gap:.9rem;align-items:baseline;font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.85;color:var(--fg);font-weight:400;}
 .cs-list li::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.65em;}
 
-/* ── IMAGE CONTAINERS — FIX 1: <button> for keyboard accessibility ── */
+/* ── IMAGE CONTAINERS ── */
+/* Keyboard-accessible: <button> element, hover only on pointer devices */
 .image-container{
   margin:2.5rem 0;
   cursor:pointer;
@@ -139,7 +171,9 @@ nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-back
   display:block;
   font-family:var(--sans);
 }
-.image-container:hover{transform:translateY(-4px);}
+@media(hover:hover){
+  .image-container:hover{transform:translateY(-4px);}
+}
 .image-container:focus-visible{
   outline:3px solid var(--gold);
   outline-offset:6px;
@@ -151,7 +185,7 @@ nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-back
 .image-caption a{color:var(--sage);text-decoration:underline;text-underline-offset:2px;}
 .image-caption a:hover{color:var(--fg);}
 
-/* ── IMAGE PAIR — FIX 1 & 2: margin reset for buttons inside pair ── */
+/* ── IMAGE PAIR ── */
 .image-pair{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2.5rem 0;}
 .image-pair .image-container{margin:0;}
 @media(max-width:600px){.image-pair{grid-template-columns:1fr;}}
@@ -159,15 +193,11 @@ nav#site-nav.scrolled{background:#FDFDFD;backdrop-filter:blur(12px);-webkit-back
 /* ── NEXT PROJECT ── */
 .cs-next{margin-top:clamp(5rem,8vw,8rem);padding-top:2.5rem;border-top:2px solid var(--gold-pale);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
 .cs-next-tag{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:.5rem;font-weight:500;}
-.cs-next-link{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,3rem);font-weight:800;letter-spacing:-.03em;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;transition:gap .35s var(--ease),color .2s;}
+.cs-next-link{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,3rem);font-weight:800;letter-spacing:-.03em;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;transition:gap .35s var(--ease),color .2s;aria-label:"Next project: SoloDareity";}
 .cs-next-link em{font-style:italic;font-weight:600;color:var(--sage);}
 .cs-next-link:hover{gap:1.6rem;color:var(--sage);}
 .cs-next-link svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .35s var(--ease);}
 .cs-next-link:hover svg{transform:translateX(5px);}
-.cs-back-top{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);text-decoration:none;display:flex;align-items:center;gap:.45rem;min-height:44px;transition:color .2s;font-weight:500;}
-.cs-back-top:hover{color:var(--fg);}
-.cs-back-top svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s;}
-.cs-back-top:hover svg{transform:translateY(-3px);}
 
 /* ── FOOTER ── */
 footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
@@ -181,14 +211,15 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 #lightbox-img{max-width:100%;max-height:80vh;object-fit:contain;display:block;border-radius:4px;}
 #lightbox-caption{color:#E7E2D0;font-size:.9rem;margin-top:.9rem;text-align:center;line-height:1.65;max-width:60ch;font-weight:400;}
 #lightbox-caption a{color:#c8a84b;text-decoration:underline;text-underline-offset:2px;}
+#lightbox-close{position:absolute;top:-2.8rem;right:0;background:none;border:2px solid #E7E2D0;color:#E7E2D0;font-size:1.2rem;cursor:pointer;line-height:1;transition:background .2s,color .2s;padding:.4rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;}
+#lightbox-close:hover{background:#E7E2D0;color:#0F1014;}
+#lightbox-close:focus-visible{outline:3px solid #E7E2D0;outline-offset:3px;}
+#lightbox-counter{position:absolute;top:-2.8rem;left:0;color:#E7E2D0;font-size:.8rem;letter-spacing:.1em;font-family:'Lexend',sans-serif;display:flex;align-items:center;height:44px;opacity:.7;}
 #lightbox-controls{display:flex;align-items:center;justify-content:space-between;position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);pointer-events:none;padding:0 .5rem;}
 .lb-nav-btn{background:rgba(253,253,253,.12);border:1.5px solid rgba(253,253,253,.3);color:#E7E2D0;cursor:pointer;padding:.5rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;pointer-events:auto;transition:background .2s,border-color .2s;}
 .lb-nav-btn:hover{background:rgba(253,253,253,.22);border-color:#E7E2D0;}
 .lb-nav-btn:disabled{opacity:.25;cursor:default;}
 .lb-nav-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-#lightbox-close{position:absolute;top:-2.8rem;right:0;background:none;border:2px solid #E7E2D0;color:#E7E2D0;font-size:1.2rem;cursor:pointer;line-height:1;transition:background .2s,color .2s;padding:.4rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;}
-#lightbox-close:hover{background:#E7E2D0;color:#0F1014;}
-#lightbox-counter{position:absolute;top:-2.8rem;left:0;color:#E7E2D0;font-size:.8rem;letter-spacing:.1em;font-family:'Lexend',sans-serif;display:flex;align-items:center;height:44px;opacity:.7;}
 
 /* ── SECTION GUIDE ── */
 #guide-toggle{position:fixed;left:1.4rem;bottom:5.5rem;z-index:410;width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px solid var(--fg);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.1);transition:background .2s,color .2s;}
@@ -200,9 +231,9 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 #section-guide.open{opacity:1;transform:none;pointer-events:auto;}
 .sg-item{display:flex;align-items:center;gap:.85rem;padding:.5rem 1rem;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--sans);transition:background .15s;min-height:44px;color:var(--sage);}
 .sg-item:hover{background:var(--gold-pale);}
-.sg-item.active{color:var(--fg);}
+.sg-item[aria-current="true"]{color:var(--fg);}
 .sg-dot{width:6px;height:6px;border-radius:50%;border:2px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s,transform .2s;}
-.sg-item.active .sg-dot{background:var(--gold);border-color:var(--gold);transform:scale(1.25);}
+.sg-item[aria-current="true"] .sg-dot{background:var(--gold);border-color:var(--gold);transform:scale(1.25);}
 .sg-num{font-size:.7rem;letter-spacing:.15em;font-weight:600;flex-shrink:0;width:1.3rem;}
 .sg-label{font-size:.8rem;letter-spacing:.04em;font-weight:400;line-height:1.3;}
 
@@ -233,6 +264,7 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 #mobile-menu.open .mobile-menu-links li:nth-child(1) a,#mobile-menu.open .mobile-menu-links li:nth-child(1) button{transition-delay:.05s;}
 #mobile-menu.open .mobile-menu-links li:nth-child(2) a,#mobile-menu.open .mobile-menu-links li:nth-child(2) button{transition-delay:.1s;}
 #mobile-menu.open .mobile-menu-links li:nth-child(3) a,#mobile-menu.open .mobile-menu-links li:nth-child(3) button{transition-delay:.15s;}
+#mobile-menu.open .mobile-menu-links li:nth-child(4) a,#mobile-menu.open .mobile-menu-links li:nth-child(4) button{transition-delay:.2s;}
 .mobile-menu-links a:hover,.mobile-menu-links button:hover{color:var(--sage);}
 .mobile-menu-rule{width:40px;height:2px;background:var(--gold-pale);margin:1.6rem 0;}
 .mobile-menu-socials{display:flex;gap:1.6rem;align-items:center;opacity:0;transform:translateY(12px);transition:opacity .4s var(--ease) .2s,transform .45s var(--ease) .2s;}
@@ -240,7 +272,6 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 .mobile-menu-socials a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--fg);transition:color .2s;}
 .mobile-menu-socials a:hover{color:var(--sage);}
 .mobile-menu-socials svg{width:17px;height:17px;fill:currentColor;}
-/* FIX: removed .mobile-email-copied — shared #email-status handles announcement */
 .mobile-email-btn{font-family:var(--sans)!important;font-size:clamp(1rem,3.5vw,1.1rem)!important;letter-spacing:.18em!important;text-transform:uppercase!important;line-height:1!important;font-weight:500!important;}
 
 /* ── REDUCED MOTION ── */
@@ -254,11 +285,28 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  nav#site-nav{padding:1.1rem 1.4rem;}
+  /* NAV OVERLAP FIX — mobile:
+     On mobile the layout switches to flex-start (top-down: image then content).
+     --nav-h is slightly smaller here; the hero padding-top accounts for it. */
+  :root{ --nav-h:68px; }
+  nav#site-nav{padding:1rem 1.4rem;}
   .nav-links{display:none;}
   .nav-hamburger{display:flex;}
-  .cs-hero{padding:6rem 1.4rem 3rem;flex-direction:column;justify-content:flex-start;min-height:auto;gap:2rem;}
-  .cs-hero-img-wrap{position:relative;right:auto;top:auto;transform:none!important;animation:none!important;opacity:1;width:100%;filter:drop-shadow(0 10px 22px rgba(0,0,0,.13));}
+  .cs-hero{
+    /* NAV OVERLAP FIX: padding-top:var(--nav-h) ensures the first visible element
+       (hero image on mobile) starts below the nav bar, not behind it */
+    padding:var(--nav-h) 1.4rem 3rem;
+    flex-direction:column;
+    justify-content:flex-start;
+    min-height:auto;
+    gap:2rem;
+  }
+  .cs-hero-img-wrap{
+    position:relative;right:auto;top:auto;
+    transform:none!important;animation:none!important;
+    opacity:1;width:100%;
+    filter:drop-shadow(0 10px 22px rgba(0,0,0,.13));
+  }
   .cs-hero-img-wrap img{aspect-ratio:16/9;border-radius:6px;}
   .cs-hero-content{max-width:100%;}
   .cs-title{font-size:clamp(3rem,12vw,4.5rem);}
@@ -273,19 +321,40 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 @media(max-width:480px){
   .cs-meta-row{gap:1.2rem;}
 }
+
+/* ─── BRAND FIX: consistent email link + mobile contact style ─────────────── */
+/* email-btn is now an <a> tag — remove default link decoration */
+.email-btn { text-decoration:none; color:inherit; }
+
+/* Mobile menu Contact link — same visual as other mobile menu items */
+.mobile-menu-contact {
+  display:flex; align-items:center; width:100%;
+  background:none; border:none; cursor:pointer;
+  color:var(--fg); text-decoration:none;
+  font-family:var(--sans); font-weight:500;
+  font-size:clamp(1rem, 3.5vw, 1.1rem);
+  letter-spacing:.18em; text-transform:uppercase;
+  line-height:1; padding:.9rem 0; min-height:44px;
+  opacity:0; transform:translateY(14px);
+  transition:color .2s, opacity .4s var(--ease), transform .45s var(--ease);
+  border-bottom:1px solid var(--gold-pale);
+}
+#mobile-menu.open .mobile-menu-contact {
+  opacity:1; transform:none; transition-delay:.15s;
+}
+.mobile-menu-contact:hover { color:var(--sage); }
+/* ──────────────────────────────────────────────────────────────────────────── */
 </style>
 </head>
-<!-- Inherited fix: tabindex="-1" for back-to-top focus target -->
-<body id="top" tabindex="-1">
+<body id="top">
 
-<!-- Inherited fix: progress bar aria-hidden -->
 <div id="progress" aria-hidden="true"></div>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div id="email-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <!-- NAV -->
 <nav id="site-nav" aria-label="Site navigation">
-  <a class="nav-logo" href="index.html">
+  <a class="nav-logo" href="index.html" aria-label="Sara McKee — home">
     <img src="img/logoblack.png" alt="" class="nav-logo-img" aria-hidden="true">
     Sara McKee
   </a>
@@ -293,12 +362,12 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
     <li><a href="about.html">About</a></li>
     <li><a href="resume.pdf" target="_blank" rel="noopener" aria-label="Download Résumé (PDF, opens in new tab)">Résumé</a></li>
     <li>
-      <button class="email-btn" id="email-btn" aria-label="Copy email address">
+            <a class="email-btn" id="email-btn" href="mailto:saramckeecre8tive@gmail.com" aria-label="Contact — send an email">
         <span class="email-face-front" aria-hidden="true">Contact</span>
         <span class="email-face-back" aria-hidden="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Copied!
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Opening…
         </span>
-      </button>
+      </a>
     </li>
     <li aria-hidden="true"><span class="nav-sep"></span></li>
     <li>
@@ -312,19 +381,19 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
       </a>
     </li>
   </ul>
-  <button class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu">
+  <button type="button" class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- MOBILE MENU DRAWER -->
-<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-heading">
+  <h2 id="mobile-menu-heading" class="sr-only">Navigation menu</h2>
   <ul class="mobile-menu-links" role="list">
     <li><a href="about.html">About</a></li>
     <li><a href="resume.pdf" target="_blank" rel="noopener" aria-label="Download Résumé (PDF)">Résumé</a></li>
     <li>
-      <!-- Inherited fix: removed inline aria-live — shared #email-status handles it -->
-      <button class="mobile-email-btn" id="mobile-email-btn" aria-label="Copy email address">Contact</button>
+            <a href="mailto:saramckeecre8tive@gmail.com" id="mobile-email-btn" class="mobile-menu-contact" aria-label="Contact — send an email">Contact</a>
     </li>
   </ul>
   <div class="mobile-menu-rule" aria-hidden="true"></div>
@@ -339,39 +408,58 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 </div>
 
 <!-- SECTION GUIDE -->
-<nav id="section-guide" aria-label="Jump to section">
-  <button class="sg-item active" data-section="0"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">00</span><span class="sg-label">Overview</span></button>
-  <button class="sg-item" data-section="1"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">01</span><span class="sg-label">Challenge</span></button>
-  <button class="sg-item" data-section="2"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">02</span><span class="sg-label">Research</span></button>
-  <button class="sg-item" data-section="3"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">03</span><span class="sg-label">Personas &amp; Architecture</span></button>
-  <button class="sg-item" data-section="4"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">04</span><span class="sg-label">Visual Design</span></button>
-  <button class="sg-item" data-section="5"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num">05</span><span class="sg-label">Results</span></button>
+<nav id="section-guide" aria-labelledby="section-guide-heading">
+  <h2 id="section-guide-heading" class="sr-only">Jump to section</h2>
+  <button type="button" class="sg-item" aria-current="true" data-section="0"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num" aria-hidden="true">00</span><span class="sg-label">Overview</span></button>
+  <button type="button" class="sg-item" data-section="1"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num" aria-hidden="true">01</span><span class="sg-label">Challenge</span></button>
+  <button type="button" class="sg-item" data-section="2"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num" aria-hidden="true">02</span><span class="sg-label">Research</span></button>
+  <button type="button" class="sg-item" data-section="3"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num" aria-hidden="true">03</span><span class="sg-label">Personas &amp; Architecture</span></button>
+  <button type="button" class="sg-item" data-section="4"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num" aria-hidden="true">04</span><span class="sg-label">Visual Design</span></button>
+  <button type="button" class="sg-item" data-section="5"><span class="sg-dot" aria-hidden="true"></span><span class="sg-num" aria-hidden="true">05</span><span class="sg-label">Results</span></button>
 </nav>
-<button id="guide-toggle" aria-expanded="false" aria-controls="section-guide" aria-label="Toggle section guide">
+<button type="button" id="guide-toggle" aria-expanded="false" aria-controls="section-guide" aria-label="Toggle section guide">
   <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
 </button>
-<button id="back-to-top" aria-label="Back to top of page">
+<button type="button" id="back-to-top" aria-label="Back to top of page">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
 <main id="main-content">
 
+  <!-- HERO -->
   <section class="cs-hero" data-section="0" aria-labelledby="cs-title">
-    <div class="cs-hero-img-wrap">
-      <img src="img/evakonopka/hero.jpeg" alt="Eva Konopka art website shown on desktop and mobile devices" loading="eager">
+    <!-- Hero image is decorative — aria-hidden; the title/subtitle convey all meaning -->
+    <div class="cs-hero-img-wrap" aria-hidden="true">
+      <img src="img/evakonopka/hero.jpeg" alt="" loading="eager">
     </div>
     <div class="cs-hero-content">
       <p class="cs-eyebrow">UX Design — Case Study 03</p>
       <h1 class="cs-title" id="cs-title">Eva <em>Konopka</em> Art</h1>
       <p class="cs-subtitle">A Squarespace redesign that turned a local artist's blog into an art sales website — and helped her sell her first piece online.</p>
-      <div class="cs-meta-row">
-        <div><p class="cs-meta-label">Role</p><p class="cs-meta-value">UX Designer · Freelance</p></div>
-        <div><p class="cs-meta-label">Duration</p><p class="cs-meta-value">4 Months</p></div>
-        <div><p class="cs-meta-label">Tools</p><p class="cs-meta-value">Figma · Squarespace · Canva</p></div>
-        <div><p class="cs-meta-label">Deliverable</p><p class="cs-meta-value">Live Website</p></div>
-      </div>
-      <!-- FIX 4: aria-hidden until animation completes — removed by JS after 1.2s -->
-      <a href="https://www.evakonopka.com/" target="_blank" rel="noopener" class="cs-live-link" id="live-link" aria-hidden="true" aria-label="View live Eva Konopka Art website (opens in new tab)">
+      <!-- Meta uses <dl> — semantically correct for label/value pairs -->
+      <dl class="cs-meta-row">
+        <div>
+          <dt class="cs-meta-label">Role</dt>
+          <dd class="cs-meta-value">UX Designer · Freelance</dd>
+        </div>
+        <div>
+          <dt class="cs-meta-label">Duration</dt>
+          <dd class="cs-meta-value">4 Months</dd>
+        </div>
+        <div>
+          <dt class="cs-meta-label">Tools</dt>
+          <dd class="cs-meta-value">Figma · Squarespace · Canva</dd>
+        </div>
+        <div>
+          <dt class="cs-meta-label">Deliverable</dt>
+          <dd class="cs-meta-value">Live Website</dd>
+        </div>
+      </dl>
+      <!-- aria-hidden until animation completes; JS removes it at 2s -->
+      <a href="https://www.evakonopka.com/" target="_blank" rel="noopener"
+         class="cs-live-link" id="live-link"
+         aria-hidden="true"
+         aria-label="View live Eva Konopka Art website (opens in new tab)">
         View Live Website
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       </a>
@@ -381,6 +469,7 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 
   <div class="cs-body">
 
+    <!-- 01 CHALLENGE -->
     <section class="cs-section reveal" id="sec-0" data-section="1" aria-labelledby="sec-0-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">01</div>
@@ -390,16 +479,16 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
         </div>
       </div>
       <p class="cs-p">Eva's existing Squarespace site was a blog — no e-commerce, no clear navigation, no visual storytelling. The goal: redesign within her existing platform to convert first-time visitors into buyers.</p>
-      <div class="cs-quote">
+      <blockquote class="cs-quote">
         <p>How might we redesign Eva's site so visitors can discover her story, connect with her art, and purchase — all in one experience?</p>
-      </div>
-      <!-- FIX 1: <button> for keyboard access -->
-      <button class="image-container reveal" data-img-index="0" aria-label="View larger: project scope and timeline">
+      </blockquote>
+      <button type="button" class="image-container reveal" data-img-index="0" aria-label="View larger: project scope and timeline">
         <img src="img/evakonopka/scope.jpeg" alt="Project scope and timeline document" loading="lazy">
         <div class="image-caption" aria-hidden="true">Shared scope and timeline — four months of collaboration.</div>
       </button>
     </section>
 
+    <!-- 02 RESEARCH -->
     <section class="cs-section reveal" id="sec-1" data-section="2" aria-labelledby="sec-1-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">02</div>
@@ -410,17 +499,17 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
       </div>
       <p class="cs-p">Secondary research, booth observation, visitor interviews, and a competitor audit of local artist websites.</p>
 
-      <button class="image-container reveal" data-img-index="1" aria-label="View larger: secondary research findings">
+      <button type="button" class="image-container reveal" data-img-index="1" aria-label="View larger: secondary research findings">
         <img src="img/evakonopka/research.jpeg" alt="Secondary research findings including website platform comparisons" loading="lazy">
         <div class="image-caption" aria-hidden="true">Platform research confirmed: stay with Squarespace.</div>
       </button>
 
-      <button class="image-container reveal" data-img-index="2" aria-label="View larger: competitive analysis">
+      <button type="button" class="image-container reveal" data-img-index="2" aria-label="View larger: competitive analysis">
         <img src="img/evakonopka/competition.jpeg" alt="Competitive analysis of local artists and their websites" loading="lazy">
         <div class="image-caption" aria-hidden="true">Buyer testimonials, artist story, and filterable gallery drive online art sales.</div>
       </button>
 
-      <button class="image-container reveal" data-img-index="3" aria-label="View larger: empathy map">
+      <button type="button" class="image-container reveal" data-img-index="3" aria-label="View larger: empathy map">
         <img src="img/evakonopka/empathy.jpeg" alt="Empathy map built from art market observation and interviews" loading="lazy">
         <div class="image-caption" aria-hidden="true">Buyers are moved by Eva's story and process — not just the finished work.</div>
       </button>
@@ -433,14 +522,31 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
         <li>Buyer quotes and photos build trust for first-time online purchasers.</li>
       </ul>
 
-      <div class="cs-insights">
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cs-insight-title">Story First</div><div class="cs-insight-text">Eva's process and inspiration sell the art.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="cs-insight-title">Navigation Friction</div><div class="cs-insight-text">The blog buried artwork — pieces were hard to find.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="cs-insight-title">Social Proof</div><div class="cs-insight-text">Buyer quotes build trust for first-time purchasers.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="cs-insight-title">Mobile-Ready</div><div class="cs-insight-text">The 26–41 age group shops on mobile — non-negotiable.</div></div>
-      </div>
+      <ul class="cs-insights" aria-label="Key research insights">
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <h3 class="cs-insight-title">Story First</h3>
+          <p class="cs-insight-text">Eva's process and inspiration sell the art.</p>
+        </li>
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <h3 class="cs-insight-title">Navigation Friction</h3>
+          <p class="cs-insight-text">The blog buried artwork — pieces were hard to find.</p>
+        </li>
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3 class="cs-insight-title">Social Proof</h3>
+          <p class="cs-insight-text">Buyer quotes build trust for first-time purchasers.</p>
+        </li>
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3 class="cs-insight-title">Mobile-Ready</h3>
+          <p class="cs-insight-text">The 26–41 age group shops on mobile — non-negotiable.</p>
+        </li>
+      </ul>
     </section>
 
+    <!-- 03 PERSONAS & ARCHITECTURE -->
     <section class="cs-section reveal" id="sec-2" data-section="3" aria-labelledby="sec-2-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">03</div>
@@ -451,32 +557,31 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
       </div>
       <p class="cs-p">Two personas representing Eva's primary buyers grounded every design decision.</p>
 
-      <!-- FIX 3: sublabels are <h3> elements with proper semantic weight -->
-      <h3 class="cs-sublabel">Market Buyer</h3>
-      <button class="image-container reveal" data-img-index="4" aria-label="View larger: market buyer persona">
+      <h3 class="cs-sublabel" id="persona-label-1">Market Buyer</h3>
+      <button type="button" class="image-container reveal" data-img-index="4" aria-label="View larger: market buyer persona" aria-labelledby="persona-label-1">
         <img src="img/evakonopka/personaartmarket.png" alt="User persona for the art market buyer" loading="lazy">
         <div class="image-caption" aria-hidden="true">Discovers Eva's work in person — wants to browse and buy online later.</div>
       </button>
 
-      <h3 class="cs-sublabel">Online Buyer</h3>
-      <button class="image-container reveal" data-img-index="5" aria-label="View larger: online buyer persona">
+      <h3 class="cs-sublabel" id="persona-label-2">Online Buyer</h3>
+      <button type="button" class="image-container reveal" data-img-index="5" aria-label="View larger: online buyer persona" aria-labelledby="persona-label-2">
         <img src="img/evakonopka/personaonline.png" alt="User persona for the online art buyer" loading="lazy">
         <div class="image-caption" aria-hidden="true">Finds Eva on social — needs story and trust signals to buy sight-unseen.</div>
       </button>
 
-      <!-- FIX 1 & 2: image-pair buttons with sequential data-img-index -->
       <div class="image-pair reveal">
-        <button class="image-container" data-img-index="6" aria-label="View larger: site architecture">
+        <button type="button" class="image-container" data-img-index="6" aria-label="View larger: site architecture">
           <img src="img/evakonopka/sitemap.jpeg" alt="Updated site architecture / sitemap" loading="lazy">
           <div class="image-caption" aria-hidden="true">Sitemap — discover, learn, purchase.</div>
         </button>
-        <button class="image-container" data-img-index="7" aria-label="View larger: user flow diagram">
+        <button type="button" class="image-container" data-img-index="7" aria-label="View larger: user flow diagram">
           <img src="img/evakonopka/userflow.jpeg" alt="User flow diagram for online art purchase" loading="lazy">
           <div class="image-caption" aria-hidden="true">User flow — homepage to completed sale.</div>
         </button>
       </div>
     </section>
 
+    <!-- 04 VISUAL DESIGN -->
     <section class="cs-section reveal" id="sec-3" data-section="4" aria-labelledby="sec-3-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">04</div>
@@ -487,31 +592,32 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
       </div>
       <p class="cs-p">We chose a new Squarespace template that natively supports e-commerce galleries, customer quotes, and full-width imagery. Colours and type were drawn directly from Eva's artist business card.</p>
 
-      <h3 class="cs-sublabel">Before &amp; After</h3>
-      <button class="image-container reveal" data-img-index="8" aria-label="View larger: before and after homepage comparison">
+      <h3 class="cs-sublabel" id="vd-label-1">Before &amp; After</h3>
+      <button type="button" class="image-container reveal" data-img-index="8" aria-label="View larger: before and after homepage comparison" aria-labelledby="vd-label-1">
         <img src="img/evakonopka/compare.jpeg" alt="Before and after comparison of Eva's homepage" loading="lazy">
         <div class="image-caption" aria-hidden="true">Blog layout → brand-aligned sales experience.</div>
       </button>
 
-      <h3 class="cs-sublabel">Final Homepage</h3>
-      <button class="image-container reveal" data-img-index="9" aria-label="View larger: final homepage design">
+      <h3 class="cs-sublabel" id="vd-label-2">Final Homepage</h3>
+      <button type="button" class="image-container reveal" data-img-index="9" aria-label="View larger: final homepage design" aria-labelledby="vd-label-2">
         <img src="img/evakonopka/homepage.jpeg" alt="Final homepage design with art sales features" loading="lazy">
         <div class="image-caption" aria-hidden="true">Hero image, featured works, buyer quotes, clear navigation.</div>
       </button>
 
-      <h3 class="cs-sublabel">Art Gallery</h3>
-      <button class="image-container reveal" data-img-index="10" aria-label="View larger: art gallery page">
+      <h3 class="cs-sublabel" id="vd-label-3">Art Gallery</h3>
+      <button type="button" class="image-container reveal" data-img-index="10" aria-label="View larger: art gallery page" aria-labelledby="vd-label-3">
         <img src="img/evakonopka/artgallery.jpeg" alt="Art gallery page with filterable artwork grid" loading="lazy">
         <div class="image-caption" aria-hidden="true">Filterable by category, price, and size.</div>
       </button>
 
-      <h3 class="cs-sublabel">About Page</h3>
-      <button class="image-container reveal" data-img-index="11" aria-label="View larger: about page">
+      <h3 class="cs-sublabel" id="vd-label-4">About Page</h3>
+      <button type="button" class="image-container reveal" data-img-index="11" aria-label="View larger: about page" aria-labelledby="vd-label-4">
         <img src="img/evakonopka/aboutpage.jpeg" alt="About page sharing Eva's art story and process" loading="lazy">
         <div class="image-caption" aria-hidden="true">Eva's story and process — the most consistent purchase driver from research.</div>
       </button>
     </section>
 
+    <!-- 05 RESULTS -->
     <section class="cs-section reveal" id="sec-4" data-section="5" aria-labelledby="sec-4-title">
       <div class="cs-section-header">
         <div class="cs-section-num" aria-hidden="true">05</div>
@@ -522,41 +628,54 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
       </div>
       <p class="cs-p">The site launched to immediate positive feedback. Eva sold her first artwork online the same day.</p>
 
-      <button class="image-container reveal" data-img-index="12" aria-label="View larger: responsive site mockup">
+      <button type="button" class="image-container reveal" data-img-index="12" aria-label="View larger: responsive site mockup">
         <img src="img/evakonopka/hero2.jpeg" alt="Responsive site mockup showing desktop and mobile views" loading="lazy">
         <div class="image-caption" aria-hidden="true">Tested and refined across screen sizes.</div>
       </button>
 
-      <div class="cs-quote">
+      <blockquote class="cs-quote">
         <p>"Overall the website is very clean and easy to use. Looks great!"</p>
         <cite>— Website visitor</cite>
-      </div>
+      </blockquote>
 
-      <div class="cs-quote">
+      <blockquote class="cs-quote">
         <p>"Thank you so much Sara — I had my first online art sale today!"</p>
         <cite>— Eva Konopka, Artist</cite>
-      </div>
+      </blockquote>
 
-      <div class="cs-insights">
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="cs-insight-title">First Online Sale</div><div class="cs-insight-text">Eva sold her first artwork online the day the site launched.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="cs-insight-title">User Confidence</div><div class="cs-insight-text">Visitors praised the improved navigation and visual clarity.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div class="cs-insight-title">Lasting Ownership</div><div class="cs-insight-text">Eva manages updates independently and uses it as her primary sales channel.</div></div>
-        <div class="cs-insight"><div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="cs-insight-title">Book Sales</div><div class="cs-insight-text">The site also helped promote a children's book Eva co-wrote with her son.</div></div>
-      </div>
+      <ul class="cs-insights" aria-label="Key outcomes">
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <h3 class="cs-insight-title">First Online Sale</h3>
+          <p class="cs-insight-text">Eva sold her first artwork online the day the site launched.</p>
+        </li>
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3 class="cs-insight-title">User Confidence</h3>
+          <p class="cs-insight-text">Visitors praised the improved navigation and visual clarity.</p>
+        </li>
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <h3 class="cs-insight-title">Lasting Ownership</h3>
+          <p class="cs-insight-text">Eva manages updates independently and uses it as her primary sales channel.</p>
+        </li>
+        <li class="cs-insight">
+          <div class="cs-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <h3 class="cs-insight-title">Book Sales</h3>
+          <p class="cs-insight-text">The site also helped promote a children's book Eva co-wrote with her son.</p>
+        </li>
+      </ul>
     </section>
 
     <div class="cs-next reveal">
       <div>
         <p class="cs-next-tag">Next Project</p>
-        <a href="solodareity.html" class="cs-next-link">
+        <!-- aria-label gives screen readers a clean, unsplit accessible name -->
+        <a href="solodareity.html" class="cs-next-link" aria-label="Next project: SoloDareity">
           Solo<em>Dareity</em>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
-      <a href="#top" class="cs-back-top">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-        Back to top
-      </a>
     </div>
 
   </div>
@@ -567,16 +686,17 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 </footer>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-describedby="lightbox-caption">
+<div id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-describedby="lightbox-caption">
   <div id="lightbox-inner">
-    <span id="lightbox-counter" aria-live="polite" style="position:absolute;top:-2.8rem;left:0;color:#E7E2D0;font-size:.8rem;letter-spacing:.1em;font-family:'Lexend',sans-serif;display:flex;align-items:center;height:44px;opacity:.7;"></span>
-    <button id="lightbox-close" aria-label="Close image viewer">&times;</button>
-    <div id="lightbox-controls" style="display:flex;align-items:center;justify-content:space-between;position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);pointer-events:none;padding:0 .5rem;">
-      <button id="lb-prev" aria-label="Previous image" style="background:rgba(253,253,253,.12);border:1.5px solid rgba(253,253,253,.3);color:#E7E2D0;cursor:pointer;padding:.5rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;pointer-events:auto;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    <h2 id="lightbox-title" class="sr-only">Image viewer</h2>
+    <span id="lightbox-counter" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" id="lightbox-close" aria-label="Close image viewer">&times;</button>
+    <div id="lightbox-controls">
+      <button type="button" id="lb-prev" class="lb-nav-btn" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <button id="lb-next" aria-label="Next image" style="background:rgba(253,253,253,.12);border:1.5px solid rgba(253,253,253,.3);color:#E7E2D0;cursor:pointer;padding:.5rem;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;pointer-events:auto;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+      <button type="button" id="lb-next" class="lb-nav-btn" aria-label="Next image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     </div>
     <img id="lightbox-img" src="" alt="">
@@ -587,42 +707,28 @@ footer{padding:2.5rem var(--pad-x);border-top:2px solid var(--gold-pale);}
 <script>
 'use strict';
 
-/* FIX 4: remove aria-hidden from live link after its animation completes */
+/* Remove aria-hidden from live link after its CSS animation completes */
 const liveLink = document.getElementById('live-link');
-if (liveLink) {
-  setTimeout(() => liveLink.removeAttribute('aria-hidden'), 2000);
-}
+if (liveLink) setTimeout(() => liveLink.removeAttribute('aria-hidden'), 2000);
 
-/* ── EMAIL ── */
+/* ── ✅ EMAIL: mailto href is primary — JS adds flip animation only ── */
 const emailBtn = document.getElementById('email-btn');
-const emailStatus = document.getElementById('email-status');
-const EMAIL = 'saramckeecre8tive@gmail.com';
-
-function doEmailCopy() {
-  navigator.clipboard.writeText(EMAIL).then(() => {
+if (emailBtn) {
+  emailBtn.addEventListener('click', () => {
     emailBtn.classList.add('flipped');
-    emailStatus.textContent = 'Email address copied to clipboard';
-    setTimeout(() => { emailBtn.classList.remove('flipped'); emailStatus.textContent = ''; }, 2500);
-  }).catch(() => {
-    emailStatus.textContent = 'Email: ' + EMAIL;
-    setTimeout(() => { emailStatus.textContent = ''; }, 3000);
+    setTimeout(() => emailBtn.classList.remove('flipped'), 2500);
   });
 }
-emailBtn.addEventListener('click', doEmailCopy);
-
-/* Inherited fix: mobile email uses shared live region */
+/* Mobile email: mailto href handles opening mail client; JS closes the drawer */
 const mobileEmailBtn = document.getElementById('mobile-email-btn');
 if (mobileEmailBtn) {
   mobileEmailBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(EMAIL).then(() => {
-      emailStatus.textContent = 'Email address copied to clipboard';
-      setTimeout(() => { emailStatus.textContent = ''; }, 2500);
-    }).catch(() => {});
+    if (typeof closeMenu === 'function') closeMenu();
   });
 }
 
 /* ── HAMBURGER ── */
-const hamburger = document.getElementById('nav-hamburger');
+const hamburger  = document.getElementById('nav-hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 let menuOpen = false;
 
@@ -648,19 +754,19 @@ mobileMenu.addEventListener('keydown', e => {
   if (e.key !== 'Tab') return;
   const focusable = [...mobileMenu.querySelectorAll('a,button')].filter(el => !el.disabled);
   const first = focusable[0], last = focusable[focusable.length - 1];
-  if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
-  else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 });
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
 /* ── NAV + PROGRESS ── */
-const siteNav = document.getElementById('site-nav');
+const siteNav    = document.getElementById('site-nav');
 const progressBar = document.getElementById('progress');
 
 function onScroll() {
   siteNav.classList.toggle('scrolled', window.scrollY > 60);
   const docH = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docH > 0 ? Math.round((window.scrollY / docH) * 100) : 0;
+  const pct  = docH > 0 ? Math.round((window.scrollY / docH) * 100) : 0;
   progressBar.style.width = pct + '%';
   updateGuide();
   updateBackToTop();
@@ -668,10 +774,10 @@ function onScroll() {
 window.addEventListener('scroll', onScroll, { passive: true });
 
 /* ── SECTION GUIDE ── */
-const guideToggle = document.getElementById('guide-toggle');
+const guideToggle  = document.getElementById('guide-toggle');
 const sectionGuide = document.getElementById('section-guide');
-const sgItems = document.querySelectorAll('.sg-item');
-const sections = document.querySelectorAll('[data-section]');
+const sgItems      = document.querySelectorAll('.sg-item');
+const sections     = document.querySelectorAll('[data-section]');
 let guideOpen = false;
 
 guideToggle.addEventListener('click', e => {
@@ -687,15 +793,18 @@ document.addEventListener('click', e => {
   }
 });
 
-/* FIX 7: consolidated single Escape handler — closes whichever is open */
+/* Single Escape handler — priority: lightbox > menu > guide */
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (lightboxActive) { closeLightbox(); return; }
-  if (menuOpen) { closeMenu(); return; }
-  if (guideOpen) { guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded','false'); guideToggle.focus(); }
+  if (menuOpen)       { closeMenu();    return; }
+  if (guideOpen) {
+    guideOpen = false; sectionGuide.classList.remove('open');
+    guideToggle.setAttribute('aria-expanded','false'); guideToggle.focus();
+  }
 });
 
-/* Inherited fix: Tab containment inside section guide */
+/* Tab containment inside section guide */
 sectionGuide.addEventListener('keydown', e => {
   if (e.key !== 'Tab') return;
   const items = [...sectionGuide.querySelectorAll('button')];
@@ -707,17 +816,27 @@ sectionGuide.addEventListener('keydown', e => {
 sgItems.forEach(item => {
   item.addEventListener('click', () => {
     const target = document.querySelector(`[data-section="${item.dataset.section}"]`);
-    if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - siteNav.offsetHeight, behavior: 'smooth' });
+    if (target) {
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - siteNav.offsetHeight, behavior: 'smooth' });
+      /* Move focus to section heading so keyboard users don't lose their place */
+      setTimeout(() => {
+        const heading = target.querySelector('h1,h2');
+        if (heading) { heading.setAttribute('tabindex','-1'); heading.focus(); }
+      }, 600);
+    }
     guideOpen = false; sectionGuide.classList.remove('open'); guideToggle.setAttribute('aria-expanded','false');
   });
 });
 
+/* Uses aria-current instead of .active class for semantic state */
 function updateGuide() {
   let cur = 0;
   sections.forEach(s => {
     if (window.scrollY >= s.offsetTop - window.innerHeight * 0.45) cur = parseInt(s.dataset.section);
   });
-  sgItems.forEach(item => item.classList.toggle('active', parseInt(item.dataset.section) === cur));
+  sgItems.forEach(item => {
+    item.setAttribute('aria-current', parseInt(item.dataset.section) === cur ? 'true' : 'false');
+  });
 }
 
 /* ── SCROLL REVEAL ── */
@@ -729,25 +848,23 @@ if ('IntersectionObserver' in window) {
   reveals.forEach(r => obs.observe(r));
 } else { reveals.forEach(r => r.classList.add('visible')); }
 
-/* ── LIGHTBOX ──
-  Inherited fixes: prev/next, focus trap, return focus, innerHTML captions ── */
+/* ── LIGHTBOX ── */
 const allImageContainers = [...document.querySelectorAll('.image-container')];
-let lightboxActive = false;
+let lightboxActive  = false;
 let currentImgIndex = 0;
-let lightboxOpener = null;
+let lightboxOpener  = null;
 
-const lightboxEl    = document.getElementById('lightbox');
-const lightboxImg   = document.getElementById('lightbox-img');
-const lightboxCap   = document.getElementById('lightbox-caption');
-const lightboxClose = document.getElementById('lightbox-close');
+const lightboxEl      = document.getElementById('lightbox');
+const lightboxImg     = document.getElementById('lightbox-img');
+const lightboxCap     = document.getElementById('lightbox-caption');
+const lightboxClose   = document.getElementById('lightbox-close');
 const lightboxCounter = document.getElementById('lightbox-counter');
-const lbPrev = document.getElementById('lb-prev');
-const lbNext = document.getElementById('lb-next');
+const lbPrev          = document.getElementById('lb-prev');
+const lbNext          = document.getElementById('lb-next');
 
 function openLightbox(container) {
-  const idx = parseInt(container.dataset.imgIndex);
   lightboxOpener = container;
-  showLightboxImage(idx);
+  showLightboxImage(parseInt(container.dataset.imgIndex));
   lightboxEl.classList.add('active');
   document.body.style.overflow = 'hidden';
   lightboxActive = true;
@@ -758,7 +875,7 @@ function showLightboxImage(idx) {
   const container = allImageContainers[idx];
   if (!container) return;
   currentImgIndex = idx;
-  const img = container.querySelector('img');
+  const img       = container.querySelector('img');
   const captionEl = container.querySelector('.image-caption');
   lightboxImg.src = img.src;
   lightboxImg.alt = img.alt || '';
@@ -768,6 +885,7 @@ function showLightboxImage(idx) {
   lbNext.disabled = idx === allImageContainers.length - 1;
 }
 
+/* Return focus to the triggering element on close */
 function closeLightbox() {
   lightboxEl.classList.remove('active');
   document.body.style.overflow = '';
@@ -775,19 +893,17 @@ function closeLightbox() {
   if (lightboxOpener) { lightboxOpener.focus(); lightboxOpener = null; }
 }
 
-allImageContainers.forEach(container => {
-  container.addEventListener('click', () => openLightbox(container));
-});
-
+allImageContainers.forEach(c => c.addEventListener('click', () => openLightbox(c)));
 lightboxEl.addEventListener('click', e => { if (e.target === lightboxEl) closeLightbox(); });
 lightboxClose.addEventListener('click', closeLightbox);
 lbPrev.addEventListener('click', () => { if (currentImgIndex > 0) showLightboxImage(currentImgIndex - 1); });
 lbNext.addEventListener('click', () => { if (currentImgIndex < allImageContainers.length - 1) showLightboxImage(currentImgIndex + 1); });
 
+/* Keyboard navigation + focus trap inside lightbox */
 lightboxEl.addEventListener('keydown', e => {
   if (!lightboxActive) return;
-  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); if (currentImgIndex > 0) showLightboxImage(currentImgIndex - 1); }
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  { e.preventDefault(); if (currentImgIndex < allImageContainers.length - 1) showLightboxImage(currentImgIndex + 1); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    { e.preventDefault(); if (currentImgIndex > 0) showLightboxImage(currentImgIndex - 1); }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown')   { e.preventDefault(); if (currentImgIndex < allImageContainers.length - 1) showLightboxImage(currentImgIndex + 1); }
   if (e.key === 'Tab') {
     const focusable = [...lightboxEl.querySelectorAll('button:not([disabled])')];
     const first = focusable[0], last = focusable[focusable.length - 1];
@@ -802,10 +918,7 @@ function updateBackToTop() {
 }
 document.getElementById('back-to-top').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  setTimeout(() => document.getElementById('top').focus(), 600);
-});
-document.querySelectorAll('a[href="#top"]').forEach(a => {
-  a.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  setTimeout(() => document.getElementById('top')?.focus(), 600);
 });
 
 onScroll();
