@@ -1,0 +1,741 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,600;0,800;1,600;1,800&family=Lexend:wght@300;400&display=swap');
+
+  .sg {
+    font-family: 'Lexend', sans-serif;
+    font-weight: 300;
+    padding: 2rem 0;
+    max-width: 860px;
+    color: var(--color-text-primary);
+  }
+
+  /* ── HERO ── */
+  .sg-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .sg-title {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--color-text-primary);
+  }
+  .sg-title em { font-style: italic; font-weight: 600; }
+  .sg-meta {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: var(--color-text-secondary);
+  }
+
+  /* ── SECTION ── */
+  .sg-section { margin-bottom: 2.5rem; }
+  .sg-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  .sg-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--color-border-tertiary);
+  }
+
+  /* ── THEME PALETTES ── */
+  .theme-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .theme-card {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 0.5px solid var(--color-border-tertiary);
+  }
+  .theme-preview {
+    height: 72px;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 12px;
+    gap: 6px;
+  }
+  .theme-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .theme-info {
+    padding: 10px 12px;
+    background: var(--color-background-secondary);
+  }
+  .theme-name {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin-bottom: 3px;
+  }
+  .theme-vars {
+    font-size: 10px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  .theme-vars span { display: block; }
+
+  /* ── COLOR TOKENS ── */
+  .token-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .token {
+    flex: 1;
+    min-width: 80px;
+  }
+  .token-swatch {
+    height: 48px;
+    border-radius: var(--border-radius-md);
+    margin-bottom: 6px;
+  }
+  .token-name {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    letter-spacing: 0.04em;
+  }
+  .token-val {
+    font-size: 10px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    margin-top: 1px;
+  }
+
+  /* ── TYPE SAMPLES ── */
+  .type-table { display: flex; flex-direction: column; gap: 0; }
+  .type-row-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .type-row-item:last-child { border-bottom: none; }
+  .type-meta {
+    width: 120px;
+    flex-shrink: 0;
+  }
+  .type-meta-name {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 3px;
+  }
+  .type-meta-spec {
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+    line-height: 1.6;
+  }
+
+  .sample-h1 {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--color-text-primary);
+  }
+  .sample-h1 em { font-style: italic; font-weight: 600; }
+
+  .sample-h1-sm {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+  }
+
+  .sample-nav {
+    font-family: 'Lexend', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+  }
+  .sample-nav-logo {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+  }
+
+  .sample-body {
+    font-family: 'Lexend', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--color-text-primary);
+  }
+
+  .sample-label {
+    font-family: 'Lexend', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .sample-door-num {
+    font-family: 'Spectral', Georgia, serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+  }
+
+  /* ── COMPONENTS ── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .comp-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.25rem;
+  }
+  .comp-label-sm {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: 1rem;
+  }
+
+  /* Nav component */
+  .nav-demo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .nav-demo-logo {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+  }
+  .nav-demo-links {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .nav-demo-link {
+    font-family: 'Lexend', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+  .nav-demo-link.active {
+    color: #c8a84b;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Gold accent */
+  .gold { color: #c8a84b; }
+  .gold-dark { color: #857028; }
+
+  /* Door label demo */
+  .door-label-demo {
+    text-align: center;
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Focus ring */
+  .focus-demo {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid rgba(200,168,75,0.4);
+    border-radius: 4px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    outline: 3px solid #c8a84b;
+    outline-offset: 4px;
+    margin-top: 8px;
+    display: inline-flex;
+  }
+
+  /* Footer demo */
+  .footer-demo {
+    border-top: 0.5px solid var(--color-border-tertiary);
+    padding: 14px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .footer-demo-name {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+  .footer-demo-link {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    font-weight: 300;
+  }
+
+  /* Theme button demo */
+  .theme-btn-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px 0 10px;
+    background: rgba(200,168,75,0.15);
+    border: 1px solid #c8a84b;
+    border-radius: 40px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--color-text-primary);
+    margin-top: 8px;
+  }
+
+  /* Motion / interaction section */
+  .motion-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .motion-item {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+    flex: 1;
+    min-width: 140px;
+  }
+  .motion-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+  }
+  .motion-val {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--color-text-primary);
+  }
+
+  /* Spacing */
+  .space-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .space-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .space-bar { width: 28px; border-radius: 2px; }
+  .space-lbl { font-size: 10px; color: var(--color-text-secondary); }
+
+  /* Voice */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+  }
+  .voice-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+  }
+  .voice-title {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 6px;
+  }
+  .voice-desc {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 600px) {
+    .theme-row { grid-template-columns: 1fr 1fr; }
+    .comp-grid { grid-template-columns: 1fr; }
+    .voice-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="sg">
+
+  <!-- HERO -->
+  <div class="sg-hero">
+    <div>
+      <div class="sg-meta" style="margin-bottom:10px;">Sara McKee — Brand Style Guide</div>
+      <div class="sg-title">Key Story<br><em>Designs</em></div>
+    </div>
+    <div class="sg-meta">Version 2.0 · 2026</div>
+  </div>
+
+  <!-- THEMES -->
+  <div class="sg-section">
+    <div class="sg-label">Colour Themes (4 modes)</div>
+    <div class="theme-row">
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#0f1014;">
+          <div class="theme-dot" style="background:#c8a84b;"></div>
+          <div class="theme-dot" style="background:#FDFDFD;"></div>
+          <div class="theme-dot" style="background:#c8c8c8;"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Dark (default)</div>
+          <div class="theme-vars">
+            <span>bg: #0f1014</span>
+            <span>text: #FDFDFD</span>
+            <span>gold: #c8a84b</span>
+          </div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#E7E2D0;">
+          <div class="theme-dot" style="background:#857028;"></div>
+          <div class="theme-dot" style="background:#0F1014;"></div>
+          <div class="theme-dot" style="background:#4F564A;"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Light</div>
+          <div class="theme-vars">
+            <span>bg: #E7E2D0</span>
+            <span>text: #0F1014</span>
+            <span>gold: #857028</span>
+          </div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#4F564A;">
+          <div class="theme-dot" style="background:#c8a84b;"></div>
+          <div class="theme-dot" style="background:#E7E2D0;"></div>
+          <div class="theme-dot" style="background:#c8c4b0;"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Forest</div>
+          <div class="theme-vars">
+            <span>bg: #4F564A</span>
+            <span>text: #E7E2D0</span>
+            <span>gold: #c8a84b</span>
+          </div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#FDFDFD; border-bottom:0.5px solid #eee;">
+          <div class="theme-dot" style="background:#857028;"></div>
+          <div class="theme-dot" style="background:#0F1014;"></div>
+          <div class="theme-dot" style="background:#4F564A;"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Warm</div>
+          <div class="theme-vars">
+            <span>bg: #FDFDFD</span>
+            <span>text: #0F1014</span>
+            <span>gold: #857028</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLOUR TOKENS -->
+  <div class="sg-section">
+    <div class="sg-label">Core Colour Tokens</div>
+    <div class="token-row">
+      <div class="token">
+        <div class="token-swatch" style="background:#c8a84b;"></div>
+        <div class="token-name">Gold</div>
+        <div class="token-val">--gold</div>
+        <div class="token-val">#c8a84b</div>
+      </div>
+      <div class="token">
+        <div class="token-swatch" style="background:#857028;"></div>
+        <div class="token-name">Gold Dark</div>
+        <div class="token-val">--gold-glow</div>
+        <div class="token-val">#857028</div>
+      </div>
+      <div class="token">
+        <div class="token-swatch" style="background:#0f1014; border:0.5px solid #333;"></div>
+        <div class="token-name">Background</div>
+        <div class="token-val">--bg (dark)</div>
+        <div class="token-val">#0f1014</div>
+      </div>
+      <div class="token">
+        <div class="token-swatch" style="background:#16140a; border:0.5px solid #333;"></div>
+        <div class="token-name">BG Warm</div>
+        <div class="token-val">--bg-warm</div>
+        <div class="token-val">#16140a</div>
+      </div>
+      <div class="token">
+        <div class="token-swatch" style="background:#FDFDFD; border:0.5px solid #eee;"></div>
+        <div class="token-name">Text</div>
+        <div class="token-val">--text</div>
+        <div class="token-val">#FDFDFD</div>
+      </div>
+      <div class="token">
+        <div class="token-swatch" style="background:#c8c8c8;"></div>
+        <div class="token-name">Text Muted</div>
+        <div class="token-val">--text-muted</div>
+        <div class="token-val">#c8c8c8</div>
+      </div>
+      <div class="token">
+        <div class="token-swatch" style="background:#4F564A;"></div>
+        <div class="token-name">Forest</div>
+        <div class="token-val">--bg (forest)</div>
+        <div class="token-val">#4F564A</div>
+      </div>
+      <div class="token">
+        <div class="token-swatch" style="background:#E7E2D0;"></div>
+        <div class="token-name">Parchment</div>
+        <div class="token-val">--bg (light)</div>
+        <div class="token-val">#E7E2D0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="sg-section">
+    <div class="sg-label">Typography</div>
+    <div class="type-table">
+
+      <div class="type-row-item">
+        <div class="type-meta">
+          <div class="type-meta-name">Hero / H1</div>
+          <div class="type-meta-spec">Spectral<br>800 / italic 600<br>clamp(3rem, 7vw, 6.5rem)<br>lh: 0.9 · ls: −0.04em</div>
+        </div>
+        <div class="sample-h1">Key Story<br><em>Designs</em></div>
+      </div>
+
+      <div class="type-row-item">
+        <div class="type-meta">
+          <div class="type-meta-name">Section H2</div>
+          <div class="type-meta-spec">Spectral<br>800<br>~28–36px<br>ls: −0.03em</div>
+        </div>
+        <div class="sample-h1-sm">IncluDesign</div>
+      </div>
+
+      <div class="type-row-item">
+        <div class="type-meta">
+          <div class="type-meta-name">Logo / Wordmark</div>
+          <div class="type-meta-spec">Spectral<br>600<br>0.95rem<br>ls: 0.08em · uppercase</div>
+        </div>
+        <div class="sample-nav-logo">Sara McKee</div>
+      </div>
+
+      <div class="type-row-item">
+        <div class="type-meta">
+          <div class="type-meta-name">Nav / UI Links</div>
+          <div class="type-meta-spec">Lexend<br>300<br>0.75rem<br>ls: 0.2em · uppercase</div>
+        </div>
+        <div>
+          <div class="sample-nav">About &nbsp;·&nbsp; <span class="gold">Work</span> &nbsp;·&nbsp; Résumé &nbsp;·&nbsp; Contact</div>
+        </div>
+      </div>
+
+      <div class="type-row-item">
+        <div class="type-meta">
+          <div class="type-meta-name">Body / Description</div>
+          <div class="type-meta-spec">Lexend<br>300<br>~15–16px<br>lh: 1.7</div>
+        </div>
+        <div class="sample-body">I'm an artist and digital designer with a background in art education. My experience allows me to design solutions that improve engagement and accessibility for diverse users.</div>
+      </div>
+
+      <div class="type-row-item">
+        <div class="type-meta">
+          <div class="type-meta-name">Label / Eyebrow</div>
+          <div class="type-meta-spec">Lexend<br>300<br>0.75rem<br>ls: 0.32em · uppercase</div>
+        </div>
+        <div class="sample-label">Digital Design Case Studies</div>
+      </div>
+
+      <div class="type-row-item">
+        <div class="type-meta">
+          <div class="type-meta-name">Door / Card Num</div>
+          <div class="type-meta-spec">Spectral<br>italic<br>0.72rem<br>--text-muted</div>
+        </div>
+        <div>
+          <div class="sample-door-num">01</div>
+          <div style="font-family:'Lexend';font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-secondary);margin-top:3px;">IncluDesign</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="sg-section">
+    <div class="sg-label">UI Components</div>
+    <div class="comp-grid">
+
+      <div class="comp-card">
+        <div class="comp-label-sm">Navigation bar</div>
+        <div class="nav-demo">
+          <div class="nav-demo-logo">Sara McKee</div>
+          <div class="nav-demo-links">
+            <span class="nav-demo-link active">Work</span>
+            <span class="nav-demo-link">About</span>
+            <span class="nav-demo-link">Résumé</span>
+            <span class="nav-demo-link">Contact</span>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:10px;line-height:1.6;">Position: fixed · height: 5rem · gradient fade<br>Active link: <span class="gold">--gold</span> + underline</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label-sm">Theme switcher</div>
+        <div class="theme-btn-demo">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          Dark
+          <svg width="8" height="5" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1 1 5 5 9 1"/></svg>
+        </div>
+        <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:10px;line-height:1.6;">4 themes: Dark · Light · Forest · Warm<br>Focus ring: <span class="gold">--gold</span> 3px solid, offset 4px<br>Hover: gold glow box-shadow</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label-sm">Focus / accessibility</div>
+        <div class="focus-demo">Focused element</div>
+        <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:12px;line-height:1.6;">outline: 3px solid <span class="gold">--gold</span><br>outline-offset: 4px · border-radius: 3px<br>Min tap target: 44 × 44px<br>prefers-reduced-motion respected</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label-sm">Footer</div>
+        <div class="footer-demo">
+          <span class="footer-demo-name">Sara McKee © 2026</span>
+          <span class="footer-demo-link">↑ Back to top</span>
+        </div>
+        <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:10px;line-height:1.6;">Name: Spectral 600 italic · --text-muted<br>Back-to-top: Lexend 300 · ls: 0.18em<br>Border: 1px solid --footer-border</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MOTION & INTERACTIONS -->
+  <div class="sg-section">
+    <div class="sg-label">Motion & Interactions</div>
+    <div class="motion-row">
+      <div class="motion-item">
+        <div class="motion-label">Door hover open</div>
+        <div class="motion-val">perspective(480px)<br>rotateY(-72deg)<br>.78s cubic-bezier(.76,0,.24,1)</div>
+      </div>
+      <div class="motion-item">
+        <div class="motion-label">Door gold glow</div>
+        <div class="motion-val">drop-shadow gold<br>rgba(133,112,40,.75)<br>.45s ease</div>
+      </div>
+      <div class="motion-item">
+        <div class="motion-label">Theme transitions</div>
+        <div class="motion-val">bg: .35s ease<br>color: .25s ease<br>border: .3s ease</div>
+      </div>
+      <div class="motion-item">
+        <div class="motion-label">Custom cursor</div>
+        <div class="motion-val">Key SVG icon<br>#c8a84b stroke<br>Hover cards only</div>
+      </div>
+      <div class="motion-item">
+        <div class="motion-label">Email flip</div>
+        <div class="motion-val">translateY ±6px<br>.4s cubic-bezier<br>(.76,0,.24,1)</div>
+      </div>
+      <div class="motion-item">
+        <div class="motion-label">Mobile drawer</div>
+        <div class="motion-val">opacity 0→1<br>.3s ease<br>backdrop blur 12px</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPACING -->
+  <div class="sg-section">
+    <div class="sg-label">Spacing Scale</div>
+    <div class="space-row">
+      <div class="space-item"><div class="space-bar" style="height:4px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">4</div></div>
+      <div class="space-item"><div class="space-bar" style="height:8px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">8</div></div>
+      <div class="space-item"><div class="space-bar" style="height:12px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">12</div></div>
+      <div class="space-item"><div class="space-bar" style="height:16px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">16</div></div>
+      <div class="space-item"><div class="space-bar" style="height:24px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">24</div></div>
+      <div class="space-item"><div class="space-bar" style="height:32px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">32</div></div>
+      <div class="space-item"><div class="space-bar" style="height:48px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">48</div></div>
+      <div class="space-item"><div class="space-bar" style="height:64px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">64</div></div>
+      <div class="space-item"><div class="space-bar" style="height:80px;background:#c8a84b;border-radius:1px;"></div><div class="space-lbl">80</div></div>
+    </div>
+    <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:12px;line-height:1.7;">
+      Nav height: <strong style="font-weight:400;">--nav-h: 5rem</strong> (4rem on mobile) &nbsp;·&nbsp;
+      Page padding: <strong style="font-weight:400;">3rem</strong> (desktop) → <strong style="font-weight:400;">1.5rem</strong> (tablet) → <strong style="font-weight:400;">1rem</strong> (mobile) &nbsp;·&nbsp;
+      Door grid gap: <strong style="font-weight:400;">2.5rem</strong>
+    </div>
+  </div>
+
+  <!-- VOICE & TONE -->
+  <div class="sg-section">
+    <div class="sg-label">Voice & Tone</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-title">Minimal & Direct</div>
+        <div class="voice-desc">No filler, no corporate fluff. Every word earns its place. Short labels, sparse UI text.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-title">Narrative-Led</div>
+        <div class="voice-desc">Case studies tell a story — challenge, research, design, results — with clear chapter headings.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-title">Warm & Human</div>
+        <div class="voice-desc">"Hello, I'm Sara." First-person, personal, grounded in real experience and empathy.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="border-top:0.5px solid var(--color-border-tertiary);padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;">
+    <span style="font-family:'Spectral',serif;font-size:12px;font-style:italic;font-weight:600;color:var(--color-text-secondary);">Sara McKee © 2026</span>
+    <span style="font-family:'Lexend',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-text-secondary);">Key Story Designs</span>
+  </div>
+
+</div>

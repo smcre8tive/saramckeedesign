@@ -1,837 +1,698 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Key Story Designs</title>
-<meta name="description" content="Sara McKee is a digital designer with 10+ years experience, available for freelance, contract, and full-time work.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" type="image/png" href="img/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,600;0,800;1,600;1,800&family=Lexend:wght@300;400&display=swap" rel="stylesheet">
-<meta name="theme-color" content="#0f1014">
-<style>
-/* ── RESET ── */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Story Designs — Sara McKee</title>
+  <meta name="description" content="Sara McKee is a digital designer with 10+ years experience, available for freelance, contract, and full-time work.">
+  <meta name="theme-color" content="#0f1014">
+  <link rel="icon" type="image/png" href="img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,600;0,800;1,600;1,800&family=Lexend:wght@300;400&display=swap" rel="stylesheet">
 
-/* ── CSS CUSTOM PROPERTIES ── */
-:root {
-  --gold:          #c8a84b;
-  --gold-glow:     #857028;
-  --bg:         #0f1014;
-  --bg-warm:    #16140a;
-  --text:       #FDFDFD;
-  --text-muted:    #c8c8c8;
-  --nav-bg:        rgba(15,16,20,.92);
-  --footer-border: rgba(255,255,255,.1);
-  --focus-ring: #c8a84b;
-  --nav-h:      5rem;
-}
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ── THEMES ── */
-[data-theme="light"] {
-  --gold:        #857028;
-  --gold-glow:   #6a5820;
-  --bg:          #E7E2D0;
-  --bg-warm:     #ddd8c4;
-  --text:        #0F1014;
-  --text-muted:  #4F564A;
-  --focus-ring:  #857028;
-  --nav-bg:      rgba(231,226,208,.95);
-  --footer-border: rgba(15,16,20,.15);
-}
-[data-theme="forest"] {
-  --gold:        #c8a84b;
-  --gold-glow:   #857028;
-  --bg:          #4F564A;
-  --bg-warm:     #424840;
-  --text:        #E7E2D0;
-  --text-muted:  #c8c4b0;
-  --focus-ring:  #c8a84b;
-  --nav-bg:      rgba(79,86,74,.95);
-  --footer-border: rgba(231,226,208,.15);
-}
-[data-theme="warm"] {
-  --gold:        #857028;
-  --gold-glow:   #6a5820;
-  --bg:          #FDFDFD;
-  --bg-warm:     #f5f0e8;
-  --text:        #0F1014;
-  --text-muted:  #4F564A;
-  --focus-ring:  #857028;
-  --nav-bg:      rgba(253,253,253,.97);
-  --footer-border: rgba(15,16,20,.1);
-}
+    /* ── SCREEN-READER ONLY UTILITY ── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
 
-/* ── SMOOTH THEME TRANSITIONS ── */
-html, body, body > nav, footer,
-.skip-link, #mobile-menu, .door-card { transition: background-color .35s ease, color .25s ease, border-color .3s ease; }
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --gold:          #c8a84b;
+      --gold-dark:     #857028;
+      --bg:            #0f1014;
+      --bg-warm:       #16140a;
+      --text:          #FDFDFD;
+      --text-muted:    #c8c8c8;
+      --nav-bg:        rgba(15,16,20,.92);
+      --footer-border: rgba(255,255,255,.1);
+      --focus-ring:    #c8a84b;
+      --nav-h:         5rem;
+    }
 
-html { background: var(--bg); }
+    /* ── COLOUR THEMES ── */
+    [data-theme="light"] {
+      --gold:          #857028;
+      --gold-dark:     #6a5820;
+      --bg:            #E7E2D0;
+      --bg-warm:       #ddd8c4;
+      --text:          #0F1014;
+      --text-muted:    #4F564A;
+      --focus-ring:    #857028;
+      --nav-bg:        rgba(231,226,208,.95);
+      --footer-border: rgba(15,16,20,.15);
+    }
+    [data-theme="forest"] {
+      --gold:          #c8a84b;
+      --gold-dark:     #857028;
+      --bg:            #4F564A;
+      --bg-warm:       #424840;
+      --text:          #E7E2D0;
+      --text-muted:    #c8c4b0;
+      --focus-ring:    #c8a84b;
+      --nav-bg:        rgba(79,86,74,.95);
+      --footer-border: rgba(231,226,208,.15);
+    }
+    [data-theme="warm"] {
+      --gold:          #857028;
+      --gold-dark:     #6a5820;
+      --bg:            #FDFDFD;
+      --bg-warm:       #f5f0e8;
+      --text:          #0F1014;
+      --text-muted:    #4F564A;
+      --focus-ring:    #857028;
+      --nav-bg:        rgba(253,253,253,.97);
+      --footer-border: rgba(15,16,20,.1);
+    }
 
-body {
-  font-family: 'Lexend', sans-serif;
-  font-weight: 300;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-}
+    /* ── SMOOTH THEME TRANSITIONS ── */
+    html, body, nav, footer,
+    .skip-link, #mobile-menu { transition: background-color .35s ease, color .25s ease, border-color .3s ease; }
 
-/* ── REDUCE MOTION ── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+    /* ── REDUCE MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
-/* ── SKIP LINK ── */
-.skip-link {
-  position: fixed; top: -100%; left: 1rem; z-index: 9999;
-  background: var(--bg); color: var(--text);
-  padding: .75rem 1.5rem; font-size: 1rem;
-  text-decoration: underline;
-  border: 2px solid var(--gold);
-  border-radius: 4px;
-  transition: top .2s ease;
-}
-.skip-link:focus { top: 1rem; }
+    /* ── BASE ── */
+    html { background: var(--bg); }
+    body {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
 
-/* When skip link target receives programmatic focus, show a ring */
-#main-content:focus { outline: none; }
-#main-content:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 4px; border-radius: 3px; }
+    /* ── FOCUS RING (global) ── */
+    :focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 4px;
+      border-radius: 3px;
+    }
 
-/* ── GLOBAL FOCUS ── */
-:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 4px;
-  border-radius: 3px;
-}
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: fixed; top: -100%; left: 1rem; z-index: 9999;
+      background: var(--bg); color: var(--text);
+      padding: .75rem 1.5rem; font-size: 1rem;
+      text-decoration: underline;
+      border: 2px solid var(--gold);
+      border-radius: 4px;
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 1rem; }
+    #main-content:focus { outline: none; }
+    #main-content:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 4px; border-radius: 3px; }
 
-/* ── KEY CURSOR (desktop hover only) ── */
-#key-cursor {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  width: 38px; height: 38px;
-  transform: translate(-50%, -50%) rotate(-35deg);
-  opacity: 0;
-  transition: opacity .18s ease;
-  display: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  #key-cursor { display: block; }
-}
-#key-cursor.visible { opacity: 1; }
+    /* ── CUSTOM KEY CURSOR (pointer devices only) ── */
+    #key-cursor {
+      position: fixed; pointer-events: none; z-index: 9999;
+      width: 38px; height: 38px;
+      transform: translate(-50%, -50%) rotate(-35deg);
+      opacity: 0; transition: opacity .18s ease;
+      display: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      #key-cursor { display: block; }
+    }
+    #key-cursor.visible { opacity: 1; }
 
-/* ── NAV ── */
-body > nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  z-index: 500;
-  padding: 0 3rem;
-  display: flex; align-items: center; justify-content: space-between;
-  background: linear-gradient(to bottom, var(--nav-bg) 0%, rgba(0,0,0,0) 100%);
-}
-.nav-logo {
-  color: var(--text);
-  font-family: 'Spectral', Georgia, serif;
-  font-size: .95rem; font-weight: 600;
-  text-decoration: none; letter-spacing: .08em; text-transform: uppercase;
-  display: flex; align-items: center; gap: .55rem;
-  transition: opacity .2s;
-  min-height: 44px;
-}
-.nav-logo:hover { opacity: .75; }
-.nav-logo-img { width: 22px; height: 22px; object-fit: contain; display: block; opacity: .9; }
+    /* ══════════════════════════════════
+       NAV
+    ══════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h); z-index: 500;
+      padding: 0 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(to bottom, var(--nav-bg) 0%, rgba(0,0,0,0) 100%);
+    }
 
-/* Desktop nav links */
-.nav-links {
-  display: flex; align-items: center; gap: 1.8rem; list-style: none;
-}
-.nav-links a, .nav-links button {
-  color: var(--text); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
-  text-decoration: none; background: none; border: none; cursor: pointer;
-  font-family: 'Lexend', sans-serif; font-weight: 300;
-  padding: .5rem 0;
-  min-height: 44px; display: inline-flex; align-items: center;
-  transition: opacity .2s;
-}
-.nav-links a:hover, .nav-links button:hover { opacity: .65; }
+    /* Logo */
+    .nav-logo {
+      color: var(--text);
+      font-family: 'Spectral', Georgia, serif;
+      font-size: .95rem; font-weight: 600;
+      text-decoration: none; letter-spacing: .08em; text-transform: uppercase;
+      display: flex; align-items: center; gap: .55rem;
+      transition: opacity .2s;
+      min-height: 44px; /* touch target */
+    }
+    .nav-logo:hover { opacity: .75; }
+    /* The logo image is decorative — the visible text "Sara McKee" is the label */
+    .nav-logo-img { width: 22px; height: 22px; object-fit: contain; display: block; opacity: .9; }
 
-.nav-links a.nav-active {
-  color: var(--gold);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  opacity: 1;
-}
-.nav-links a.nav-active:hover { opacity: .8; }
+    /* Desktop links */
+    .nav-links { display: flex; align-items: center; gap: 1.8rem; list-style: none; }
+    .nav-links a,
+    .nav-links button {
+      color: var(--text); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+      text-decoration: none; background: none; border: none; cursor: pointer;
+      font-family: 'Lexend', sans-serif; font-weight: 300;
+      padding: .5rem 0;
+      min-height: 44px; display: inline-flex; align-items: center;
+      transition: opacity .2s;
+    }
+    .nav-links a:hover, .nav-links button:hover { opacity: .65; }
+    .nav-links a.nav-active {
+      color: var(--gold);
+      text-decoration: underline; text-underline-offset: 4px;
+      opacity: 1;
+    }
+    .nav-links a.nav-active:hover { opacity: .8; }
 
-.nav-sep { width: 1px; height: 14px; background: var(--text); opacity: .2; }
-.nav-social {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px;
-  opacity: .75; transition: opacity .2s;
-}
-.nav-social:hover { opacity: 1; }
-.nav-social svg { width: 18px; height: 18px; fill: var(--text); display: block; }
+    /* Separator + social icon */
+    .nav-sep { width: 1px; height: 14px; background: var(--text); opacity: .2; }
+    .nav-social {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      opacity: .75; transition: opacity .2s;
+    }
+    .nav-social:hover { opacity: 1; }
+    .nav-social svg { width: 18px; height: 18px; fill: var(--text); display: block; }
 
-/* ── MOBILE RIGHT CLUSTER ── */
-/* Groups theme toggle + hamburger together on the right side of nav */
-.nav-mobile-right {
-  display: none;
-  align-items: center;
-  gap: .5rem;
-}
+    /* ── EMAIL FLIP ANIMATION ── */
+    .email-btn { text-decoration: none; color: inherit; position: relative; height: 44px; display: inline-flex; align-items: center; }
+    .email-face-front,
+    .email-face-back {
+      display: flex; align-items: center; gap: .3rem; white-space: nowrap;
+      transition: opacity .28s, transform .4s cubic-bezier(.76,0,.24,1);
+    }
+    .email-face-back {
+      position: absolute; left: 0; opacity: 0; transform: translateY(6px);
+    }
+    .email-face-back svg { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .email-btn:hover .email-face-front,
+    .email-btn.flipped .email-face-front { opacity: 0; transform: translateY(-6px); }
+    .email-btn:hover .email-face-back,
+    .email-btn.flipped .email-face-back  { opacity: 1; transform: none; }
 
-/* ── MOBILE HAMBURGER ── */
-.nav-hamburger {
-  display: none;
-  flex-direction: column; justify-content: center; align-items: center;
-  gap: 5px;
-  width: 44px; height: 44px;
-  background: none; border: none; cursor: pointer; padding: 0;
-  color: var(--text);
-}
-.nav-hamburger span {
-  display: block; width: 22px; height: 1.5px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: transform .3s ease, opacity .2s ease;
-}
+    /* ── MOBILE RIGHT CLUSTER (theme toggle + hamburger) ── */
+    .nav-mobile-right { display: none; align-items: center; gap: .5rem; }
 
-/* ── MOBILE DRAWER ── */
-#mobile-menu {
-  display: none;
-  position: fixed; inset: 0;
-  z-index: 510;
-  background: rgba(15,16,20,.97);
-  backdrop-filter: blur(12px);
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 0 0 4rem 2rem;
-  opacity: 0;
-  transition: opacity .3s ease;
-}
-#mobile-menu.open    { display: flex; }
-#mobile-menu.visible { opacity: 1; }
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+      width: 44px; height: 44px;
+      background: none; border: none; cursor: pointer; padding: 0; color: var(--text);
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: transform .3s ease, opacity .2s ease;
+    }
 
-/* Close button */
-#mob-close-btn {
-  position: absolute;
-  top: 5rem; right: 1rem;
-  width: 52px; height: 52px;
-  display: flex; align-items: center; justify-content: center;
-  background: none;
-  border: 1.5px solid rgba(255,255,255,.35);
-  border-radius: 6px;
-  cursor: pointer;
-  color: #FDFDFD;
-  transition: border-color .2s, opacity .2s;
-}
-#mob-close-btn:hover { border-color: #FDFDFD; opacity: 1; }
-#mob-close-btn svg { width: 18px; height: 18px; stroke: #FDFDFD; fill: none; stroke-width: 2; stroke-linecap: round; }
+    /* ── MOBILE DRAWER ── */
+    #mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 510;
+      background: rgba(15,16,20,.97); backdrop-filter: blur(12px);
+      flex-direction: column; justify-content: flex-end; align-items: flex-start;
+      padding: 0 0 4rem 2rem;
+      opacity: 0; transition: opacity .3s ease;
+    }
+    #mobile-menu.open    { display: flex; }
+    #mobile-menu.visible { opacity: 1; }
 
-/* Nav list */
-#mobile-menu .mob-nav-list {
-  list-style: none;
-  display: flex; flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-  margin-bottom: 2.5rem;
-}
-#mobile-menu .mob-nav-list li a,
-#mobile-menu .mob-nav-list li button {
-  color: #FDFDFD;
-  font-family: 'Lexend', sans-serif;
-  font-size: 1.55rem; letter-spacing: .18em; text-transform: uppercase;
-  text-decoration: none; background: none; border: none; cursor: pointer;
-  min-height: 52px; display: flex; align-items: center;
-  opacity: .9; transition: opacity .2s, color .2s;
-  padding: 0;
-}
-#mobile-menu .mob-nav-list li a:hover,
-#mobile-menu .mob-nav-list li button:hover { opacity: 1; color: var(--gold); }
+    #mob-close-btn {
+      position: absolute; top: 5rem; right: 1rem;
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: 1.5px solid rgba(255,255,255,.35); border-radius: 6px;
+      cursor: pointer; color: #FDFDFD;
+      transition: border-color .2s, opacity .2s;
+    }
+    #mob-close-btn:hover { border-color: #FDFDFD; }
+    #mob-close-btn svg { width: 18px; height: 18px; stroke: #FDFDFD; fill: none; stroke-width: 2; stroke-linecap: round; }
 
-#mobile-menu .mob-nav-list li a.mob-active {
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  opacity: 1;
-  color: var(--gold);
-}
+    .mob-nav-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-bottom: 2.5rem; }
+    .mob-nav-list li a,
+    .mob-nav-list li button {
+      color: #FDFDFD;
+      font-family: 'Lexend', sans-serif;
+      font-size: 1.55rem; letter-spacing: .18em; text-transform: uppercase;
+      text-decoration: none; background: none; border: none; cursor: pointer;
+      min-height: 52px; display: flex; align-items: center;
+      opacity: .9; transition: opacity .2s, color .2s; padding: 0;
+    }
+    .mob-nav-list li a:hover,
+    .mob-nav-list li button:hover  { opacity: 1; color: var(--gold); }
+    .mob-nav-list li a.mob-active  { text-decoration: underline; text-underline-offset: 5px; opacity: 1; color: var(--gold); }
 
-.mob-socials {
-  display: flex; gap: .75rem;
-}
-.mob-social {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; opacity: .6; transition: opacity .2s;
-}
-.mob-social:hover { opacity: 1; }
-.mob-social svg { width: 20px; height: 20px; fill: #FDFDFD; }
+    .mob-socials { display: flex; gap: .75rem; }
+    .mob-social {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; opacity: .6; transition: opacity .2s;
+    }
+    .mob-social:hover { opacity: 1; }
+    .mob-social svg { width: 20px; height: 20px; fill: #FDFDFD; }
 
-/* ── EMAIL FLIP ── */
-.email-btn {
-  position: relative; height: 44px; display: inline-flex; align-items: center;
-}
-.email-face-front, .email-face-back {
-  display: flex; align-items: center; gap: .3rem; white-space: nowrap;
-  transition: opacity .28s, transform .4s cubic-bezier(.76,0,.24,1);
-}
-.email-face-back { position: absolute; left: 0; opacity: 0; transform: translateY(6px); }
-.email-face-back svg { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.email-btn:hover .email-face-front,
-.email-btn.flipped .email-face-front { opacity: 0; transform: translateY(-6px); }
-.email-btn:hover .email-face-back,
-.email-btn.flipped .email-face-back  { opacity: 1; transform: none; }
+    /* ══════════════════════════════════
+       THEME SWITCHER
+    ══════════════════════════════════ */
+    #theme-switcher {
+      position: fixed; top: calc(var(--nav-h) + .6rem); right: 1.2rem; z-index: 505;
+      font-family: 'Lexend', sans-serif;
+    }
 
-/* ── MAIN ── */
-main {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: calc(var(--nav-h) + 2rem) 3rem 4rem;
-}
+    /* Shared toggle button styles (desktop + mobile inline) */
+    .theme-toggle-btn {
+      display: flex; align-items: center; gap: .45rem;
+      height: 36px; padding: 0 .75rem 0 .6rem;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.18); border-radius: 40px;
+      color: var(--text); cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background .2s, border-color .2s, box-shadow .2s;
+      font-family: 'Lexend', sans-serif;
+    }
+    [data-theme="light"] .theme-toggle-btn,
+    [data-theme="warm"]  .theme-toggle-btn {
+      background: rgba(0,0,0,.07); border-color: rgba(0,0,0,.18);
+    }
+    .theme-toggle-btn:hover { background: rgba(200,168,75,.15); border-color: var(--gold); box-shadow: 0 0 12px rgba(200,168,75,.25); }
+    .theme-toggle-btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
+    .theme-chevron { width: 9px; height: 6px; opacity: .6; transition: transform .25s; }
+    .theme-toggle-btn[aria-expanded="true"] .theme-chevron { transform: rotate(180deg); }
+    .theme-current-icon { display: flex; align-items: center; }
+    .theme-current-icon svg { width: 15px; height: 15px; display: block; }
 
-/* ── SITE HERO ── */
-.site-hero {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-.site-title {
-  font-family: 'Spectral', Georgia, serif;
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  font-weight: 800;
-  line-height: .9;
-  letter-spacing: -.04em;
-  color: var(--text);
-  margin-bottom: 1.4rem;
-}
-.site-title em {
-  font-style: italic;
-  font-weight: 600;
-}
+    /* Shared panel styles */
+    .theme-panel {
+      min-width: 162px;
+      background: var(--bg);
+      border: 1px solid rgba(200,168,75,.3); border-radius: 12px;
+      padding: .6rem .5rem .5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(200,168,75,.08);
+      animation: theme-panel-in .18s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes theme-panel-in {
+      from { opacity: 0; transform: translateY(-6px) scale(.97); }
+      to   { opacity: 1; transform: none; }
+    }
+    /* Desktop panel: drops below the toggle button */
+    #theme-panel {
+      position: absolute; top: calc(100% + .55rem); right: 0;
+    }
+    /* Mobile panel: anchored to nav bottom */
+    #theme-panel-inline {
+      position: absolute; top: calc(var(--nav-h) - .3rem); right: 1.5rem; z-index: 520;
+    }
 
-.doors-label {
-  font-size: .75rem; letter-spacing: .32em; text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0;
-  display: flex; align-items: center; gap: .7rem;
-}
-.doors-label::before, .doors-label::after {
-  content: ''; display: block; flex: 1; max-width: 80px; height: 1px;
-  background: rgba(255,255,255,.25);
-}
+    .theme-panel-label {
+      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--text-muted); padding: 0 .5rem .45rem;
+      border-bottom: 1px solid rgba(200,168,75,.15); margin-bottom: .35rem;
+    }
+    .theme-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .theme-list button {
+      width: 100%; display: flex; align-items: center; gap: .6rem;
+      padding: .5rem .6rem;
+      border: none; background: none; cursor: pointer;
+      color: var(--text); border-radius: 8px;
+      font-family: 'Lexend', sans-serif; font-size: .72rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      transition: background .15s, color .15s; text-align: left;
+    }
+    .theme-list button:hover { background: rgba(200,168,75,.12); color: var(--gold); }
+    .theme-list button.ts-active { background: rgba(200,168,75,.18); color: var(--gold); }
+    .theme-list button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+    .theme-btn-icon { width: 18px; height: 18px; display: flex; align-items: center; flex-shrink: 0; }
+    .theme-btn-icon svg { width: 18px; height: 18px; }
+    .theme-list button.ts-active .theme-btn-label::after { content: ' ✓'; font-size: .65rem; opacity: .7; }
 
-/* ── DOOR GRID ── */
-.doors-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2.5rem;
-  width: 100%; max-width: 1200px;
-  list-style: none;
-}
-.doors-grid > li {
-  display: flex;
-  flex-direction: column;
-}
+    /* ══════════════════════════════════
+       MAIN + HERO
+    ══════════════════════════════════ */
+    main {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: calc(var(--nav-h) + 2rem) 3rem 4rem;
+    }
+    .site-hero { text-align: center; margin-bottom: 3.5rem; }
+    .site-title {
+      font-family: 'Spectral', Georgia, serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 800; line-height: .9; letter-spacing: -.04em;
+      color: var(--text); margin-bottom: 1.4rem;
+    }
+    .site-title em { font-style: italic; font-weight: 600; }
+    .doors-label {
+      font-size: .75rem; letter-spacing: .32em; text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .doors-label::before, .doors-label::after {
+      content: ''; display: block; flex: 1; max-width: 80px; height: 1px;
+      background: rgba(255,255,255,.25);
+    }
 
-@keyframes shimmer {
-  0%   { background-position: -400px 0; }
-  100% { background-position:  400px 0; }
-}
-.doors-grid.loading > li {
-  aspect-ratio: 3/5;
-}
-.doors-grid.loading > li::before {
-  content: '';
-  display: block;
-  width: 100%;
-  aspect-ratio: 3/5;
-  border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,.04) 0%,
-    rgba(255,255,255,.08) 40%,
-    rgba(255,255,255,.04) 80%
-  );
-  background-size: 400px 100%;
-  animation: shimmer 1.4s ease-in-out infinite;
-}
-[data-theme="light"]  .doors-grid.loading > li::before,
-[data-theme="warm"]   .doors-grid.loading > li::before { background: linear-gradient(90deg, rgba(0,0,0,.04) 0%, rgba(0,0,0,.09) 40%, rgba(0,0,0,.04) 80%); background-size: 400px 100%; }
-[data-theme="forest"] .doors-grid.loading > li::before { background: linear-gradient(90deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.1) 40%, rgba(255,255,255,.05) 80%); background-size: 400px 100%; }
+    /* ══════════════════════════════════
+       DOOR GRID
+    ══════════════════════════════════ */
+    .doors-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem; width: 100%; max-width: 1200px; list-style: none;
+    }
+    .doors-grid > li { display: flex; flex-direction: column; }
 
-/* ── DOOR CARD ── */
-.door-card {
-  position: relative;
-  display: block;
-  text-decoration: none; color: inherit;
-  aspect-ratio: 3/5;
-  width: 100%;
-  user-select: none;
-  cursor: pointer;
-  filter: drop-shadow(0 8px 28px rgba(0,0,0,.55));
-  transition: filter .45s ease, transform .3s ease;
-  will-change: filter;
-  border-radius: 2px;
-}
+    /* Skeleton loading shimmer */
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position:  400px 0; }
+    }
+    .doors-grid.loading > li { aspect-ratio: 3/5; }
+    .doors-grid.loading > li::before {
+      content: ''; display: block; width: 100%; aspect-ratio: 3/5; border-radius: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.08) 40%, rgba(255,255,255,.04) 80%);
+      background-size: 400px 100%; animation: shimmer 1.4s ease-in-out infinite;
+    }
+    [data-theme="light"] .doors-grid.loading > li::before,
+    [data-theme="warm"]  .doors-grid.loading > li::before {
+      background: linear-gradient(90deg, rgba(0,0,0,.04) 0%, rgba(0,0,0,.09) 40%, rgba(0,0,0,.04) 80%);
+      background-size: 400px 100%;
+    }
 
-@media (hover: hover) and (pointer: fine) {
-  .door-card:hover {
-    filter:
-      drop-shadow(0 0 14px rgba(133,112,40,.75))
-      drop-shadow(0 0 32px rgba(133,112,40,.4))
-      drop-shadow(0 14px 40px rgba(0,0,0,.65));
-    cursor: none;
-  }
-  .door-card:hover .door-panel {
-    transform: perspective(480px) rotateY(-72deg);
-  }
-  .door-card:hover .door-frame-lines {
-    filter: drop-shadow(0 0 4px rgba(200,168,75,.9)) drop-shadow(0 0 10px rgba(133,112,40,.55));
-  }
-  .door-card:hover { cursor: none; }
-  .door-card:hover + .door-label .door-label-title { color: var(--gold); }
-}
+    /* ── DOOR CARD ── */
+    .door-card {
+      position: relative; display: block;
+      text-decoration: none; color: inherit;
+      aspect-ratio: 3/5; width: 100%;
+      user-select: none; cursor: pointer;
+      filter: drop-shadow(0 8px 28px rgba(0,0,0,.55));
+      transition: filter .45s ease, transform .3s ease;
+      will-change: filter; border-radius: 2px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .door-card:hover {
+        filter: drop-shadow(0 0 14px rgba(133,112,40,.75)) drop-shadow(0 0 32px rgba(133,112,40,.4)) drop-shadow(0 14px 40px rgba(0,0,0,.65));
+        cursor: none;
+      }
+      .door-card:hover .door-panel { transform: perspective(480px) rotateY(-72deg); }
+      .door-card:hover .door-frame-lines { filter: drop-shadow(0 0 4px rgba(200,168,75,.9)) drop-shadow(0 0 10px rgba(133,112,40,.55)); }
+      .door-card:hover + .door-label .door-label-title { color: var(--gold); }
+    }
+    .door-card:focus-visible {
+      outline: 3px solid var(--focus-ring); outline-offset: 5px; border-radius: 4px;
+    }
+    .door-card:focus-visible .door-panel { transform: perspective(480px) rotateY(-72deg); }
+    .door-card:focus-visible .door-frame-lines { filter: drop-shadow(0 0 6px rgba(200,168,75,1)); }
+    .door-card:focus-visible + .door-label .door-label-title { color: var(--gold); }
 
-.door-card:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 5px;
-  border-radius: 4px;
-}
-.door-card:focus-visible .door-panel {
-  transform: perspective(480px) rotateY(-72deg);
-}
-.door-card:focus-visible .door-frame-lines {
-  filter: drop-shadow(0 0 6px rgba(200,168,75,1));
-}
-.door-card:focus-visible + .door-label .door-label-title { color: var(--gold); }
+    .door-card-inner { position: absolute; inset: 0; }
+    .door-svg-wrap { position: absolute; inset: 0; z-index: 1; }
+    .door-svg-wrap svg { width: 100%; height: 100%; overflow: hidden; }
 
-/* ── DOOR CARD INNER ── */
-.door-card-inner {
-  position: absolute; inset: 0;
-}
+    .door-panel {
+      transform-origin: left center; transform-box: fill-box;
+      transition: transform .78s cubic-bezier(.76,0,.24,1);
+    }
+    .door-frame-lines { transition: filter .45s ease; }
 
-.door-svg-wrap {
-  position: absolute; inset: 0; z-index: 1;
-}
-.door-svg-wrap svg { width: 100%; height: 100%; overflow: hidden; }
+    /* Door labels */
+    .door-label { display: block; text-align: center; padding-top: .75rem; }
+    .door-label-num {
+      font-family: 'Spectral', Georgia, serif; font-style: italic;
+      font-size: .72rem; color: var(--text-muted); display: block; margin-bottom: .2rem;
+    }
+    .door-label-title {
+      font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-muted); display: block; transition: color .2s;
+    }
 
-.door-panel {
-  transform-origin: left center;
-  transform-box: fill-box;
-  transition: transform .78s cubic-bezier(.76,0,.24,1);
-}
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--footer-border);
+      padding: 2.5rem 3rem; margin-top: 2rem; width: 100%;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-name {
+      font-family: 'Spectral', Georgia, serif; font-size: .88rem;
+      font-weight: 600; font-style: italic; color: var(--text-muted); letter-spacing: .04em;
+    }
+    .footer-top-link {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      display: inline-flex; align-items: center; gap: .4rem;
+      opacity: .7; transition: opacity .2s, color .2s; min-height: 44px;
+    }
+    .footer-top-link:hover { opacity: 1; color: var(--gold); }
+    .footer-top-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
 
-.door-frame-lines { transition: filter .45s ease; }
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 1280px) { .doors-grid { max-width: 960px; gap: 2rem; } }
 
-/* ── DOOR LABEL ── */
-.door-label {
-  display: block;
-  text-align: center;
-  padding-top: .75rem;
-}
-.door-label-num {
-  font-family: 'Spectral', Georgia, serif; font-style: italic;
-  font-size: .72rem;
-  color: var(--text-muted);
-  display: block; margin-bottom: .2rem;
-}
-.door-label-title {
-  font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--text-muted);
-  display: block;
-  transition: color .2s;
-}
+    @media (max-width: 1050px) {
+      .doors-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 680px; }
+      main { padding: calc(var(--nav-h) + 1.5rem) 2rem 4rem; }
+    }
 
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--footer-border);
-  padding: 2.5rem 3rem;
-  margin-top: 2rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.footer-name {
-  font-family: 'Spectral', Georgia, serif; font-size: .88rem;
-  font-weight: 600; font-style: italic;
-  color: var(--text-muted);
-  letter-spacing: .04em;
-}
-.footer-top-link {
-  font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--text-muted);
-  text-decoration: none;
-  display: inline-flex; align-items: center; gap: .4rem;
-  opacity: .7;
-  transition: opacity .2s, color .2s;
-  min-height: 44px;
-}
-.footer-top-link:hover { opacity: 1; color: var(--gold); }
-.footer-top-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .nav-mobile-right { display: flex; }
+      .nav-hamburger { display: flex; }
+      main { padding: calc(var(--nav-h) + 1rem) 1.5rem 4rem; }
+      .site-hero { margin-bottom: 2.5rem; }
+      .doors-grid { gap: 1.8rem; max-width: 560px; }
+      footer { padding: 2rem 1.5rem; }
+      #theme-switcher { display: none; }
+    }
 
+    @media (max-width: 560px) {
+      :root { --nav-h: 4rem; }
+      .doors-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; max-width: 100%; }
+      .door-label { padding-top: .6rem; }
+      .door-label-num   { font-size: .62rem; }
+      .door-label-title { font-size: .56rem; letter-spacing: .12em; }
+      main { padding: calc(var(--nav-h) + .75rem) 1rem 3rem; }
+      .site-hero { margin-bottom: 2rem; }
+      .doors-label { font-size: .65rem; letter-spacing: .22em; }
+      footer { padding: 1.5rem 1rem; }
+      .footer-name { font-size: .78rem; }
+    }
 
-/* ══════════════════════════════════════════════════════
-   RESPONSIVE BREAKPOINTS
-══════════════════════════════════════════════════════ */
-
-@media (max-width: 1280px) {
-  .doors-grid { max-width: 960px; gap: 2rem; }
-}
-
-@media (max-width: 1050px) {
-  .doors-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 680px; }
-  main { padding: calc(var(--nav-h) + 1.5rem) 2rem 4rem; }
-}
-
-@media (max-width: 768px) {
-  nav { padding: 0 1.5rem; }
-  .nav-links { display: none; }
-  /* Show the mobile right cluster (theme toggle + hamburger) */
-  .nav-mobile-right { display: flex; }
-  /* Hide standalone hamburger — it now lives inside .nav-mobile-right */
-  .nav-hamburger { display: flex; }
-  main { padding: calc(var(--nav-h) + 1rem) 1.5rem 4rem; }
-  .site-hero { margin-bottom: 2.5rem; }
-  .doors-grid { gap: 1.8rem; max-width: 560px; }
-  footer { padding: 2rem 1.5rem; }
-  /* Hide the fixed desktop theme switcher on mobile — it's now inline in the nav */
-  #theme-switcher { display: none; }
-}
-
-@media (max-width: 560px) {
-  :root { --nav-h: 4rem; }
-  .doors-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    max-width: 100%;
-  }
-  .door-label { padding-top: .6rem; }
-  .door-label-num   { font-size: .62rem; }
-  .door-label-title { font-size: .56rem; letter-spacing: .12em; }
-  main { padding: calc(var(--nav-h) + .75rem) 1rem 3rem; }
-  .site-hero { margin-bottom: 2rem; }
-  .doors-label { font-size: .65rem; letter-spacing: .22em; }
-  footer { padding: 1.5rem 1rem; }
-  .footer-name { font-size: .78rem; }
-}
-
-@media (max-width: 360px) {
-  .doors-grid { gap: .75rem; }
-  main { padding-left: .75rem; padding-right: .75rem; }
-}
-
-/* ── THEME SWITCHER WIDGET ── */
-/* Desktop: fixed position, top-right */
-#theme-switcher {
-  position: fixed;
-  top: calc(var(--nav-h) + .6rem);
-  right: 1.2rem;
-  z-index: 505;
-  font-family: 'Lexend', sans-serif;
-}
-
-/* Inline theme toggle for mobile nav — mirrors the fixed widget's button style */
-#theme-toggle-inline {
-  display: flex; align-items: center; gap: .45rem;
-  height: 36px; padding: 0 .75rem 0 .6rem;
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 40px;
-  color: var(--text);
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: background .2s, border-color .2s, box-shadow .2s;
-  font-family: 'Lexend', sans-serif;
-}
-[data-theme="light"] #theme-toggle-inline,
-[data-theme="warm"]  #theme-toggle-inline {
-  background: rgba(0,0,0,.07);
-  border-color: rgba(0,0,0,.18);
-}
-#theme-toggle-inline:hover {
-  background: rgba(200,168,75,.15);
-  border-color: var(--gold);
-  box-shadow: 0 0 12px rgba(200,168,75,.25);
-}
-#theme-toggle-inline:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-#inline-current-icon { display: flex; align-items: center; }
-#inline-current-icon svg { width: 15px; height: 15px; display: block; }
-.inline-chevron { width: 9px; height: 6px; opacity: .6; transition: transform .25s; }
-#theme-toggle-inline[aria-expanded="true"] .inline-chevron { transform: rotate(180deg); }
-
-/* Inline panel — opens downward from the nav */
-#theme-panel-inline {
-  position: absolute;
-  top: calc(var(--nav-h) - .3rem);
-  right: 1.5rem;
-  min-width: 162px;
-  z-index: 520;
-  background: var(--bg);
-  border: 1px solid rgba(200,168,75,.3);
-  border-radius: 12px;
-  padding: .6rem .5rem .5rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(200,168,75,.08);
-  animation: theme-panel-in .18s cubic-bezier(.22,1,.36,1) both;
-}
-@keyframes theme-panel-in {
-  from { opacity: 0; transform: translateY(-6px) scale(.97); }
-  to   { opacity: 1; transform: none; }
-}
-
-#theme-toggle-btn {
-  display: flex; align-items: center; gap: .45rem;
-  height: 36px; padding: 0 .75rem 0 .6rem;
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 40px;
-  color: var(--text);
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: background .2s, border-color .2s, box-shadow .2s;
-}
-[data-theme="light"] #theme-toggle-btn,
-[data-theme="warm"]  #theme-toggle-btn {
-  background: rgba(0,0,0,.07);
-  border-color: rgba(0,0,0,.18);
-}
-#theme-toggle-btn:hover {
-  background: rgba(200,168,75,.15);
-  border-color: var(--gold);
-  box-shadow: 0 0 12px rgba(200,168,75,.25);
-}
-#theme-toggle-btn:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-#theme-current-icon { display:flex; align-items:center; }
-#theme-current-icon svg { width: 15px; height: 15px; display: block; }
-.theme-chevron { width: 9px; height: 6px; opacity: .6; transition: transform .25s; }
-#theme-toggle-btn[aria-expanded="true"] .theme-chevron { transform: rotate(180deg); }
-#theme-panel {
-  position: absolute;
-  top: calc(100% + .55rem);
-  right: 0;
-  min-width: 162px;
-  background: var(--bg);
-  border: 1px solid rgba(200,168,75,.3);
-  border-radius: 12px;
-  padding: .6rem .5rem .5rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(200,168,75,.08);
-  animation: theme-panel-in .18s cubic-bezier(.22,1,.36,1) both;
-}
-.theme-panel-label {
-  font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--text-muted); padding: 0 .5rem .45rem;
-  border-bottom: 1px solid rgba(200,168,75,.15);
-  margin-bottom: .35rem;
-}
-#theme-list, #theme-list-inline { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-#theme-list button, #theme-list-inline button {
-  width: 100%; display: flex; align-items: center; gap: .6rem;
-  padding: .5rem .6rem;
-  border: none; background: none; cursor: pointer;
-  color: var(--text); border-radius: 8px;
-  font-family: 'Lexend', sans-serif; font-size: .72rem;
-  letter-spacing: .08em; text-transform: uppercase;
-  transition: background .15s, color .15s;
-  text-align: left;
-}
-#theme-list button:hover, #theme-list-inline button:hover { background: rgba(200,168,75,.12); color: var(--gold); }
-#theme-list button.ts-active, #theme-list-inline button.ts-active { background: rgba(200,168,75,.18); color: var(--gold); }
-#theme-list button:focus-visible, #theme-list-inline button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
-.theme-btn-icon { width: 18px; height: 18px; display: flex; align-items: center; flex-shrink: 0; }
-.theme-btn-icon svg { width: 18px; height: 18px; }
-.theme-btn-label { flex: 1; }
-#theme-list button.ts-active .theme-btn-label::after,
-#theme-list-inline button.ts-active .theme-btn-label::after { content: ' ✓'; font-size: .65rem; opacity: .7; }
-
-/* ─── BRAND FIX: consistent email link + mobile contact style ─────────────── */
-.email-btn { text-decoration:none; color:inherit; }
-
-.mobile-menu-contact {
-  display:flex; align-items:center; width:100%;
-  background:none; border:none; cursor:pointer;
-  color:var(--fg); text-decoration:none;
-  font-family:var(--sans); font-weight:500;
-  font-size:clamp(1rem, 3.5vw, 1.1rem);
-  letter-spacing:.18em; text-transform:uppercase;
-  line-height:1; padding:.9rem 0; min-height:44px;
-  opacity:0; transform:translateY(14px);
-  transition:color .2s, opacity .4s var(--ease), transform .45s var(--ease);
-  border-bottom:1px solid var(--gold-pale);
-}
-#mobile-menu.open .mobile-menu-contact {
-  opacity:1; transform:none; transition-delay:.15s;
-}
-.mobile-menu-contact:hover { color:var(--sage); }
-/* ──────────────────────────────────────────────────────────────────────────── */
-</style>
+    @media (max-width: 360px) {
+      .doors-grid { gap: .75rem; }
+      main { padding-left: .75rem; padding-right: .75rem; }
+    }
+  </style>
 </head>
 <body>
 
-<svg id="key-cursor" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"
-     aria-hidden="true" focusable="false">
-  <circle cx="12" cy="12" r="8"   stroke="#c8a84b" stroke-width="2.2"/>
-  <circle cx="12" cy="12" r="3.8" stroke="#c8a84b" stroke-width="1.4"/>
-  <line x1="18.5" y1="18.5" x2="33"   y2="33"   stroke="#c8a84b" stroke-width="2.2" stroke-linecap="round"/>
-  <line x1="26"   y1="26"   x2="29.5" y2="22.5"  stroke="#c8a84b" stroke-width="2"   stroke-linecap="round"/>
-  <line x1="29.5" y1="29.5" x2="33"   y2="26"    stroke="#c8a84b" stroke-width="2"   stroke-linecap="round"/>
-</svg>
+  <!-- Custom cursor (decorative, hidden from AT) -->
+  <svg id="key-cursor" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="8"   stroke="#c8a84b" stroke-width="2.2"/>
+    <circle cx="12" cy="12" r="3.8" stroke="#c8a84b" stroke-width="1.4"/>
+    <line x1="18.5" y1="18.5" x2="33"   y2="33"   stroke="#c8a84b" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="26"   y1="26"   x2="29.5" y2="22.5"  stroke="#c8a84b" stroke-width="2"   stroke-linecap="round"/>
+    <line x1="29.5" y1="29.5" x2="33"   y2="26"    stroke="#c8a84b" stroke-width="2"   stroke-linecap="round"/>
+  </svg>
 
-<a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ── NAV ── -->
-<nav aria-label="Site navigation">
-  <a class="nav-logo" href="/" aria-label="Sara McKee — home">
-    <img src="img/logowhite.png" alt="" aria-hidden="true" class="nav-logo-img">
-    <span>Sara McKee</span>
-  </a>
+  <!-- ══════════════════════════════════
+       NAV
+  ══════════════════════════════════ -->
+  <nav aria-label="Site navigation">
 
-  <!-- Desktop nav -->
-  <ul class="nav-links" role="list" aria-label="Primary links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer"
-           aria-label="Résumé (opens PDF in new tab)">Résumé</a></li>
-    <li>
-      <a class="email-btn" id="email-btn" href="mailto:saramckeecre8tive@gmail.com" aria-label="Contact — send an email">
-        <span class="email-face-front" aria-hidden="true">Contact</span>
-        <span class="email-face-back" aria-hidden="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Opening…
-        </span>
-      </a>
-      <span id="email-status" role="status" aria-live="polite" class="sr-only"></span>
-    </li>
-    <li aria-hidden="true"><span class="nav-sep"></span></li>
-    <li>
-      <a class="nav-social" href="https://www.linkedin.com/in/sara-mckee-design"
+    <!-- Logo: image is decorative; visible text "Sara McKee" carries the label -->
+    <a class="nav-logo" href="/" aria-label="Sara McKee — home">
+      <img src="img/logowhite.png" alt="" aria-hidden="true" class="nav-logo-img">
+      <span>Sara McKee</span>
+    </a>
+
+    <!-- Desktop navigation links -->
+    <ul class="nav-links" role="list" aria-label="Primary navigation">
+      <li><a href="about.html">About</a></li>
+      <li>
+        <a href="resume.pdf" target="_blank" rel="noopener noreferrer"
+           aria-label="Résumé — opens PDF in new tab">Résumé</a>
+      </li>
+      <li>
+        <!-- Contact copies email; aria-live region announces confirmation -->
+        <a class="email-btn" id="email-btn"
+           href="mailto:saramckeecre8tive@gmail.com"
+           aria-label="Contact — copies email address">
+          <span class="email-face-front" aria-hidden="true">Contact</span>
+          <span class="email-face-back"  aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Copied!
+          </span>
+        </a>
+        <span id="email-status" role="status" aria-live="polite" class="sr-only"></span>
+      </li>
+      <li aria-hidden="true"><span class="nav-sep"></span></li>
+      <li>
+        <a class="nav-social"
+           href="https://www.linkedin.com/in/sara-mckee-design"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Sara McKee on LinkedIn — opens in new tab">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile: theme toggle + hamburger -->
+    <div class="nav-mobile-right" id="nav-mobile-right">
+      <button id="theme-toggle-inline"
+              class="theme-toggle-btn"
+              aria-label="Open theme options"
+              aria-expanded="false"
+              aria-haspopup="true">
+        <span id="inline-current-icon" class="theme-current-icon" aria-hidden="true"></span>
+        <svg class="theme-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <polyline points="1 1 5 5 9 1"/>
+        </svg>
+      </button>
+
+      <button class="nav-hamburger" id="hamburger-btn"
+              aria-expanded="false" aria-controls="mobile-menu"
+              aria-label="Open navigation menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile theme panel (sits outside nav so it can overlay freely) -->
+  <div id="theme-panel-inline" class="theme-panel" role="menu"
+       aria-label="Choose a colour theme" hidden>
+    <p class="theme-panel-label" aria-hidden="true">Appearance</p>
+    <ul id="theme-list-inline" class="theme-list" role="none"></ul>
+  </div>
+
+  <!-- Mobile menu drawer -->
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button id="mob-close-btn" aria-label="Close navigation menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <line x1="18" y1="6"  x2="6"  y2="18"/>
+        <line x1="6"  y1="6"  x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <nav aria-label="Mobile navigation">
+      <ul class="mob-nav-list">
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html" class="mob-active" aria-current="page">Work</a></li>
+        <li>
+          <a href="resume.pdf" target="_blank" rel="noopener noreferrer"
+             aria-label="Résumé — opens PDF in new tab">Résumé</a>
+        </li>
+        <li>
+          <button id="mob-email-btn" aria-label="Copy email address">Contact</button>
+          <span id="mob-email-status" role="status" aria-live="polite" class="sr-only"></span>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="mob-socials">
+      <!-- Fixed: now uses the same URL as desktop -->
+      <a class="mob-social"
+         href="https://www.linkedin.com/in/sara-mckee-design"
          target="_blank" rel="noopener noreferrer"
-         aria-label="LinkedIn profile (opens in new tab)">
+         aria-label="Sara McKee on LinkedIn — opens in new tab">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
       </a>
-    </li>
-  </ul>
+    </div>
+  </div>
 
-  <!-- ── MOBILE RIGHT CLUSTER: theme toggle + hamburger side by side ── -->
-  <div class="nav-mobile-right" id="nav-mobile-right">
-    <!-- Inline theme toggle button (mobile only) -->
-    <button id="theme-toggle-inline"
+  <!-- ══════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════ -->
+  <main id="main-content" tabindex="-1">
+    <header class="site-hero">
+      <h1 class="site-title">Key Story<br><em>Designs</em></h1>
+      <p class="doors-label">Digital Design Case Studies</p>
+    </header>
+
+    <!-- Project cards are injected by JS below; aria-label provides context for AT -->
+    <ul class="doors-grid loading" id="doors-grid" role="list"
+        aria-label="Portfolio case studies">
+      <!-- Skeleton placeholders (hidden from AT until real cards load) -->
+      <li aria-hidden="true"></li>
+      <li aria-hidden="true"></li>
+      <li aria-hidden="true"></li>
+      <li aria-hidden="true"></li>
+    </ul>
+  </main>
+
+  <!-- Desktop theme switcher (fixed, top-right; hidden on mobile via CSS) -->
+  <div id="theme-switcher">
+    <button id="theme-toggle-btn"
+            class="theme-toggle-btn"
             aria-label="Open theme options"
             aria-expanded="false"
             aria-haspopup="true">
-      <span id="inline-current-icon" aria-hidden="true"></span>
-      <svg class="inline-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="1 1 5 5 9 1"/></svg>
-    </button>
-
-    <!-- Mobile hamburger -->
-    <button class="nav-hamburger" id="hamburger-btn"
-            aria-expanded="false" aria-controls="mobile-menu"
-            aria-label="Open navigation menu">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </button>
-  </div>
-</nav>
-
-<!-- Inline theme panel (mobile) — rendered outside nav so it can overlay freely -->
-<div id="theme-panel-inline" role="menu" aria-label="Choose a colour theme" hidden>
-  <p class="theme-panel-label" aria-hidden="true">Appearance</p>
-  <ul id="theme-list-inline" role="none"></ul>
-</div>
-
-<!-- Mobile menu drawer -->
-<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-  <button id="mob-close-btn" aria-label="Close navigation menu">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  </button>
-
-  <nav aria-label="Mobile navigation">
-    <ul class="mob-nav-list">
-      <li><a href="about.html">About</a></li>
-      <li><a href="index.html" class="mob-active" aria-current="page">Work</a></li>
-      <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer"
-             aria-label="Résumé (opens PDF in new tab)">Résumé</a></li>
-      <li>
-        <button id="mob-email-btn" aria-label="Copy email address">
-          Contact
-        </button>
-        <span id="mob-email-status" role="status" aria-live="polite" class="sr-only"></span>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="mob-socials">
-    <a class="mob-social" href="https://www.linkedin.com/in/sara-mckee-a0807945"
-       target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      <span id="theme-current-icon" class="theme-current-icon" aria-hidden="true"></span>
+      <svg class="theme-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <polyline points="1 1 5 5 9 1"/>
       </svg>
-    </a>
+    </button>
+    <div id="theme-panel" class="theme-panel" role="menu"
+         aria-label="Choose a colour theme" hidden>
+      <p class="theme-panel-label" aria-hidden="true">Appearance</p>
+      <ul id="theme-list" class="theme-list" role="none"></ul>
+    </div>
   </div>
-</div>
 
-<!-- ── MAIN CONTENT ── -->
-<main id="main-content" tabindex="-1">
-  <header class="site-hero">
-    <h1 class="site-title">Key Story<br><em>Designs</em></h1>
-    <p class="doors-label">Digital Design Case Studies</p>
-  </header>
+  <footer role="contentinfo">
+    <p class="footer-name">Sara McKee 2026</p>
+    <a href="#main-content" class="footer-top-link" aria-label="Back to top of page">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <line x1="12" y1="19" x2="12" y2="5"/>
+        <polyline points="5 12 12 5 19 12"/>
+      </svg>
+      Back to top
+    </a>
+  </footer>
 
-  <ul class="doors-grid loading" id="doors-grid" role="list" aria-label="Portfolio case studies">
-    <li aria-hidden="true"></li>
-    <li aria-hidden="true"></li>
-    <li aria-hidden="true"></li>
-    <li aria-hidden="true"></li>
-  </ul>
-</main>
 
-<footer role="contentinfo">
-  <p class="footer-name">Sara McKee &copy; 2026</p>
-  <a href="#main-content" class="footer-top-link" aria-label="Back to top of page">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <line x1="12" y1="19" x2="12" y2="5"/>
-      <polyline points="5 12 12 5 19 12"/>
-    </svg>
-    Back to top
-  </a>
-</footer>
+  <!-- ══════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════ -->
 
-<style>.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }</style>
+  <!-- 1. Door card SVGs + grid population -->
+  <script>
+  (function () {
+    'use strict';
 
-<script>
-(function () {
-'use strict';
+    /* SVG colour shortcuts */
+    const G  = '#c8a84b';  /* gold */
+    const D  = '#0f1014';  /* dark fill for door panels */
+    const SW = 1.5;        /* default stroke width */
 
-const G  = '#c8a84b';
-const GD = '#857028';
-const D  = '#0f1014';
-const DM = '#16140a';
-const SW = 1.5;
+    /* Project data */
+    const PROJECTS = [
+      { num: '01', plain: 'IncluDesign Projector App',   short: 'IncluDesign',    link: 'includesign.html'    },
+      { num: '02', plain: 'ProcrastiGreat Planning App', short: 'ProcrastiGreat', link: 'procrastigreat.html' },
+      { num: '03', plain: 'Eva Konopka Art Website',     short: 'Eva Konopka',    link: 'evakonopkaart.html'  },
+      { num: '04', plain: 'SoloDareity Travel App',      short: 'SoloDareity',    link: 'solodareity.html'    },
+    ];
 
-const PROJECTS = [
-  { num:'01', plain:'IncluDesign Projector App',   short:'IncluDesign',    link:'includesign.html',    delay:'.05s' },
-  { num:'02', plain:'ProcrastiGreat Planning App', short:'ProcrastiGreat', link:'procrastigreat.html', delay:'.18s' },
-  { num:'03', plain:'Eva Konopka Art Website',     short:'Eva Konopka',    link:'evakonopkaart.html',  delay:'.31s' },
-  { num:'04', plain:'SoloDareity Travel App',      short:'SoloDareity',    link:'solodareity.html',    delay:'.44s' },
-];
-
-function door1() {
-  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+    /* ── SVG door artwork (one per project) ── */
+    function door1() {
+      return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
   <g class="door-scene">
     <path d="M16,220 L16,78 Q16,12 60,12 Q104,12 104,78 L104,220 Z" fill="#0e1018"/>
     <rect x="28" y="108" width="64" height="42" rx="1" fill="#161b2a" stroke="${G}" stroke-width=".7" opacity=".8"/>
@@ -888,10 +749,10 @@ function door1() {
     </g>
   </g>
 </svg>`;
-}
+    }
 
-function door2() {
-  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+    function door2() {
+      return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
   <g class="door-scene">
     <rect x="10" y="48" width="100" height="172" fill="#13140e"/>
     <rect x="22" y="108" width="76" height="86" rx="2" fill="#191a10" stroke="${G}" stroke-width=".7" opacity=".85"/>
@@ -975,10 +836,10 @@ function door2() {
     </g>
   </g>
 </svg>`;
-}
+    }
 
-function door3() {
-  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+    function door3() {
+      return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
   <g class="door-scene">
     <path d="M18,220 L18,84 Q18,34 60,12 Q102,34 102,84 L102,220 Z" fill="#140e16"/>
     <line x1="60" y1="158" x2="38" y2="200" stroke="${G}" stroke-width=".9" opacity=".45"/>
@@ -987,8 +848,8 @@ function door3() {
     <rect x="36" y="115" width="48" height="44" rx="1" fill="#1c1222" stroke="${G}" stroke-width="1" opacity=".85"/>
     <rect x="39" y="118" width="42" height="38" fill="#160e1c"/>
     <path d="M41,132 Q50,122 58,130 Q64,136 70,126 Q74,121 79,128" fill="none" stroke="${G}" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
-    <path d="M41,140 Q52,136 60,142 Q66,146 77,140"               fill="none" stroke="${G}" stroke-width=".9"  stroke-linecap="round" opacity=".32"/>
-    <path d="M42,128 Q52,118 60,126 L60,130 Q52,122 42,132 Z"      fill="${G}" opacity=".08"/>
+    <path d="M41,140 Q52,136 60,142 Q66,146 77,140" fill="none" stroke="${G}" stroke-width=".9" stroke-linecap="round" opacity=".32"/>
+    <path d="M42,128 Q52,118 60,126 L60,130 Q52,122 42,132 Z" fill="${G}" opacity=".08"/>
     <path d="M44,152 Q48,150 54,153" fill="none" stroke="${G}" stroke-width=".6" opacity=".3"/>
     <rect x="74" y="118" width="22" height="18" rx="1" fill="#180e1e" stroke="${G}" stroke-width=".7" opacity=".6"/>
     <path d="M79,118 Q85,113 91,118" fill="none" stroke="${G}" stroke-width=".6" opacity=".3"/>
@@ -1001,15 +862,15 @@ function door3() {
     <path d="M87,159 L90,161 L89,164 L86,162 Z" fill="${G}" opacity=".32"/>
     <path d="M22,168 Q18,163 20,156 Q22,150 28,150 Q33,148 37,152 Q41,156 38,163 Q36,170 30,170 Q24,171 22,168 Z" fill="#180e12" stroke="${G}" stroke-width=".7" opacity=".65"/>
     <ellipse cx="30" cy="160" rx="3.5" ry="2.5" stroke="${G}" stroke-width=".6" opacity=".38"/>
-    <circle cx="24" cy="154" r="2"   fill="${G}" opacity=".22"/>
+    <circle cx="24" cy="154" r="2" fill="${G}" opacity=".22"/>
     <circle cx="30" cy="151" r="1.8" fill="${G}" opacity=".18"/>
-    <circle cx="36" cy="154" r="2"   fill="${G}" opacity=".25"/>
+    <circle cx="36" cy="154" r="2" fill="${G}" opacity=".25"/>
     <path d="M26,80 Q26,64 30,56 Q34,48 30,40" fill="none" stroke="${G}" stroke-width=".8" opacity=".3"/>
     <ellipse cx="20" cy="45" rx="4.5" ry="2.5" stroke="${G}" stroke-width=".6" opacity=".28" transform="rotate(-25 20 45)"/>
     <path d="M96,80 Q94,64 90,56 Q86,48 90,40" fill="none" stroke="${G}" stroke-width=".8" opacity=".3"/>
     <ellipse cx="100" cy="45" rx="4.5" ry="2.5" stroke="${G}" stroke-width=".6" opacity=".28" transform="rotate(25 100 45)"/>
     <circle cx="34" cy="26" r="1.2" fill="${G}" opacity=".4"/>
-    <circle cx="86" cy="22" r="1"   fill="${G}" opacity=".35"/>
+    <circle cx="86" cy="22" r="1" fill="${G}" opacity=".35"/>
   </g>
   <g class="door-frame-lines" stroke="${G}" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <path d="M8,220 L8,84 Q8,24 60,4 Q112,24 112,84 L112,220" stroke-width="1.9"/>
@@ -1020,8 +881,8 @@ function door3() {
     <path d="M102,150 Q107,143 112,150" stroke-width=".9" opacity=".5"/>
     <line x1="18" y1="112" x2="102" y2="112" stroke-width="${SW-.3}"/>
     <ellipse cx="60" cy="78" rx="15" ry="9" stroke-width="${SW-.3}"/>
-    <circle  cx="60" cy="78" r="5.5"        stroke-width="${SW-.4}"/>
-    <circle  cx="60" cy="78" r="2.2"        fill="${G}" opacity=".45"/>
+    <circle  cx="60" cy="78" r="5.5" stroke-width="${SW-.4}"/>
+    <circle  cx="60" cy="78" r="2.2" fill="${G}" opacity=".45"/>
     <line x1="45" y1="78" x2="49" y2="78" stroke-width=".9"/>
     <line x1="71" y1="78" x2="75" y2="78" stroke-width=".9"/>
     <path d="M70,46 A20,20 0 1,1 50,62 A14,14 0 0,0 70,46 Z" stroke-width="${SW-.3}"/>
@@ -1039,10 +900,10 @@ function door3() {
     </g>
   </g>
 </svg>`;
-}
+    }
 
-function door4() {
-  return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+    function door4() {
+      return `<svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
   <g class="door-scene">
     <path d="M16,220 L16,76 Q16,8 60,8 Q104,8 104,76 L104,220 Z" fill="#0c0e12"/>
     <line x1="20" y1="122" x2="100" y2="122" stroke="${G}" stroke-width=".32" opacity=".18"/>
@@ -1080,9 +941,9 @@ function door4() {
   <g class="door-frame-lines" stroke="${G}" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <path d="M6,220 L6,76 Q6,0 60,0 Q114,0 114,76 L114,220" stroke-width="1.9"/>
     <path d="M16,220 L16,76 Q16,8 60,8 Q104,8 104,76 L104,220" stroke-width="${SW}"/>
-    <path d="M6,108 Q2,99 6,91"      stroke-width=".9" opacity=".48"/>
-    <path d="M114,108 Q118,99 114,91" stroke-width=".9" opacity=".48"/>
-    <path d="M6,145 Q2,136 6,128"    stroke-width=".8" opacity=".38"/>
+    <path d="M6,108 Q2,99 6,91"       stroke-width=".9" opacity=".48"/>
+    <path d="M114,108 Q118,99 114,91"  stroke-width=".9" opacity=".48"/>
+    <path d="M6,145 Q2,136 6,128"     stroke-width=".8" opacity=".38"/>
     <path d="M114,145 Q118,136 114,128" stroke-width=".8" opacity=".38"/>
     <line x1="16" y1="106" x2="104" y2="106" stroke-width="${SW-.3}"/>
     <g class="door-panel">
@@ -1100,311 +961,319 @@ function door4() {
     </g>
   </g>
 </svg>`;
-}
-
-const DOOR_FNS = [door1, door2, door3, door4];
-
-/* ── BUILD DOOR CARDS ── */
-const doorsGrid = document.getElementById('doors-grid');
-
-doorsGrid.innerHTML = '';
-doorsGrid.classList.remove('loading');
-
-PROJECTS.forEach((p, i) => {
-  const li = document.createElement('li');
-
-  const a = document.createElement('a');
-  a.href = p.link;
-  a.className = 'door-card';
-  a.setAttribute('aria-label', `Case study ${p.num}: ${p.plain}`);
-  a.setAttribute('aria-describedby', `door-label-${i}`);
-
-  const inner = document.createElement('div');
-  inner.className = 'door-card-inner';
-  inner.innerHTML = `<div class="door-svg-wrap">${DOOR_FNS[i]()}</div>`;
-
-  a.appendChild(inner);
-
-  const label = document.createElement('div');
-  label.className = 'door-label';
-  label.id = `door-label-${i}`;
-  label.setAttribute('aria-hidden', 'true');
-  label.innerHTML = `
-    <span class="door-label-num">${p.num}</span>
-    <span class="door-label-title">${p.short}</span>`;
-
-  li.appendChild(a);
-  li.appendChild(label);
-  doorsGrid.appendChild(li);
-});
-
-// Active nav link
-const navLinks = document.querySelectorAll('.nav-links a[href]');
-navLinks.forEach(link => {
-  const href = link.getAttribute('href');
-  const currentPath = window.location.pathname;
-  const isHome = href === '/' || href === 'index.html' || href === './index.html';
-  const isCurrentHome = currentPath === '/' || currentPath.endsWith('index.html') || currentPath.endsWith('/');
-  if (isHome && isCurrentHome) {
-    link.classList.add('nav-active');
-    link.setAttribute('aria-current', 'page');
-  }
-});
-
-/* ── KEY CURSOR ── */
-const keyCursor = document.getElementById('key-cursor');
-if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-  document.addEventListener('mousemove', e => {
-    keyCursor.style.left = e.clientX + 'px';
-    keyCursor.style.top  = e.clientY + 'px';
-  }, { passive: true });
-
-  document.querySelectorAll('.door-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      keyCursor.classList.add('visible');
-      document.body.style.cursor = 'none';
-    });
-    card.addEventListener('mouseleave', () => {
-      keyCursor.classList.remove('visible');
-      document.body.style.cursor = '';
-    });
-  });
-}
-
-/* ── EMAIL COPY ── */
-const EMAIL = 'hello@saramckeedesign.com';
-
-function setupEmailCopy(btnId, statusId, frontSelector, backSelector) {
-  const btn = document.getElementById(btnId);
-  const statusEl = document.getElementById(statusId);
-  if (!btn) return;
-  let copied = false, timer;
-  const front = frontSelector ? btn.querySelector(frontSelector) : null;
-  const back  = backSelector  ? btn.querySelector(backSelector)  : null;
-
-  function doCopy() {
-    if (copied) return;
-    copied = true;
-    btn.classList.add('flipped');
-    if (back)  back.removeAttribute('aria-hidden');
-    if (front) front.setAttribute('aria-hidden', 'true');
-    navigator.clipboard.writeText(EMAIL).catch(() => {});
-    if (statusEl) statusEl.textContent = 'Email address copied to clipboard.';
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      btn.classList.remove('flipped');
-      copied = false;
-      if (back)  back.setAttribute('aria-hidden', 'true');
-      if (front) front.removeAttribute('aria-hidden');
-      if (statusEl) statusEl.textContent = '';
-    }, 2600);
-  }
-
-  btn.addEventListener('click', doCopy);
-  btn.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doCopy(); }
-  });
-}
-
-setupEmailCopy('email-btn', 'email-status', '.email-face-front', '.email-face-back');
-
-/* ── MOBILE EMAIL ── */
-const mobEmailBtn = document.getElementById('mob-email-btn');
-const mobEmailStatus = document.getElementById('mob-email-status');
-if (mobEmailBtn) {
-  let mCopied = false, mTimer;
-  function mobCopy() {
-    if (mCopied) return;
-    mCopied = true;
-    navigator.clipboard.writeText(EMAIL).catch(() => {});
-    mobEmailBtn.textContent = 'Copied!';
-    if (mobEmailStatus) mobEmailStatus.textContent = 'Email address copied to clipboard.';
-    clearTimeout(mTimer);
-    mTimer = setTimeout(() => {
-      mobEmailBtn.textContent = 'Contact';
-      mCopied = false;
-      if (mobEmailStatus) mobEmailStatus.textContent = '';
-    }, 2500);
-  }
-  mobEmailBtn.addEventListener('click', mobCopy);
-}
-
-/* ── MOBILE HAMBURGER ── */
-const hamburger = document.getElementById('hamburger-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-const mobCloseBtn = document.getElementById('mob-close-btn');
-
-if (hamburger && mobileMenu) {
-  const getFocusable = () => [
-    ...mobileMenu.querySelectorAll('a, button')
-  ].filter(el => !el.disabled);
-
-  function openMenu() {
-    mobileMenu.classList.add('open');
-    requestAnimationFrame(() => requestAnimationFrame(() => mobileMenu.classList.add('visible')));
-    hamburger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    if (mobCloseBtn) setTimeout(() => mobCloseBtn.focus(), 50);
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.remove('visible');
-    setTimeout(() => mobileMenu.classList.remove('open'), 300);
-    hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    hamburger.focus();
-  }
-
-  hamburger.addEventListener('click', openMenu);
-  if (mobCloseBtn) mobCloseBtn.addEventListener('click', closeMenu);
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
-  });
-
-  mobileMenu.addEventListener('keydown', e => {
-    if (e.key !== 'Tab') return;
-    const focusable = getFocusable();
-    const first = focusable[0];
-    const last  = focusable[focusable.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault(); last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault(); first.focus();
     }
-  });
 
-  mobileMenu.addEventListener('click', e => {
-    if (e.target === mobileMenu) closeMenu();
-  });
-}
+    /* ── Build and inject door cards into the grid ── */
+    const DOOR_SVG_FNS = [door1, door2, door3, door4];
+    const grid = document.getElementById('doors-grid');
 
-})();
-</script>
+    grid.innerHTML = '';
+    grid.classList.remove('loading');
 
-<!-- ── DESKTOP THEME SWITCHER (fixed, top-right, hidden on mobile) ── -->
-<div id="theme-switcher" aria-label="Theme switcher">
-  <button id="theme-toggle-btn" aria-label="Open theme options" aria-expanded="false" aria-haspopup="true">
-    <span id="theme-current-icon" aria-hidden="true"></span>
-    <svg class="theme-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="1 1 5 5 9 1"/></svg>
-  </button>
-  <div id="theme-panel" role="menu" aria-label="Choose a colour theme" hidden>
-    <p class="theme-panel-label" aria-hidden="true">Appearance</p>
-    <ul id="theme-list" role="none"></ul>
-  </div>
-</div>
+    PROJECTS.forEach((project, i) => {
+      const li = document.createElement('li');
 
-<script>
-(function(){
-'use strict';
-var THEMES=[
-  {id:'dark',   label:'Dark mode',           title:'Dark',
-   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'},
-  {id:'light',  label:'Light mode',          title:'Light',
-   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'},
-  {id:'warm',   label:'Warm parchment mode', title:'Warm',
-   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0 0 20c1 0 2-.8 2-2 0-.5-.2-1-.4-1.4-.2-.4-.4-.8-.4-1.2 0-1.1.9-2 2-2h2.5A5.5 5.5 0 0 0 22 9.5C22 5.36 17.46 2 12 2z"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="14.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="7.5" cy="13" r="1" fill="currentColor" stroke="none"/></svg>'},
-  {id:'forest', label:'Forest mode',         title:'Forest',
-   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 4,12 8,12 6,22 18,22 16,12 20,12"/></svg>'},
-];
-var KEY='ks-theme';
+      const card = document.createElement('a');
+      card.href        = project.link;
+      card.className   = 'door-card';
+      card.setAttribute('aria-label', `Case study ${project.num}: ${project.plain}`);
+      card.setAttribute('aria-describedby', `door-label-${i}`);
 
-// ── Helper: build a theme list into any <ul> element ──
-function buildThemeList(listEl, toggleBtnEl, iconEl, panelEl) {
-  THEMES.forEach(function(t){
-    var li=document.createElement('li');
-    li.setAttribute('role','none');
-    var btn=document.createElement('button');
-    btn.setAttribute('role','menuitemradio');
-    btn.setAttribute('aria-checked','false');
-    btn.setAttribute('data-theme-id',t.id);
-    btn.setAttribute('aria-label',t.label);
-    btn.innerHTML='<span class="theme-btn-icon" aria-hidden="true">'+t.icon+'</span><span class="theme-btn-label">'+t.title+'</span>';
-    btn.addEventListener('click',function(){ applyTheme(t.id); closePanel(panelEl, toggleBtnEl, false); });
-    li.appendChild(btn);
-    listEl.appendChild(li);
-  });
-}
+      const inner = document.createElement('div');
+      inner.className = 'door-card-inner';
+      inner.innerHTML = `<div class="door-svg-wrap">${DOOR_SVG_FNS[i]()}</div>`;
+      card.appendChild(inner);
 
-function syncActiveState(id) {
-  // Sync both lists
-  document.querySelectorAll('#theme-list button, #theme-list-inline button').forEach(function(b){
-    var on = b.getAttribute('data-theme-id') === id;
-    b.setAttribute('aria-checked', on ? 'true' : 'false');
-    b.classList.toggle('ts-active', on);
-  });
-}
+      /* Visible label below each card (hidden from AT via aria-hidden — card's aria-label covers it) */
+      const label = document.createElement('div');
+      label.className = 'door-label';
+      label.id        = `door-label-${i}`;
+      label.setAttribute('aria-hidden', 'true');
+      label.innerHTML = `<span class="door-label-num">${project.num}</span>
+                         <span class="door-label-title">${project.short}</span>`;
 
-function applyTheme(id, save){
-  if(save===undefined) save=true;
-  document.documentElement.setAttribute('data-theme',id);
-  if(save) try{localStorage.setItem(KEY,id);}catch(e){}
-  var t=THEMES.find(function(x){return x.id===id;})||THEMES[0];
-  // Update both icon displays
-  var desktopIcon = document.getElementById('theme-current-icon');
-  var inlineIcon  = document.getElementById('inline-current-icon');
-  if (desktopIcon) desktopIcon.innerHTML = t.icon;
-  if (inlineIcon)  inlineIcon.innerHTML  = t.icon;
-  syncActiveState(id);
-}
+      li.appendChild(card);
+      li.appendChild(label);
+      grid.appendChild(li);
+    });
 
-function openPanel(panelEl, toggleBtnEl) {
-  panelEl.hidden=false;
-  toggleBtnEl.setAttribute('aria-expanded','true');
-  var first=panelEl.querySelector('button');
-  if(first) setTimeout(function(){first.focus();},10);
-}
-function closePanel(panelEl, toggleBtnEl, ret){
-  panelEl.hidden=true;
-  toggleBtnEl.setAttribute('aria-expanded','false');
-  if(ret!==false) toggleBtnEl.focus();
-}
+    /* Mark active nav link */
+    document.querySelectorAll('.nav-links a[href]').forEach(link => {
+      const href      = link.getAttribute('href');
+      const path      = window.location.pathname;
+      const isHome    = href === '/' || href === 'index.html' || href === './index.html';
+      const onHomePage = path === '/' || path.endsWith('index.html') || path.endsWith('/');
+      if (isHome && onHomePage) {
+        link.classList.add('nav-active');
+        link.setAttribute('aria-current', 'page');
+      }
+    });
 
-// ── Desktop switcher ──
-var toggleBtn   = document.getElementById('theme-toggle-btn');
-var panel       = document.getElementById('theme-panel');
-var list        = document.getElementById('theme-list');
-buildThemeList(list, toggleBtn, document.getElementById('theme-current-icon'), panel);
-toggleBtn.addEventListener('click',function(){ panel.hidden ? openPanel(panel, toggleBtn) : closePanel(panel, toggleBtn); });
-panel.addEventListener('keydown',function(e){
-  var items=[].slice.call(list.querySelectorAll('button'));
-  var idx=items.indexOf(document.activeElement);
-  if(e.key==='ArrowDown'){e.preventDefault();items[(idx+1)%items.length].focus();}
-  else if(e.key==='ArrowUp'){e.preventDefault();items[(idx-1+items.length)%items.length].focus();}
-  else if(e.key==='Escape'||e.key==='Tab'){closePanel(panel, toggleBtn);}
-});
+  })();
+  </script>
 
-// ── Inline (mobile) switcher ──
-var toggleInline  = document.getElementById('theme-toggle-inline');
-var panelInline   = document.getElementById('theme-panel-inline');
-var listInline    = document.getElementById('theme-list-inline');
-buildThemeList(listInline, toggleInline, document.getElementById('inline-current-icon'), panelInline);
-toggleInline.addEventListener('click', function(){ panelInline.hidden ? openPanel(panelInline, toggleInline) : closePanel(panelInline, toggleInline); });
-panelInline.addEventListener('keydown',function(e){
-  var items=[].slice.call(listInline.querySelectorAll('button'));
-  var idx=items.indexOf(document.activeElement);
-  if(e.key==='ArrowDown'){e.preventDefault();items[(idx+1)%items.length].focus();}
-  else if(e.key==='ArrowUp'){e.preventDefault();items[(idx-1+items.length)%items.length].focus();}
-  else if(e.key==='Escape'||e.key==='Tab'){closePanel(panelInline, toggleInline);}
-});
 
-// ── Close panels when clicking outside ──
-document.addEventListener('pointerdown',function(e){
-  var switcher = document.getElementById('theme-switcher');
-  var mobileRight = document.getElementById('nav-mobile-right');
-  var panelInlineEl = document.getElementById('theme-panel-inline');
-  if(switcher && !switcher.contains(e.target)) closePanel(panel, toggleBtn, false);
-  if(mobileRight && !mobileRight.contains(e.target) && panelInlineEl && !panelInlineEl.contains(e.target)) closePanel(panelInline, toggleInline, false);
-});
+  <!-- 2. Custom key cursor (pointer devices only) -->
+  <script>
+  (function () {
+    const cursor = document.getElementById('key-cursor');
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-// ── Init saved/preferred theme ──
-var saved; try{saved=localStorage.getItem(KEY);}catch(e){}
-if(saved&&THEMES.find(function(t){return t.id===saved;})) applyTheme(saved,false);
-else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches) applyTheme('light',false);
-else applyTheme('dark',false);
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    }, { passive: true });
 
-})();
-</script>
+    document.querySelectorAll('.door-card').forEach(card => {
+      card.addEventListener('mouseenter', () => { cursor.classList.add('visible');    document.body.style.cursor = 'none'; });
+      card.addEventListener('mouseleave', () => { cursor.classList.remove('visible'); document.body.style.cursor = '';     });
+    });
+  })();
+  </script>
+
+
+  <!-- 3. Email copy buttons -->
+  <script>
+  (function () {
+    const EMAIL = 'saramckeecre8tive@gmail.com';
+
+    /* Desktop email button: hover flip animation + copy on click */
+    (function setupDesktopEmail() {
+      const btn      = document.getElementById('email-btn');
+      const status   = document.getElementById('email-status');
+      const front    = btn.querySelector('.email-face-front');
+      const back     = btn.querySelector('.email-face-back');
+      let copied = false, timer;
+
+      function doCopy() {
+        if (copied) return;
+        copied = true;
+        btn.classList.add('flipped');
+        back.removeAttribute('aria-hidden');
+        front.setAttribute('aria-hidden', 'true');
+        navigator.clipboard.writeText(EMAIL).catch(() => {});
+        status.textContent = 'Email address copied to clipboard.';
+
+        timer = setTimeout(() => {
+          btn.classList.remove('flipped');
+          copied = false;
+          back.setAttribute('aria-hidden', 'true');
+          front.removeAttribute('aria-hidden');
+          status.textContent = '';
+        }, 2600);
+      }
+
+      btn.addEventListener('click',   e => { e.preventDefault(); doCopy(); });
+      btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doCopy(); } });
+    })();
+
+    /* Mobile email button: text swap + copy on click */
+    (function setupMobileEmail() {
+      const btn    = document.getElementById('mob-email-btn');
+      const status = document.getElementById('mob-email-status');
+      let copied = false, timer;
+
+      btn.addEventListener('click', () => {
+        if (copied) return;
+        copied = true;
+        navigator.clipboard.writeText(EMAIL).catch(() => {});
+        btn.textContent    = 'Copied!';
+        status.textContent = 'Email address copied to clipboard.';
+
+        timer = setTimeout(() => {
+          btn.textContent    = 'Contact';
+          status.textContent = '';
+          copied = false;
+        }, 2500);
+      });
+    })();
+  })();
+  </script>
+
+
+  <!-- 4. Mobile drawer -->
+  <script>
+  (function () {
+    const hamburger  = document.getElementById('hamburger-btn');
+    const drawer     = document.getElementById('mobile-menu');
+    const closeBtn   = document.getElementById('mob-close-btn');
+
+    const focusable = () => [...drawer.querySelectorAll('a, button')].filter(el => !el.disabled);
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      requestAnimationFrame(() => requestAnimationFrame(() => drawer.classList.add('visible')));
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => closeBtn.focus(), 50);
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('visible');
+      setTimeout(() => drawer.classList.remove('open'), 300);
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      hamburger.focus();
+    }
+
+    hamburger.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+
+    /* Escape key closes drawer */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    /* Focus trap inside drawer */
+    drawer.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const items = focusable();
+      const first = items[0];
+      const last  = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+
+    /* Click outside drawer content closes it */
+    drawer.addEventListener('click', e => { if (e.target === drawer) closeDrawer(); });
+  })();
+  </script>
+
+
+  <!-- 5. Theme switcher -->
+  <script>
+  (function () {
+    const STORAGE_KEY = 'ks-theme';
+
+    const THEMES = [
+      {
+        id: 'dark',  label: 'Dark mode',           title: 'Dark',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      },
+      {
+        id: 'light', label: 'Light mode',           title: 'Light',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+      },
+      {
+        id: 'warm',  label: 'Warm parchment mode',  title: 'Warm',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0 0 20c1 0 2-.8 2-2 0-.5-.2-1-.4-1.4-.2-.4-.4-.8-.4-1.2 0-1.1.9-2 2-2h2.5A5.5 5.5 0 0 0 22 9.5C22 5.36 17.46 2 12 2z"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="14.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="7.5" cy="13" r="1" fill="currentColor" stroke="none"/></svg>'
+      },
+      {
+        id: 'forest', label: 'Forest mode',          title: 'Forest',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 4,12 8,12 6,22 18,22 16,12 20,12"/></svg>'
+      },
+    ];
+
+    /* Apply a theme and persist it */
+    function applyTheme(id, save = true) {
+      document.documentElement.setAttribute('data-theme', id);
+      if (save) { try { localStorage.setItem(STORAGE_KEY, id); } catch (e) {} }
+
+      const theme = THEMES.find(t => t.id === id) || THEMES[0];
+
+      /* Update icon in both toggle buttons */
+      document.getElementById('theme-current-icon').innerHTML  = theme.icon;
+      document.getElementById('inline-current-icon').innerHTML = theme.icon;
+
+      /* Mark the active button in both lists */
+      document.querySelectorAll('.theme-list button').forEach(btn => {
+        const active = btn.dataset.themeId === id;
+        btn.setAttribute('aria-checked', active ? 'true' : 'false');
+        btn.classList.toggle('ts-active', active);
+      });
+    }
+
+    /* Populate a theme <ul> with option buttons */
+    function buildList(listEl, panelEl, toggleBtn) {
+      THEMES.forEach(theme => {
+        const li  = document.createElement('li');
+        li.setAttribute('role', 'none');
+
+        const btn = document.createElement('button');
+        btn.setAttribute('role', 'menuitemradio');
+        btn.setAttribute('aria-checked', 'false');
+        btn.setAttribute('aria-label', theme.label);
+        btn.dataset.themeId = theme.id;
+        btn.innerHTML = `<span class="theme-btn-icon" aria-hidden="true">${theme.icon}</span>
+                         <span class="theme-btn-label">${theme.title}</span>`;
+        btn.addEventListener('click', () => {
+          applyTheme(theme.id);
+          closePanel(panelEl, toggleBtn, false);
+        });
+
+        li.appendChild(btn);
+        listEl.appendChild(li);
+      });
+    }
+
+    /* Open / close a theme panel */
+    function openPanel(panelEl, toggleBtn) {
+      panelEl.hidden = false;
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      const first = panelEl.querySelector('button');
+      if (first) setTimeout(() => first.focus(), 10);
+    }
+
+    function closePanel(panelEl, toggleBtn, returnFocus = true) {
+      panelEl.hidden = false; /* keep hidden=false while animating — then: */
+      panelEl.hidden = true;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      if (returnFocus) toggleBtn.focus();
+    }
+
+    /* Arrow-key + Escape navigation inside a panel */
+    function addKeyNav(panelEl, toggleBtn) {
+      panelEl.addEventListener('keydown', e => {
+        const items = [...panelEl.querySelectorAll('button')];
+        const idx   = items.indexOf(document.activeElement);
+        if      (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length].focus(); }
+        else if (e.key === 'ArrowUp')   { e.preventDefault(); items[(idx - 1 + items.length) % items.length].focus(); }
+        else if (e.key === 'Escape' || e.key === 'Tab') { closePanel(panelEl, toggleBtn); }
+      });
+    }
+
+    /* ── Wire up desktop switcher ── */
+    const desktopToggle = document.getElementById('theme-toggle-btn');
+    const desktopPanel  = document.getElementById('theme-panel');
+    const desktopList   = document.getElementById('theme-list');
+    buildList(desktopList, desktopPanel, desktopToggle);
+    desktopToggle.addEventListener('click', () =>
+      desktopPanel.hidden ? openPanel(desktopPanel, desktopToggle) : closePanel(desktopPanel, desktopToggle)
+    );
+    addKeyNav(desktopPanel, desktopToggle);
+
+    /* ── Wire up mobile/inline switcher ── */
+    const inlineToggle = document.getElementById('theme-toggle-inline');
+    const inlinePanel  = document.getElementById('theme-panel-inline');
+    const inlineList   = document.getElementById('theme-list-inline');
+    buildList(inlineList, inlinePanel, inlineToggle);
+    inlineToggle.addEventListener('click', () =>
+      inlinePanel.hidden ? openPanel(inlinePanel, inlineToggle) : closePanel(inlinePanel, inlineToggle)
+    );
+    addKeyNav(inlinePanel, inlineToggle);
+
+    /* Close panels on outside click */
+    document.addEventListener('pointerdown', e => {
+      const switcher    = document.getElementById('theme-switcher');
+      const mobileRight = document.getElementById('nav-mobile-right');
+
+      if (switcher    && !switcher.contains(e.target))                                           closePanel(desktopPanel, desktopToggle, false);
+      if (mobileRight && !mobileRight.contains(e.target) && !inlinePanel.contains(e.target))    closePanel(inlinePanel, inlineToggle, false);
+    });
+
+    /* ── Initialise from saved or system preference ── */
+    let saved;
+    try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+
+    if (saved && THEMES.find(t => t.id === saved)) {
+      applyTheme(saved, false);
+    } else if (window.matchMedia?.('(prefers-color-scheme: light)').matches) {
+      applyTheme('light', false);
+    } else {
+      applyTheme('dark', false);
+    }
+  })();
+  </script>
 
 </body>
 </html>
