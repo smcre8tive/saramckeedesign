@@ -218,9 +218,11 @@
     #mobile-menu {
       display: none; position: fixed; inset: 0; z-index: 510;
       background: rgba(15,16,20,.97); backdrop-filter: blur(12px);
-      flex-direction: column; justify-content: flex-end; align-items: flex-start;
-      padding: 0 0 4rem 2rem;
+      flex-direction: column; justify-content: flex-start;   /* was flex-end */
+      align-items: flex-start;
+      padding: calc(var(--nav-h) + 1rem) 0 2rem 2rem;         /* push content down from top instead of pinning to bottom */
       opacity: 0; transition: opacity .3s ease;
+      overflow-y: auto;                                        /* let it scroll if it's ever too tall */
     }
     #mobile-menu.open    { display: flex; }
     #mobile-menu.visible { opacity: 1; }
@@ -257,6 +259,14 @@
     }
     .mob-social:hover { opacity: 1; }
     .mob-social svg { width: 20px; height: 20px; fill: #FDFDFD; }
+
+    #mobile-menu nav {
+      position: static;
+      display: block;
+      height: auto;
+      background: none;
+      padding: 0;
+    }
 
     /* ══════════════════════════════════
        THEME SWITCHER
@@ -1100,13 +1110,14 @@
 
     const focusable = () => [...drawer.querySelectorAll('a, button')].filter(el => !el.disabled);
 
-    function openDrawer() {
-      drawer.classList.add('open');
-      requestAnimationFrame(() => requestAnimationFrame(() => drawer.classList.add('visible')));
-      hamburger.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => closeBtn.focus(), 50);
-    }
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawer.scrollTop = 0;                              // ← add this line
+    requestAnimationFrame(() => requestAnimationFrame(() => drawer.classList.add('visible')));
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => closeBtn.focus(), 50);
+  }
 
     function closeDrawer() {
       drawer.classList.remove('visible');
