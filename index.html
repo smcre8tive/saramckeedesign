@@ -213,11 +213,14 @@
       background: var(--text); border-radius: 2px;
       transition: transform .3s ease, opacity .2s ease;
     }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     /* ── MOBILE DRAWER ── */
     #mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 510;
-      background: rgba(15,16,20,.97); backdrop-filter: blur(12px);
+      display: none; position: fixed; inset: 0; z-index: 490;
+      background: var(--bg);
       flex-direction: column; justify-content: flex-start;   /* was flex-end */
       align-items: flex-start;
       padding: calc(var(--nav-h) + 1rem) 0 2rem 2rem;         /* push content down from top instead of pinning to bottom */
@@ -227,21 +230,10 @@
     #mobile-menu.open    { display: flex; }
     #mobile-menu.visible { opacity: 1; }
 
-    #mob-close-btn {
-      position: absolute; top: 5rem; right: 1rem;
-      width: 52px; height: 52px;
-      display: flex; align-items: center; justify-content: center;
-      background: none; border: 1.5px solid rgba(255,255,255,.35); border-radius: 6px;
-      cursor: pointer; color: #FDFDFD;
-      transition: border-color .2s, opacity .2s;
-    }
-    #mob-close-btn:hover { border-color: #FDFDFD; }
-    #mob-close-btn svg { width: 18px; height: 18px; stroke: #FDFDFD; fill: none; stroke-width: 2; stroke-linecap: round; }
-
     .mob-nav-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-bottom: 2.5rem; }
     .mob-nav-list li a,
     .mob-nav-list li button {
-      color: #FDFDFD;
+      color: var(--text);
       font-family: 'Lexend', sans-serif;
       font-size: 1.55rem; letter-spacing: .18em; text-transform: uppercase;
       text-decoration: none; background: none; border: none; cursor: pointer;
@@ -258,7 +250,7 @@
       width: 44px; height: 44px; opacity: .6; transition: opacity .2s;
     }
     .mob-social:hover { opacity: 1; }
-    .mob-social svg { width: 20px; height: 20px; fill: #FDFDFD; }
+    .mob-social svg { width: 20px; height: 20px; fill: var(--text); }
 
     #mobile-menu nav {
       position: static;
@@ -592,13 +584,6 @@
 
   <!-- Mobile menu drawer -->
   <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-    <button id="mob-close-btn" aria-label="Close navigation menu">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <line x1="18" y1="6"  x2="6"  y2="18"/>
-        <line x1="6"  y1="6"  x2="18" y2="18"/>
-      </svg>
-    </button>
-
     <nav aria-label="Mobile navigation">
       <ul class="mob-nav-list">
         <li><a href="about.html">About</a></li>
@@ -1106,29 +1091,35 @@
   (function () {
     const hamburger  = document.getElementById('hamburger-btn');
     const drawer     = document.getElementById('mobile-menu');
-    const closeBtn   = document.getElementById('mob-close-btn');
+    let isOpen = false;
 
     const focusable = () => [...drawer.querySelectorAll('a, button')].filter(el => !el.disabled);
 
-  function openDrawer() {
-    drawer.classList.add('open');
-    drawer.scrollTop = 0;                              // ← add this line
-    requestAnimationFrame(() => requestAnimationFrame(() => drawer.classList.add('visible')));
-    hamburger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => closeBtn.focus(), 50);
-  }
+    function openDrawer() {
+      isOpen = true;
+      drawer.classList.add('open');
+      drawer.scrollTop = 0;
+      requestAnimationFrame(() => requestAnimationFrame(() => drawer.classList.add('visible')));
+      hamburger.classList.add('is-open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      hamburger.setAttribute('aria-label', 'Close navigation menu');
+      document.body.style.overflow = 'hidden';
+      const first = focusable()[0];
+      if (first) setTimeout(() => first.focus(), 50);
+    }
 
     function closeDrawer() {
+      isOpen = false;
       drawer.classList.remove('visible');
       setTimeout(() => drawer.classList.remove('open'), 300);
+      hamburger.classList.remove('is-open');
       hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.setAttribute('aria-label', 'Open navigation menu');
       document.body.style.overflow = '';
       hamburger.focus();
     }
 
-    hamburger.addEventListener('click', openDrawer);
-    closeBtn.addEventListener('click', closeDrawer);
+    hamburger.addEventListener('click', () => (isOpen ? closeDrawer() : openDrawer()));
 
     /* Escape key closes drawer */
     document.addEventListener('keydown', e => {
@@ -1147,6 +1138,9 @@
 
     /* Click outside drawer content closes it */
     drawer.addEventListener('click', e => { if (e.target === drawer) closeDrawer(); });
+
+    /* Closing on link navigation (not the copy-email button, so its "Copied!" feedback stays visible) */
+    drawer.querySelectorAll('.mob-nav-list a[href]').forEach(el => el.addEventListener('click', closeDrawer));
   })();
   </script>
 
