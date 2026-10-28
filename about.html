@@ -329,6 +329,11 @@ body {
 .tool-chip:hover { border-color:var(--page-fg); background:var(--page-chip-hover); color:var(--page-fg); }
 .tool-chip svg,.tool-chip img { width:clamp(28px,5vw,36px); height:clamp(28px,5vw,36px); flex-shrink:0; display:block; }
 
+/* Tools marquee: chips are display-only (no hover effect) */
+.likes-track .tool-chip { flex-shrink:0; width:clamp(100px,18vw,120px); }
+.likes-track .tool-chip:hover { border-color:var(--page-chip-border); background:none; color:var(--page-body); }
+.tools-row { margin-top:1.2rem; }
+
 /* Marquee */
 .marquee-controls { display:flex; align-items:center; justify-content:flex-end; margin-bottom:.5rem; }
 .pause-btn { background:none; border:1px solid var(--page-chip-border); border-radius:4px; color:var(--page-body); font-family:var(--sans); font-size:.8rem; font-weight:400; letter-spacing:.14em; text-transform:uppercase; padding:.4rem .9rem; cursor:pointer; min-height:44px; min-width:44px; display:inline-flex; align-items:center; gap:.4rem; transition:color .2s, border-color .2s; }
@@ -393,38 +398,23 @@ body {
 .artwork-cta svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 
 /* ── Brand grid — adjusted for better logo fit ── */
-.brand-list { list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }
-.brand-item { display:flex; flex-direction:column; align-items:center; gap:.65rem; text-align:center; }
-.brand-img-wrap {
-  position:relative;
-  width:100%;
-  aspect-ratio:3/3;
-  border-radius:5px;
-  overflow:hidden;
-  border:1px solid var(--page-border);
-  background:var(--page-chip-hover);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:border-color .25s, background .25s;
-}
-.brand-item:hover .brand-img-wrap { border-color:var(--page-chip-border); }
-/* Logo image: contain with comfortable padding, never cropped */
-.brand-img-wrap img {
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  padding:18%;        /* comfortable breathing room on all sides */
-  display:block;
-  transition:opacity .2s, transform .25s var(--ease);
-}
-.brand-item:hover .brand-img-wrap img { transform:scale(1.04); }
+.brand-list { list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(clamp(90px,18%,120px),1fr)); gap:.75rem; margin-top:1.5rem; }
+/* Each client is a chip styled like the tools above */
+.brand-item { display:flex; flex-direction:column; align-items:center; gap:.65rem; text-align:center; border:1px solid var(--page-chip-border); border-radius:14px; padding:clamp(1rem,2vw,1.4rem) 1rem clamp(.9rem,1.5vw,1.1rem); transition:border-color .25s, background .25s; }
+.brand-item:hover { border-color:var(--page-fg); background:var(--page-chip-hover); }
+/* Logo size: change --logo-size to make logos bigger or smaller */
+.brand-item { --logo-size:clamp(64px,10vw,100px); }
+.brand-item > a { display:block; width:min(var(--logo-size),100%); }
+.brand-img-wrap { position:relative; width:100%; aspect-ratio:1; border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.brand-img-wrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; }
 .brand-placeholder { display:flex; align-items:center; justify-content:center; width:100%; height:100%; color:var(--page-body); opacity:.55; }
-.brand-placeholder svg { width:36px; height:36px; }
+.brand-placeholder svg { width:clamp(28px,5vw,36px); height:clamp(28px,5vw,36px); }
 .brand-img-wrap img[src]:not([src=""])+.brand-placeholder { display:none; }
-.brand-name { font-family:var(--sans); font-size:clamp(.68rem,1vw,.76rem); font-weight:400; letter-spacing:.1em; text-transform:uppercase; color:var(--page-body); transition:color .35s ease; line-height:1.4; }
+.brand-name { font-family:var(--sans); font-size:clamp(.72rem,1vw,.8rem); font-weight:400; letter-spacing:.1em; text-transform:uppercase; color:var(--page-body); transition:color .25s; line-height:1.4; }
+.brand-item:hover .brand-name { color:var(--page-fg); }
+
+/* Links on client logos and names: look the same as before */
+.brand-item a { color:inherit; text-decoration:none; }
 
 /* Quote cards */
 .quotes-track { display:grid; grid-template-columns:1fr; gap:1rem; margin-top:1.5rem; }
@@ -451,10 +441,10 @@ footer { border-top:1px solid var(--page-border); padding:clamp(2rem,4vw,2.8rem)
 .cta-link svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 
 /* Responsive */
-@media (max-width:900px) { .brand-list { grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); } .tools-grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); } }
+@media (max-width:900px) { .brand-list { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); } .tools-grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); } }
 @media (max-width:700px) { .page-body { padding-top:clamp(2.5rem,6vw,3.5rem); } .statement { font-size:clamp(1.2rem,4.5vw,1.7rem); } .about-section p { max-width:100%; } }
-@media (max-width:600px) { .brand-list { grid-template-columns:repeat(2,1fr); } .tools-grid { grid-template-columns:repeat(3,1fr); } .likes-row { -webkit-mask-image:linear-gradient(to right,transparent,black 3%,black 97%,transparent); mask-image:linear-gradient(to right,transparent,black 3%,black 97%,transparent); } .like-item,.like-item-img { width:clamp(100px,30vw,130px); } .like-item-img { height:clamp(70px,21vw,95px); } footer { flex-direction:column; align-items:flex-start; } }
-@media (max-width:480px) { .brand-list { grid-template-columns:1fr; } .tools-grid { grid-template-columns:repeat(2,1fr); } .spec-chip { font-size:.72rem; padding:.5rem .9rem; } }
+@media (max-width:600px) { .brand-list { grid-template-columns:repeat(3,1fr); } .tools-grid { grid-template-columns:repeat(3,1fr); } .likes-row { -webkit-mask-image:linear-gradient(to right,transparent,black 3%,black 97%,transparent); mask-image:linear-gradient(to right,transparent,black 3%,black 97%,transparent); } .like-item,.like-item-img { width:clamp(100px,30vw,130px); } .like-item-img { height:clamp(70px,21vw,95px); } footer { flex-direction:column; align-items:flex-start; } }
+@media (max-width:480px) { .brand-list { grid-template-columns:repeat(2,1fr); } .tools-grid { grid-template-columns:repeat(2,1fr); } .spec-chip { font-size:.72rem; padding:.5rem .9rem; } }
 @media (min-width:1440px) { :root { --max:900px; } .page-body { padding-left:clamp(3rem,5vw,6rem); padding-right:clamp(3rem,5vw,6rem); } }
 @media (forced-colors:active) { .quote-card,.tool-chip,.spec-chip { border-color:ButtonText; } .avail-dot { background:Highlight; } :focus-visible { outline:3px solid ButtonText; box-shadow:none; } }
 </style>
@@ -562,36 +552,75 @@ footer { border-top:1px solid var(--page-border); padding:clamp(2rem,4vw,2.8rem)
     <section class="about-section" aria-labelledby="work-heading">
       <h2 id="work-heading">At work</h2>
       <p>I design digital products and websites for startups, nonprofits, and small businesses with meaningful missions. I ask the right questions, dive deep into research, build wireframes and high-fidelity prototypes, and deliver visual interfaces with accessibility baked in from the start. My teaching background means I communicate design decisions clearly to stakeholders, developers, and users alike.</p>
-      <ul class="tools-grid" aria-label="Design tools I use">
-        <li class="tool-chip">
+      <div class="marquee-controls">
+        <button class="pause-btn" id="tools-pause" aria-pressed="false" aria-controls="tools-track">
+          <svg class="icon-pause" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/></svg>
+          <svg class="icon-play" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><polygon points="2,1 9,5 2,9"/></svg>
+          <span class="btn-label">animation</span>
+        </button>
+      </div>
+      <div class="likes-row tools-row" aria-hidden="true">
+        <div class="likes-track" id="tools-track">
+          <div class="tool-chip">
           <svg viewBox="0 0 38 57" fill="none" aria-hidden="true" focusable="false"><path d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5A9.5 9.5 0 0 1 0 47.5z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
           Figma
-        </li>
-        <li class="tool-chip">
+        </div>
+          <div class="tool-chip">
           <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#FF0000"/><path d="M36 73L53.2 27h7.2L42.8 73H36zm28 0L46.8 27H54l16.4 46H64z" fill="#fff"/></svg>
           Adobe CC
-        </li>
-        <li class="tool-chip">
+        </div>
+          <div class="tool-chip">
           <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#fff"/><path d="M24 18.5c3.2 2.6 4.4 2.4 10.4 2l39.6-2.4c1.2 0 .1-1.2-.4-1.4L65 12.3c-2-.4-2.6 0-5.5.6L22.8 15c-1.3.2-1.6 1.2-1.2 2L24 18.5zm3.6 13.7V81c0 3.2 1.6 4.4 5.2 4.2l43.6-2.5c3.6-.2 4.4-2 4.4-4.8V29.8c0-2.8-1-4.2-3.2-4l-46.4 2.6c-2.4.2-3.6 1.4-3.6 3.8zm43.2 1.4c.4 1.8 0 3.6-1.8 3.8l-3 .4V74c-2.6 1.4-5 2.2-6.9 2.2-3.2 0-4-1-6.4-4l-19.6-31v30l6.2 1.4s0 3.6-5 3.8l-13.8.8c-.4-.8 0-2.8 1.4-3.2l3.6-1V38l-5-.4c-.4-1.8.6-4.4 3.4-4.6l14.8-.8 20.4 31.2V34.8l-5.2-.6c-.4-2.2 1-3.8 2.8-4l13.6-.8z" fill="#000"/></svg>
           Notion
-        </li>
-        <li class="tool-chip">
+        </div>
+          <div class="tool-chip">
           <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="50" fill="#21759B"/><path d="M8.7 50c0 17 9.8 31.8 24 39L11.6 38.7A41 41 0 0 0 8.7 50zm57.9-1.7c0-5.3-1.9-9-3.5-11.8-2.2-3.5-4.2-6.5-4.2-10 0-3.9 3-7.6 7.2-7.6h.6A41.3 41.3 0 0 0 8.7 50a41 41 0 0 0 2.6 14.4l21-61.2a41 41 0 0 0-12 47.2L30 75.3a41.3 41.3 0 0 0 20 7.2L33.3 38.5l14.9 44.6a41.2 41.2 0 0 0 18.3-35.2v1.4zm-5.5 58.3A41.3 41.3 0 0 0 91.3 50c0-7.8-2.1-15-5.8-21.4L68.3 79.3a41 41 0 0 1-7.2 27.3z" fill="#fff"/></svg>
           WordPress
-        </li>
-        <li class="tool-chip">
+        </div>
+          <div class="tool-chip">
           <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#000"/><path d="M67.8 32.2a10.1 10.1 0 0 0-14.3 0L32.2 53.5a4.6 4.6 0 0 0 6.5 6.5l21.3-21.3a1 1 0 0 1 1.3 0l8.6 8.6a1 1 0 0 1 0 1.3L50.6 67.8a4.6 4.6 0 0 0 6.5 6.5l19.3-19.4a10.1 10.1 0 0 0-8.6-22.7zm-35.6 5.6a1 1 0 0 1 1.4 0l7.8 7.8-6.5 6.5-7.8-7.8a1 1 0 0 1 0-1.4zm-6.3 29.8a10.1 10.1 0 0 0 14.3 0L61.5 46.3a4.6 4.6 0 0 0-6.5-6.5L33.7 61.1a1 1 0 0 1-1.3 0l-8.6-8.6a1 1 0 0 1 0-1.3l19.3-19.3a4.6 4.6 0 0 0-6.5-6.5L17.3 44.8a10.1 10.1 0 0 0 8.6 22.8zm35.6-5.6a1 1 0 0 1-1.4 0l-7.8-7.8 6.5-6.5 7.8 7.8a1 1 0 0 1 0 1.4z" fill="#fff"/></svg>
           Squarespace
-        </li>
-        <li class="tool-chip">
+        </div>
+          <div class="tool-chip">
           <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#FFD02F"/><path d="M67.5 15h-14l12 19.5L50 15H36l12 22.5L32.5 15h-14l16 27L18 85h14l15.5-28L62 85h14L59.5 57 76 30z" fill="#050038"/></svg>
           Miro
-        </li>
-        <li class="tool-chip">
+        </div>
+          <div class="tool-chip">
           <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="50" fill="#7D2AE8"/><path d="M65.5 34.2c-7.4-7.4-19.3-7.4-26.7 0-3.6 3.6-5.5 8.3-5.5 13.3 0 2.6.5 5.1 1.5 7.4-1.1 1.4-1.8 3.2-1.8 5.1 0 4.6 3.7 8.3 8.3 8.3 2 0 3.8-.7 5.2-1.8 2.3 1 4.8 1.5 7.4 1.5 5 0 9.8-1.9 13.3-5.5a19 19 0 0 0 5.5-13.3c.1-5-1.8-9.6-5.2-13zm-26.6 29a5 5 0 0 1-5-5 5 5 0 0 1 2.1-4.1c1.2 2 2.8 3.8 4.7 5.2a5 5 0 0 1-1.8 3.9zm11.1.3c-5.2 0-10.1-2.7-12.8-7 2-1.1 3.3-3.2 3.3-5.6 0-1.6-.6-3.2-1.7-4.4-.7-1.8-1-3.7-1-5.6 0-4.1 1.6-8 4.5-10.9 5.8-5.8 15.2-5.8 21 0 2.9 2.9 4.5 6.7 4.5 10.9 0 4.1-1.6 8-4.5 10.9-2.9 2.9-6.7 4.5-10.9 4.7h-.4z" fill="#fff"/></svg>
           Canva
-        </li>
-      </ul>
+        </div>
+          <!-- Duplicate set for seamless loop -->
+          <div class="tool-chip">
+          <svg viewBox="0 0 38 57" fill="none" aria-hidden="true" focusable="false"><path d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5A9.5 9.5 0 0 1 0 47.5z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+          Figma
+        </div>
+          <div class="tool-chip">
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#FF0000"/><path d="M36 73L53.2 27h7.2L42.8 73H36zm28 0L46.8 27H54l16.4 46H64z" fill="#fff"/></svg>
+          Adobe CC
+        </div>
+          <div class="tool-chip">
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#fff"/><path d="M24 18.5c3.2 2.6 4.4 2.4 10.4 2l39.6-2.4c1.2 0 .1-1.2-.4-1.4L65 12.3c-2-.4-2.6 0-5.5.6L22.8 15c-1.3.2-1.6 1.2-1.2 2L24 18.5zm3.6 13.7V81c0 3.2 1.6 4.4 5.2 4.2l43.6-2.5c3.6-.2 4.4-2 4.4-4.8V29.8c0-2.8-1-4.2-3.2-4l-46.4 2.6c-2.4.2-3.6 1.4-3.6 3.8zm43.2 1.4c.4 1.8 0 3.6-1.8 3.8l-3 .4V74c-2.6 1.4-5 2.2-6.9 2.2-3.2 0-4-1-6.4-4l-19.6-31v30l6.2 1.4s0 3.6-5 3.8l-13.8.8c-.4-.8 0-2.8 1.4-3.2l3.6-1V38l-5-.4c-.4-1.8.6-4.4 3.4-4.6l14.8-.8 20.4 31.2V34.8l-5.2-.6c-.4-2.2 1-3.8 2.8-4l13.6-.8z" fill="#000"/></svg>
+          Notion
+        </div>
+          <div class="tool-chip">
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="50" fill="#21759B"/><path d="M8.7 50c0 17 9.8 31.8 24 39L11.6 38.7A41 41 0 0 0 8.7 50zm57.9-1.7c0-5.3-1.9-9-3.5-11.8-2.2-3.5-4.2-6.5-4.2-10 0-3.9 3-7.6 7.2-7.6h.6A41.3 41.3 0 0 0 8.7 50a41 41 0 0 0 2.6 14.4l21-61.2a41 41 0 0 0-12 47.2L30 75.3a41.3 41.3 0 0 0 20 7.2L33.3 38.5l14.9 44.6a41.2 41.2 0 0 0 18.3-35.2v1.4zm-5.5 58.3A41.3 41.3 0 0 0 91.3 50c0-7.8-2.1-15-5.8-21.4L68.3 79.3a41 41 0 0 1-7.2 27.3z" fill="#fff"/></svg>
+          WordPress
+        </div>
+          <div class="tool-chip">
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#000"/><path d="M67.8 32.2a10.1 10.1 0 0 0-14.3 0L32.2 53.5a4.6 4.6 0 0 0 6.5 6.5l21.3-21.3a1 1 0 0 1 1.3 0l8.6 8.6a1 1 0 0 1 0 1.3L50.6 67.8a4.6 4.6 0 0 0 6.5 6.5l19.3-19.4a10.1 10.1 0 0 0-8.6-22.7zm-35.6 5.6a1 1 0 0 1 1.4 0l7.8 7.8-6.5 6.5-7.8-7.8a1 1 0 0 1 0-1.4zm-6.3 29.8a10.1 10.1 0 0 0 14.3 0L61.5 46.3a4.6 4.6 0 0 0-6.5-6.5L33.7 61.1a1 1 0 0 1-1.3 0l-8.6-8.6a1 1 0 0 1 0-1.3l19.3-19.3a4.6 4.6 0 0 0-6.5-6.5L17.3 44.8a10.1 10.1 0 0 0 8.6 22.8zm35.6-5.6a1 1 0 0 1-1.4 0l-7.8-7.8 6.5-6.5 7.8 7.8a1 1 0 0 1 0 1.4z" fill="#fff"/></svg>
+          Squarespace
+        </div>
+          <div class="tool-chip">
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="12" fill="#FFD02F"/><path d="M67.5 15h-14l12 19.5L50 15H36l12 22.5L32.5 15h-14l16 27L18 85h14l15.5-28L62 85h14L59.5 57 76 30z" fill="#050038"/></svg>
+          Miro
+        </div>
+          <div class="tool-chip">
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="50" fill="#7D2AE8"/><path d="M65.5 34.2c-7.4-7.4-19.3-7.4-26.7 0-3.6 3.6-5.5 8.3-5.5 13.3 0 2.6.5 5.1 1.5 7.4-1.1 1.4-1.8 3.2-1.8 5.1 0 4.6 3.7 8.3 8.3 8.3 2 0 3.8-.7 5.2-1.8 2.3 1 4.8 1.5 7.4 1.5 5 0 9.8-1.9 13.3-5.5a19 19 0 0 0 5.5-13.3c.1-5-1.8-9.6-5.2-13zm-26.6 29a5 5 0 0 1-5-5 5 5 0 0 1 2.1-4.1c1.2 2 2.8 3.8 4.7 5.2a5 5 0 0 1-1.8 3.9zm11.1.3c-5.2 0-10.1-2.7-12.8-7 2-1.1 3.3-3.2 3.3-5.6 0-1.6-.6-3.2-1.7-4.4-.7-1.8-1-3.7-1-5.6 0-4.1 1.6-8 4.5-10.9 5.8-5.8 15.2-5.8 21 0 2.9 2.9 4.5 6.7 4.5 10.9 0 4.1-1.6 8-4.5 10.9-2.9 2.9-6.7 4.5-10.9 4.7h-.4z" fill="#fff"/></svg>
+          Canva
+        </div>
+        </div>
+      </div>
+      <p class="sr-only">Design tools I use: Figma, Adobe CC, Notion, WordPress, Squarespace, Miro, and Canva.</p>
     </section>
 
     <section class="about-section" aria-labelledby="life-heading">
@@ -777,35 +806,78 @@ footer { border-top:1px solid var(--page-border); padding:clamp(2rem,4vw,2.8rem)
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </section>
-
+    <!-- ✏️ TO EDIT A CASE STUDY LINK: change the href="..." on the logo link AND the name link
+         of each project below (both should point to the same page). -->
     <section class="about-section" aria-labelledby="clients-heading">
       <h2 id="clients-heading">Clients &amp; Experience</h2>
       <ul class="brand-list" aria-label="Clients and organisations I have worked with">
-        <li class="brand-item"><div class="brand-img-wrap"><img src="img/about/ea.png" alt="Electric Avenue E-Bikes logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><circle cx="14" cy="29" r="6" stroke="currentColor" stroke-width="1.4" opacity=".7"/><circle cx="30" cy="29" r="6" stroke="currentColor" stroke-width="1.4" opacity=".7"/><path d="M14 29l7-11h5l4 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/></svg></div></div><span class="brand-name">Electric Avenue E-Bikes</span></li>
-        <li class="brand-item"><div class="brand-img-wrap"><img src="img/about/colearn.png" alt="Colearn Academy logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 12l14 6-14 6-14-6 14-6z" fill="currentColor" opacity=".7"/><path d="M8 18v8c0 0 4 5 14 5s14-5 14-5v-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/></svg></div></div><span class="brand-name">Colearn Academy</span></li>
-        <li class="brand-item"><div class="brand-img-wrap"><img src="img/about/datable.png" alt="Datable logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 32s-10-6.5-10-13a6 6 0 0 1 10-4.5A6 6 0 0 1 32 19c0 6.5-10 13-10 13z" stroke="currentColor" stroke-width="1.4" opacity=".7"/></svg></div></div><span class="brand-name">Datable</span></li>
-        <li class="brand-item"><a href="evakonopkaart.html"></a><div class="brand-img-wrap"><img src="img/about/evak.png" alt="Eva Konopka Art logo: minimalist geometric design featuring a large circle with five smaller circles arranged around it in a balanced composition, creating an abstract, modern aesthetic" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="10" stroke="currentColor" stroke-width="1.4" opacity=".7"/><circle cx="17" cy="20" r="2" fill="currentColor" opacity=".5"/><circle cx="22" cy="17" r="2" fill="currentColor" opacity=".8"/><circle cx="27" cy="20" r="2" fill="currentColor" opacity=".5"/><circle cx="26" cy="26" r="2" fill="currentColor" opacity=".8"/></svg></div></div><span class="brand-name">Eva Konopka Art</span></li>
-        <li class="brand-item"><div class="brand-img-wrap"><img src="img/about/compudopt.png" alt="Compudopt logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 32s-10-6.5-10-13a6 6 0 0 1 10-4.5A6 6 0 0 1 32 19c0 6.5-10 13-10 13z" stroke="currentColor" stroke-width="1.4" opacity=".7"/></svg></div></div><span class="brand-name">Compudopt</span></li>
+        <li class="brand-item">
+          <a href="case-study-electric-avenue.html" tabindex="-1" aria-hidden="true"><div class="brand-img-wrap"><img src="img/about/ea.png" alt="Electric Avenue E-Bikes logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><circle cx="14" cy="29" r="6" stroke="currentColor" stroke-width="1.4" opacity=".7"/><circle cx="30" cy="29" r="6" stroke="currentColor" stroke-width="1.4" opacity=".7"/><path d="M14 29l7-11h5l4 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/></svg></div></div></a>
+          <span class="brand-name"><a href="case-study-electric-avenue.html">Electric Avenue E-Bikes</a></span>
+        </li>
+        <li class="brand-item">
+          <a href="case-study-colearn.html" tabindex="-1" aria-hidden="true"><div class="brand-img-wrap"><img src="img/about/colearn.png" alt="Colearn Academy logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 12l14 6-14 6-14-6 14-6z" fill="currentColor" opacity=".7"/><path d="M8 18v8c0 0 4 5 14 5s14-5 14-5v-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/></svg></div></div></a>
+          <span class="brand-name"><a href="case-study-colearn.html">Colearn Academy</a></span>
+        </li>
+        <li class="brand-item">
+          <a href="case-study-datable.html" tabindex="-1" aria-hidden="true"><div class="brand-img-wrap"><img src="img/about/datable.png" alt="Datable logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 32s-10-6.5-10-13a6 6 0 0 1 10-4.5A6 6 0 0 1 32 19c0 6.5-10 13-10 13z" stroke="currentColor" stroke-width="1.4" opacity=".7"/></svg></div></div></a>
+          <span class="brand-name"><a href="case-study-datable.html">Datable</a></span>
+        </li>
+        <li class="brand-item">
+          <a href="evakonopkaart.html" tabindex="-1" aria-hidden="true"><div class="brand-img-wrap"><img src="img/about/evak.png" alt="Eva Konopka Art logo: minimalist geometric design featuring a large circle with five smaller circles arranged around it in a balanced composition, creating an abstract, modern aesthetic" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="10" stroke="currentColor" stroke-width="1.4" opacity=".7"/><circle cx="17" cy="20" r="2" fill="currentColor" opacity=".5"/><circle cx="22" cy="17" r="2" fill="currentColor" opacity=".8"/><circle cx="27" cy="20" r="2" fill="currentColor" opacity=".5"/><circle cx="26" cy="26" r="2" fill="currentColor" opacity=".8"/></svg></div></div></a>
+          <span class="brand-name"><a href="evakonopkaart.html">Eva Konopka Art</a></span>
+        </li>
+        <li class="brand-item">
+          <a href="case-study-compudopt.html" tabindex="-1" aria-hidden="true"><div class="brand-img-wrap"><img src="img/about/compudopt.png" alt="Compudopt logo" loading="lazy" onerror="this.style.display='none'"><div class="brand-placeholder" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none"><path d="M22 32s-10-6.5-10-13a6 6 0 0 1 10-4.5A6 6 0 0 1 32 19c0 6.5-10 13-10 13z" stroke="currentColor" stroke-width="1.4" opacity=".7"/></svg></div></div></a>
+          <span class="brand-name"><a href="case-study-compudopt.html">Compudopt</a></span>
+        </li>
+
       </ul>
     </section>
 
     <section class="about-section" aria-labelledby="quotes-heading">
       <h2 id="quotes-heading">What people say</h2>
-      <div class="quotes-track">
-        <figure class="quote-card">
-          <blockquote class="quote-text">Sara brings both creative vision and deep empathy to every design challenge. She listens carefully, asks the right questions, and delivers work that truly serves the user.</blockquote>
-          <figcaption class="quote-meta"><span class="quote-name">Colleague</span><span class="quote-title">CoLearn Academy</span></figcaption>
-        </figure>
-        <figure class="quote-card">
-          <blockquote class="quote-text">Working with Sara transformed how my artwork is presented online. She understood my aesthetic immediately and built something that feels completely authentic to my practice.</blockquote>
-          <figcaption class="quote-meta"><span class="quote-name">Eva Konopka</span><span class="quote-title">Artist &amp; Client</span></figcaption>
-        </figure>
-        <figure class="quote-card">
-          <blockquote class="quote-text">Sara's background in education shines through in everything she does — she communicates complex design decisions clearly and makes collaboration feel effortless.</blockquote>
-          <figcaption class="quote-meta"><span class="quote-name">Peer</span><span class="quote-title">Graduate Interaction Design Program</span></figcaption>
-        </figure>
+      <div class="quotes-track" id="quotes-track">
+        <noscript><p>Testimonials need JavaScript to display. Please enable it or get in touch to hear what past colleagues and clients have said.</p></noscript>
       </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         ✏️ EDIT YOUR TESTIMONIALS HERE
+         ─────────────────────────────────────────────────────────────
+         • Each testimonial is one block between { } with three parts:
+             quote  → what they said
+             name   → who said it
+             role   → their title, company or relationship to you
+         • To ADD one: copy a whole { ... }, line, paste it below the last one,
+           and make sure there is a comma after every block except the last.
+         • To REMOVE one: delete its whole { ... }, line.
+         • To REORDER: cut and paste the lines.
+         • Plain text only. No HTML needed (type "&" normally, not "&amp;").
+         • Keep every piece of text inside straight double quotes " ".
+           If you need quotation marks inside a quote, use single quotes
+           ('like this') or curly quotes (“like this”).
+         • "role" is optional: leave it as "" to hide it.
+         ═══════════════════════════════════════════════════════════════ -->
+    <script>
+    var TESTIMONIALS = [
+      {
+        quote: "Sara brings both creative vision and deep empathy to every design challenge. She listens carefully, asks the right questions, and delivers work that truly serves the user.",
+        name:  "Colleague",
+        role:  "CoLearn Academy"
+      },
+      {
+        quote: "Working with Sara transformed how my artwork is presented online. She understood my aesthetic immediately and built something that feels completely authentic to my practice.",
+        name:  "Eva Konopka",
+        role:  "Artist & Client"
+      },
+      {
+        quote: "Sara's background in education shines through in everything she does — she communicates complex design decisions clearly and makes collaboration feel effortless.",
+        name:  "Peer",
+        role:  "Graduate Interaction Design Program"
+      }
+    ];
+    </script>
 
     <section class="about-section" aria-labelledby="spec-heading">
       <h2 id="spec-heading">Specialties</h2>
@@ -831,6 +903,26 @@ footer { border-top:1px solid var(--page-border); padding:clamp(2rem,4vw,2.8rem)
 <script>
 (function () {
 'use strict';
+
+/* ── TESTIMONIALS: builds the cards from the TESTIMONIALS list above ── */
+(function renderTestimonials() {
+  var track = document.getElementById('quotes-track');
+  if (!track || !window.TESTIMONIALS) return;
+  track.innerHTML = '';
+  window.TESTIMONIALS.forEach(function (t) {
+    if (!t || !t.quote) return;
+    var fig = document.createElement('figure'); fig.className = 'quote-card';
+    var bq = document.createElement('blockquote'); bq.className = 'quote-text'; bq.textContent = t.quote;
+    var cap = document.createElement('figcaption'); cap.className = 'quote-meta';
+    var name = document.createElement('span'); name.className = 'quote-name'; name.textContent = t.name || '';
+    cap.appendChild(name);
+    if (t.role) {
+      var role = document.createElement('span'); role.className = 'quote-title'; role.textContent = t.role;
+      cap.appendChild(role);
+    }
+    fig.appendChild(bq); fig.appendChild(cap); track.appendChild(fig);
+  });
+}());
 
 /* ── SHARED THEME DATA ── */
 var THEMES = [
@@ -952,15 +1044,16 @@ if (hamburger && mobileMenu) {
   mobileMenu.addEventListener('click', function(e){ if(e.target===mobileMenu) closeMenu(); });
 }
 
-/* ── MARQUEE PAUSE ── */
-var pauseBtn = document.getElementById('marquee-pause');
-var likesTrack = document.getElementById('likes-track');
-var paused = false;
-if (pauseBtn && likesTrack) {
-  pauseBtn.addEventListener('click', function(){ paused=!paused; likesTrack.classList.toggle('paused',paused); pauseBtn.setAttribute('aria-pressed',String(paused)); });
-  var likesRow = likesTrack.closest ? likesTrack.closest('.likes-row') : null;
-  if (likesRow) { likesRow.addEventListener('focusin',function(){ likesTrack.style.animationPlayState='paused'; }); likesRow.addEventListener('focusout',function(){ if(!paused) likesTrack.style.animationPlayState=''; }); }
-}
+/* ── MARQUEE PAUSE (In Life + Tools) ── */
+[['marquee-pause','likes-track'],['tools-pause','tools-track']].forEach(function(ids){
+  var pauseBtn = document.getElementById(ids[0]);
+  var track = document.getElementById(ids[1]);
+  var paused = false;
+  if (!pauseBtn || !track) return;
+  pauseBtn.addEventListener('click', function(){ paused=!paused; track.classList.toggle('paused',paused); pauseBtn.setAttribute('aria-pressed',String(paused)); });
+  var row = track.closest ? track.closest('.likes-row') : null;
+  if (row) { row.addEventListener('focusin',function(){ track.style.animationPlayState='paused'; }); row.addEventListener('focusout',function(){ if(!paused) track.style.animationPlayState=''; }); }
+});
 
 }());
 </script>
