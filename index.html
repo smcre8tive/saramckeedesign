@@ -593,8 +593,12 @@
              aria-label="Résumé — opens PDF in new tab">Résumé</a>
         </li>
         <li>
-          <button id="mob-email-btn" aria-label="Copy email address">Contact</button>
-          <span id="mob-email-status" role="status" aria-live="polite" class="sr-only"></span>
+          <a class="email-btn" id="email-btn" href="mailto:saramckeedesign@gmail.com" aria-label="Contact — send an email">
+            <span class="email-face-front">Contact</span>
+            <span class="email-face-back" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"/></svg>Opening…
+            </span>
+          </a>
         </li>
       </ul>
     </nav>
